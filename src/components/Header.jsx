@@ -9,30 +9,91 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { Typography } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
 
 
 
 function Header() {
+
+    const [auth, setAuth] = useState(true);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleChange = (event) => {
+        setAuth(event.target.checked);
+    };
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <>
-            <AppBar style={{ background: "#ffffff", boxShadow: '5px 1px #BE7B2E', }}>
-                <Toolbar >
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: colors.primary }}>
-
-                    </Typography>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        color:colors.primary
+            <Box>
+                <AppBar
+                    style={{
+                        background: "#ffffff",
+                        boxShadow: '5px 1px #BE7B2E',
                     }}>
-                        <Typography>
-                            John Doe
+                    <Toolbar >
+                        <Typography
+                            component="div"
+                            sx={{
+                                flexGrow: 1,
+                            }}>
+
                         </Typography>
-                        <span> <AccountCircle /></span>
-                    </div>
-                </Toolbar>
-            </AppBar>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                color: colors.primary
+                            }}>
+                            <Typography>
+                                John Doe
+                            </Typography>
+                            <span>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    sx={{ color: colors.primary }}
+                                    onClick={handleMenu}
+                                    color='inherit'
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+
+                                </Menu>
+                            </span>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+
         </>
     );
 }
