@@ -18,23 +18,18 @@ function Header() {
             <AppBar style={{ background: "#ffffff", boxShadow: '5px 1px #BE7B2E', }}>
                 <Toolbar >
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: colors.primary }}>
-                        
-                    </Typography>
-                    <div>
-                        <Box sx={{ display: "flex" }}>
-                            <Typography sx={{ color: colors.primary }}>
-                                John Doe
-                            </Typography>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                color="inherit">
-                                <AccountCircle sx={{ color: colors.primary }} />
-                            </IconButton>
-                        </Box>
 
+                    </Typography>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        color:colors.primary
+                    }}>
+                        <Typography>
+                            John Doe
+                        </Typography>
+                        <span> <AccountCircle /></span>
                     </div>
                 </Toolbar>
             </AppBar>

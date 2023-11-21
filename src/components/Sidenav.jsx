@@ -41,7 +41,7 @@ const Sidenav = () => {
     window.scrollTo(0, 0);
   };
   return (
-    <Box sx={{display:"flex"}}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Drawer
         variant="permanent"
@@ -50,8 +50,11 @@ const Sidenav = () => {
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
-        >
-      {menus.map((menu) => (
+      >
+        <Typography sx={{ color: colors.primary }}>
+          Universite Espoir
+        </Typography>
+        {menus.map((menu) => (
           <Typography
             key={menu.path}
             disablePadding
@@ -80,16 +83,16 @@ const Sidenav = () => {
                 },
               }}
             >
-              <ListItemText primary={menu.primary} sx={{color: colors.primary}} />
+              <ListItemText primary={menu.primary} sx={{ color: colors.primary, fontSize: "bold" }} />
             </ListItemButton>
 
           </Typography>
 
         ))}
       </Drawer>
-     
-       
- 
+
+
+
     </Box>
   );
 }
