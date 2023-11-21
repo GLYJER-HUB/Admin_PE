@@ -46,7 +46,6 @@ function Header() {
                             sx={{
                                 flexGrow: 1,
                             }}>
-
                         </Typography>
                         <div
                             style={{

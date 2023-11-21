@@ -10,7 +10,9 @@ import ListItemText from "@mui/material/ListItemText";
 import { colors } from '../utilities/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from '../assets/'
+import logo from '../assets/logo.svg'
+
+
 
 
 const drawerWidth = 260;
@@ -52,9 +54,13 @@ const Sidenav = () => {
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
       >
+    
+        <Box sx={{pt:5}}>
+<img src="{logo}" alt="" />
         <Typography sx={{ color: colors.primary }}>
           Universite Espoir
         </Typography>
+        </Box>
         {menus.map((menu) => (
           <Typography
             key={menu.path}
@@ -88,11 +94,11 @@ const Sidenav = () => {
             </ListItemButton>
 
           </Typography>
+           
 
         ))}
       </Drawer>
-
-
+     
 
     </Box>
   );
