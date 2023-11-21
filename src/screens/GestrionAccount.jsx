@@ -1,8 +1,12 @@
 import React from 'react'
+import Sidenav from '../components/Sidenav'
 
 const GestrionAccount = () => {
   return (
-    <div>GestrionAccount</div>
+    <>
+     <Sidenav/>
+      <div>GestrionAccount</div>
+    </>
   )
 }
 

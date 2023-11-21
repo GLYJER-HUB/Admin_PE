@@ -18,7 +18,7 @@ function Header() {
             <AppBar style={{ background: "#ffffff", boxShadow: '5px 1px #BE7B2E', }}>
                 <Toolbar >
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: colors.primary }}>
-                        Exploration de Projet
+                        
                     </Typography>
                     <div>
                         <Box sx={{ display: "flex" }}>
@@ -34,9 +34,6 @@ function Header() {
                                 <AccountCircle sx={{ color: colors.primary }} />
                             </IconButton>
                         </Box>
-
-
-
 
                     </div>
                 </Toolbar>
