@@ -54,12 +54,12 @@ const Sidenav = () => {
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
       >
-    
-        <Box sx={{pt:5}}>
-<img src="{logo}" alt="" />
-        <Typography sx={{ color: colors.primary }}>
-          Universite Espoir
-        </Typography>
+
+        <Box sx={{ pt: 5 }}>
+          <img src="{logo}" alt="" />
+          <Typography sx={{ color: colors.primary }}>
+            Universite Espoir
+          </Typography>
         </Box>
         {menus.map((menu) => (
           <Typography
@@ -90,15 +90,15 @@ const Sidenav = () => {
                 },
               }}
             >
-              <ListItemText primary={menu.primary} sx={{ color: colors.primary, fontSize: "bold" }} />
+              <ListItemText primary={menu.primary} sx={{color:colors.primary, fontWeight: 'bold' }} />
             </ListItemButton>
 
           </Typography>
-           
+
 
         ))}
       </Drawer>
-     
+
 
     </Box>
   );

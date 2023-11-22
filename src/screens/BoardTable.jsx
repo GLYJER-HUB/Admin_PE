@@ -16,11 +16,11 @@ const BoardTable = () => {
   return <>
     <Sidenav />
     <Box sx={{ display: "inline-block" }}>
-      <Typography variant='h4' sx={{color:colors.third}}>
+      <Typography variant='h4' sx={{color:colors.third, fontWeight:'bold'}}>
         Tableau de Bord
       </Typography>
       <Box
-        sx={{ display: "flex", p: 5 }}>
+        sx={{ display: "flex" }}>
         <Box sx={{m: 5}}>
           <UserCard />
         </Box>
