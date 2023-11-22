@@ -10,7 +10,8 @@ import ListItemText from "@mui/material/ListItemText";
 import { colors } from '../utilities/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from '../assets/logo.svg'
+import logo from '../assets/UE.png';
+import { Divider } from "@mui/material";
 
 
 
@@ -55,12 +56,16 @@ const Sidenav = () => {
         }}
       >
 
-        <Box sx={{ pt: 5 }}>
-          <img src="{logo}" alt="" />
-          <Typography sx={{ color: colors.primary }}>
+        <Box display={'flex'} alignContent={'center'} sx={{m:3}}>
+        <img height={50} src={logo} alt="fireSpot"/>
+        <span>
+        <Typography sx={{ color: colors.primary, fontWeight: 'bold', pt:1.5 }}>
             Universite Espoir
           </Typography>
+        </span>
+         
         </Box>
+        <Divider></Divider>
         {menus.map((menu) => (
           <Typography
             key={menu.path}
@@ -75,6 +80,7 @@ const Sidenav = () => {
             </ListItemIcon>
             <ListItemButton
               sx={{
+
                 ml: 2,
                 mr: 2,
                 color:
@@ -90,7 +96,7 @@ const Sidenav = () => {
                 },
               }}
             >
-              <ListItemText primary={menu.primary} sx={{color:colors.primary, fontWeight: 'bold' }} />
+              <ListItemText primary={menu.primary} sx={{ color: colors.primary}} />
             </ListItemButton>
 
           </Typography>

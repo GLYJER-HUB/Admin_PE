@@ -7,6 +7,7 @@ import ProjectCard from '../components/ProjectCard';
 import { Typography, createTheme } from '@mui/material';
 import { colors } from '../utilities/colors';
 
+
 const theme = createTheme({
   spacing: 8,
 });
@@ -26,6 +27,10 @@ const BoardTable = () => {
         </Box>
         <Box sx={{m : 5}}>
           <ProjectCard />
+        </Box>
+        <Box>
+       
+
         </Box>
 
       </Box>
