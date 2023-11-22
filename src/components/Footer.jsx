@@ -22,7 +22,7 @@ const Footer = () => {
             UN MINISTÈRE DE
             </Typography>
             <Link href="https://calvarypap.org/" underline="none" target="_blank" rel="noopener">
-              <Typography variant="body2" color={colors.secondary} fontWeight="bold">
+              <Typography variant="body2" color={colors.accent} fontWeight="bold">
                 CALVARY CHAPEL PORT-AU-PRINCE
               </Typography>
             </Link>
@@ -36,7 +36,7 @@ const Footer = () => {
             </Typography>
 
             <Link href="https://zoomerdigital.tech/" underline="none" target="_blank" rel="noopener">
-              <Typography variant="body2" color={colors.secondary} fontWeight="bold">
+              <Typography variant="body2" color={colors.accent} fontWeight="bold">
                 ZOOMER DIGITAL
               </Typography>
             </Link>
