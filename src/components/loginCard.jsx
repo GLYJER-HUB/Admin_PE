@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import UE from "../assets/UE.png"
+import { colors } from '../utilities/colors';
+
 const LoginCard = () => {
   return (
     <Container component="main" maxWidth="xs" 
@@ -14,7 +16,7 @@ const LoginCard = () => {
         <CardContent>
           {/* Logo */}
           <div style={{ textAlign: 'center' }}>
-            <img src={UE} alt="Logo" style={{ width: '80px', height: '100px' }} />
+            <img src={UE} alt="Logo" style={{ width: '80px', height: '120px' }} />
           </div>
 
           {/* Login form */}
@@ -26,8 +28,9 @@ const LoginCard = () => {
               id="identifiant"
               label="Identifiant"
               name="identifiant"
-              variant="outlined"
+              variant="standard"
               InputLabelProps={{ shrink: true }}
+              sx={{ mt: 3, border: 1.5 ,borderRadius: 20, borderColor:colors.primary}}
             />
             <TextField
               margin="normal"
@@ -37,14 +40,15 @@ const LoginCard = () => {
               label="Mot de passe"
               type="password"
               id="motDePasse"
-              variant="outlined"
+              variant="standard"
               InputLabelProps={{ shrink: true }}
+              sx={{ mt: 3, border: 1.5 ,borderRadius: 20, borderColor:colors.primary}}
             />
             <Button
               type="submit"
-              fullWidth
+              width = "50px"
               variant="contained"
-              sx={{ mt: 3, borderRadius: 2, backgroundColor: 'primary.main', color: 'white' }}
+              sx={{ mt: 3, borderRadius: 20, backgroundColor: colors.primary, color: 'white' }}
             >
               Connecter
             </Button>

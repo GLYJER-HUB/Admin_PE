@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />} >
             <Route index element={<BoardTable/>}/>
-            <Route path='gestion-des-projets' element={<Login />}/>
+            <Route path='gestion-des-projets' element={<GestionProjects />}/>
             <Route path='gestion-des-comptes' element={<GestrionAccount/>}/>
           </Route>
         </Routes>
