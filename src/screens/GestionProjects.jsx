@@ -4,35 +4,39 @@ import { styled } from '@mui/material/styles';
 import Sidenav from '../components/Sidenav'
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 import Grid from '@mui/material/Grid';
 import { colors } from '../utilities/colors';
 import Search from '../components/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import ProjectTable from '../components/ProjectTable';
 
 
 
 const GestionProjects = () => {
   return (<>
-  <Sidenav/>
+    <Sidenav />
     <Box>
+
       <CssBaseline />
       <Box>
-      <Typography variant='h4' sx={{fontWeight:'bold', color: colors.third, ml:10}}>
-        Gestion des Projets
-      </Typography>
-     
-      <Box display={'flex'} sx={{ml:10, justifyContent:'space-between'}}>
-      <Search/>
+        <Typography variant='h4' sx={{ fontWeight: 'bold', color: colors.third, ml: 5 }}>
+          Gestion des Projets
+        </Typography>
 
-      <Stack sx={{pt:2}}>
-        <Button sx={{color: colors.primary, outlineColor: colors.primary, borderColor:colors.primary}} variant='outlined'>Ajouter Projets</Button>
-      </Stack>
-     
+        <Box display={'flex'} sx={{ ml: 5, }}>
+
+
+          <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
+            <Search />
+            <Button sx={{color:colors.primary, borderColor:colors.primary}} variant="outlined">Ajouter Project</Button>
+          </Stack>
+
+        </Box>
+        <ProjectTable />
       </Box>
-      </Box>
-    
+
     </Box>
   </>)
 }
