@@ -35,7 +35,7 @@ const AddUserCard = ({ open, onClose }) => {
       <DialogContent>
 
         {/*Dropdown Menu */}
-        <FormControl fullWidth sx={{ mt: 2 }}>
+        <FormControl sx={{ mt: 2, width: 185 }}>
           <InputLabel htmlFor="role-dropdown">Role</InputLabel>
           <Select
             value={role}
