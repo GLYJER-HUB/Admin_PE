@@ -83,7 +83,7 @@ const AddUserCard = ({ open, onClose }) => {
             <Button
                 variant="contained"
                 onClick={handleSave}
-                sx={{ mr: 2, borderRadius: '8px', backgroundColor: colors.green, color: 'white' }}
+                sx={{ mr: 2, borderRadius: '8px', backgroundColor: colors.green, color: 'white:hover'}}
             >
                 Enregister
             </Button>
