@@ -12,7 +12,7 @@ import { Typography } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
-
+import AddUserCard from './addUserCard';
 
 
 function Header() {
@@ -20,6 +20,8 @@ function Header() {
     const [auth, setAuth] = useState(true);
 
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const [showAddUserCard, setShowAddUserCard] = useState(false);
 
     const handleChange = (event) => {
         setAuth(event.target.checked);
@@ -30,8 +32,14 @@ function Header() {
     };
 
     const handleClose = () => {
+        setShowAddUserCard(true);
         setAnchorEl(null);
     };
+
+    const handleAddUserCardClose = () => {
+        setShowAddUserCard(false);
+    };
+
     return (
         <>
             <Box>
@@ -92,7 +100,7 @@ function Header() {
                     </Toolbar>
                 </AppBar>
             </Box>
-
+            {showAddUserCard && <AddUserCard open={showAddUserCard} onClose={handleAddUserCardClose} />}
         </>
     );
 }
