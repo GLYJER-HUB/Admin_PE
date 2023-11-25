@@ -12,10 +12,19 @@ import { Typography } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 
 
 function Header() {
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
 
     const [auth, setAuth] = useState(true);
 
@@ -41,6 +50,19 @@ function Header() {
                         boxShadow: '5px 1px #BE7B2E',
                     }}>
                     <Toolbar >
+
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: 5,
+                                ...(open && { display: 'none' }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
                         <Typography
                             component="div"
                             sx={{

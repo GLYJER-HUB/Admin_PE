@@ -9,15 +9,15 @@ import UserTable from '../components/UserTable'
 
 const GestrionAccount = () => {
   return (<>
-    <Sidenav />
+
     <Box>
       <CssBaseline />
       <Box>
-        <Typography variant='h4' sx={{ fontWeight: 'bold', color: colors.third, ml: 5 }}>
+        <Typography variant='h4' sx={{ fontWeight: 'bold', color: colors.third}}>
           Gestion des Comptes
         </Typography>
 
-        <Box display={'flex'} sx={{ ml: 5 }}>
+        <Box display={'flex'} sx={{ }}>
 
           <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
             <Search />

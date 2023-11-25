@@ -12,6 +12,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/UE.png';
 import { Divider } from "@mui/material";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 
 
@@ -21,14 +24,17 @@ const drawerWidth = 260;
 const menus = [
   {
     primary: "Tableau de Bord",
+    icon:<DashboardIcon />,
     path: "/",
   },
   {
     primary: "Gestion des Projets",
+    icon: <FolderOpenIcon/>,
     path: "/gestion-des-projets",
   },
   {
     primary: "Gestion des Comptes",
+    icon: <ManageAccountsIcon/>,
     path: "/gestion-des-comptes",
   }
 ];
@@ -75,8 +81,8 @@ const Sidenav = () => {
             }}
             textColor='inherit'
           >
-            <ListItemIcon>
-              
+            <ListItemIcon >
+              {menu.icon}
             </ListItemIcon>
             <ListItemButton
               sx={{
@@ -96,7 +102,8 @@ const Sidenav = () => {
                 },
               }}
             >
-              <ListItemText primary={menu.primary} sx={{ color: colors.primary}} />
+              <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary}} />
+              
             </ListItemButton>
 
           </Typography>

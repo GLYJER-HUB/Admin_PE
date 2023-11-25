@@ -15,14 +15,14 @@ const theme = createTheme({
 const BoardTable = () => {
 
   return <>
-    <Sidenav />
+  
     <Box>
-      <Typography variant='h4' sx={{ color: colors.third, fontWeight: 'bold', ml: 5 }}>
+      <Typography variant='h4' sx={{ color: colors.third, fontWeight: 'bold'}}>
         Tableau de Bord
       </Typography>
       <Box
         sx={{ display: "flex" }}>
-        <Box sx={{ m: 5, mt: 0 }}>
+        <Box sx={{ m: 5, mt: 0, ml:0 }}>
           <UserCard />
         </Box>
         <Box sx={{ m: 5, mt: 0 }}>
