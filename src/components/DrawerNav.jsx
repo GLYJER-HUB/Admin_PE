@@ -80,6 +80,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         width: drawerWidth,
@@ -152,8 +153,8 @@ export default function MiniDrawer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} sx={{background:'white', boxShadow: '5px 1px #BE7B2E'}}>
-                <Toolbar sx={{color:colors.primary}}>
+            <AppBar position="fixed" open={open} sx={{ background: 'white', boxShadow: '5px 1px #BE7B2E' }}>
+                <Toolbar sx={{ color: colors.primary }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -224,7 +225,7 @@ export default function MiniDrawer() {
                     </IconButton>
                     <List>
                         <ListItem>
-                            <img height={50} src={logo} alt="fireSpot" />
+                            <img height={60} src={logo} alt="fireSpot" />
 
                             <Typography
                                 variant="p"
@@ -238,7 +239,7 @@ export default function MiniDrawer() {
                     </List>
 
                 </DrawerHeader>
-                <Divider />
+         
 
                 {menus.map((menu) => (
                     <Typography
@@ -250,7 +251,7 @@ export default function MiniDrawer() {
                         textColor='inherit'
                     >
                         <ListItemIcon sx={{
-                            minWidth: 0,
+                            minWidth: 1,
                             mr: open ? 3 : "auto",
                             justifyContent: "center",
                             color: colors.primary,
@@ -263,25 +264,20 @@ export default function MiniDrawer() {
 
                                 ml: 2,
                                 mr: 2,
-                                color:
-                                    location.pathname === menu.path
-                                        ? colors.primary
-                                        : colors.secondary,
-
+                                color:colors.primary,
                                 borderRadius: "5px",
+                            
                                 ":hover": {
-                                    color: colors.secondary,
+                                    color: colors.primary,
                                     borderRadius: "5px",
                                 },
                             }}
                         >
                             {menu.icon}
-                            <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary }} />
+                            <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary, ml:1}} />
 
                         </ListItemButton>
-
                     </Typography>
-
                 ))}
 
             </Drawer>

@@ -21,7 +21,7 @@ const BoardTable = () => {
         Tableau de Bord
       </Typography>
       <Box
-        sx={{ display: "flex" }}>
+        sx={{ display: "flex", pt:5}}>
         <Box sx={{ m: 5, mt: 0, ml:0 }}>
           <UserCard />
         </Box>
