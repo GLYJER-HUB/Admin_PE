@@ -220,12 +220,12 @@ export default function MiniDrawer() {
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton onClick={handleDrawerClose} sx={{color:colors.primary}}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                     <List>
                         <ListItem>
-                            <img height={60} src={logo} alt="fireSpot" />
+                            <img height={50} src={logo} alt="fireSpot" />
 
                             <Typography
                                 variant="p"
@@ -239,8 +239,7 @@ export default function MiniDrawer() {
                     </List>
 
                 </DrawerHeader>
-         
-
+                <List sx={{mt:0}}>
                 {menus.map((menu) => (
                     <Typography
                         key={menu.path}
@@ -250,11 +249,13 @@ export default function MiniDrawer() {
                         }}
                         textColor='inherit'
                     >
+                      
                         <ListItemIcon sx={{
-                            minWidth: 1,
+                            minWidth: 0,
                             mr: open ? 3 : "auto",
                             justifyContent: "center",
                             color: colors.primary,
+                            
                         }} >
 
                         </ListItemIcon>
@@ -279,6 +280,7 @@ export default function MiniDrawer() {
                         </ListItemButton>
                     </Typography>
                 ))}
+                </List>
 
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

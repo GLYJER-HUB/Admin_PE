@@ -30,7 +30,7 @@ const GestionProjects = () => {
 
           <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
             <Search />
-            <Button sx={{color:colors.primary, borderColor:colors.primary}} variant="outlined">Ajouter Project</Button>
+            <Button sx={{color:colors.primary, borderColor:colors.primary, borderRadius:10}} variant="outlined">Ajouter Project</Button>
           </Stack>
 
         </Box>

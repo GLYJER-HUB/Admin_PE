@@ -7,10 +7,10 @@ import { Box } from "@mui/material";
 const Layout = () => {
     return (
         <>
-            <body>
-                <DrawerNav />
+            <Box component="body">
+            <DrawerNav />
                 <Outlet />
-            </body>
+            </Box>
             <Footer />
         </>
     )

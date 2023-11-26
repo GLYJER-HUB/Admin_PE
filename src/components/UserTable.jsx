@@ -51,10 +51,10 @@ export default function ProjectTable() {
 								{row.Date}
 							</TableCell>
 							<TableCell align="right">
-								<Button>Modifier</Button>
+								<Button sx={{background:'#32B8A0', color:'#ffffff', borderRadius:10}}>Modifier</Button>
 							</TableCell>
 							<TableCell align="right">
-								<Button>Supprimer</Button>
+								<Button sx={{background:'#FF5454', color:'#ffffff', borderRadius:10}}>Supprimer</Button>
 							</TableCell>
 						</TableRow>
 					))}

@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import { colors } from '../utilities/colors';
 
 function createData(Type, Name, Date) {
 	return { Type, Name, Date};
@@ -51,10 +52,10 @@ export default function ProjectTable() {
 								{row.Date}
 							</TableCell>
 							<TableCell align="right">
-								<Button>Modifier</Button>
+								<Button sx={{background:'#32B8A0', color:'#ffffff', borderRadius:10}}>Modifier</Button>
 							</TableCell>
 							<TableCell align="right">
-								<Button>Supprimer</Button>
+								<Button sx={{background:'#FF5454', color:'#ffffff', borderRadius:10}}>Supprimer</Button>
 							</TableCell>
 						</TableRow>
 					))}
