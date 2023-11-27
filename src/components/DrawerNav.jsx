@@ -30,7 +30,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const openedMixin = (theme) => ({
     width: drawerWidth,

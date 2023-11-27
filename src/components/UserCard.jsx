@@ -33,7 +33,7 @@ const card = (
 export default function UserCard() {
   return (
     <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
+      <Card variant='elevation'>{card}</Card>
     </Box>
   );
 }

@@ -9,27 +9,27 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 
 function createData(Role, Identifiant, Date) {
-	return { Role, Identifiant, Date};
+	return { Role, Identifiant, Date };
 }
 
 const rows = [
 	createData('Admin', '0022', '22-09-23'),
-	
+
 ];
 
 export default function ProjectTable() {
 	return (
-		<TableContainer component={Paper} sx={{mt:4}}>
+		<TableContainer component={Paper} sx={{ mt: 4 }}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
 				<TableHead>
 					<TableRow>
-						<TableCell  sx={{fontWeight:900}}>
+						<TableCell sx={{ fontWeight: 900 }}>
 							Role
 						</TableCell>
-						<TableCell align="right"  sx={{fontWeight:900}}>
+						<TableCell align="right" sx={{ fontWeight: 900 }}>
 							Identifiant
 						</TableCell>
-						<TableCell align="right"  sx={{fontWeight:900}}>
+						<TableCell align="right" sx={{ fontWeight: 900 }}>
 							Date
 						</TableCell>
 					</TableRow>
@@ -38,8 +38,10 @@ export default function ProjectTable() {
 					{rows.map((row) => (
 						<TableRow
 							key={row.name}
-							sx={{ '&:last-child td, &:last-child th':
-								{ border: 0 } }}
+							sx={{
+								'&:last-child td, &:last-child th':
+									{ border: 0 }
+							}}
 						>
 							<TableCell component="th" scope="row">
 								{row.Role}
@@ -51,10 +53,28 @@ export default function ProjectTable() {
 								{row.Date}
 							</TableCell>
 							<TableCell align="right">
-								<Button sx={{background:'#32B8A0', color:'#ffffff', borderRadius:10}}>Modifier</Button>
+								<Button sx={{
+									background: '#32B8A0',
+									color: '#ffffff',
+									borderRadius: 10,
+									width: 150,
+									'&:hover': {
+										backgroundColor: '#fff',
+										color: '#32B8A0',
+									},
+								}}>Modifier</Button>
 							</TableCell>
 							<TableCell align="right">
-								<Button sx={{background:'#FF5454', color:'#ffffff', borderRadius:10}}>Supprimer</Button>
+								<Button sx={{
+									background: '#FF5454',
+									color: '#ffffff',
+									borderRadius: 10,
+									minWidth: 150,
+									'&:hover': {
+										backgroundColor: '#fff',
+										color: '#FF5454',
+									},
+								}}>Supprimer</Button>
 							</TableCell>
 						</TableRow>
 					))}

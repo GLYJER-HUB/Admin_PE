@@ -22,7 +22,8 @@ const GestrionAccount = () => {
             <Button sx={{
               color: colors.primary,
               borderColor: colors.primary,
-              borderRadius: 10
+              borderRadius: 10,
+              width:200
             }}
               variant="outlined"
             >

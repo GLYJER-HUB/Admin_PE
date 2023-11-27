@@ -5,7 +5,6 @@ import Sidenav from '../components/Sidenav'
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Typography } from '@mui/material'
-import Grid from '@mui/material/Grid';
 import { colors } from '../utilities/colors';
 import Search from '../components/Search';
 import Stack from '@mui/material/Stack';
@@ -30,7 +29,7 @@ const GestionProjects = () => {
 
           <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
             <Search />
-            <Button sx={{color:colors.primary, borderColor:colors.primary, borderRadius:10}} variant="outlined">Ajouter Project</Button>
+            <Button sx={{color:colors.primary, borderColor:colors.primary, borderRadius:10, width:200}} variant="outlined">Ajouter Project</Button>
           </Stack>
 
         </Box>
