@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Sidenav from '../components/Sidenav'
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Typography } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
 import { colors } from '../utilities/colors';
 import Search from '../components/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ProjectTable from '../components/ProjectTable';
+import AddUserForm from '../components/AddUserForm';
 
 
 
 const GestionProjects = () => {
-  return (<>
- 
+  const [open, setOpen] = useState(false);
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  return (
     <Box>
 
       <CssBaseline />
@@ -24,20 +35,42 @@ const GestionProjects = () => {
           Gestion des Projets
         </Typography>
 
-        <Box display={'flex'} sx={{ }}>
+        <Box display={'flex'} sx={{}}>
 
 
           <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
             <Search />
-            <Button sx={{color:colors.primary, borderColor:colors.primary, borderRadius:10, width:200}} variant="outlined">Ajouter Project</Button>
+            <Button sx={{
+              color: colors.primary,
+              borderColor: colors.primary,
+              borderRadius: 10,
+              width: 200
+            }}
+              variant="outlined"
+              onClick={handleClickOpen}
+            >
+              Ajouter Project
+            </Button>
           </Stack>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>
+              Ajouter Projet
+            </DialogTitle>
+            <DialogContent>
+              <AddUserForm />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Enregistrer</Button>
+              <Button onClick={handleClose}>Annuler</Button>
+            </DialogActions>
+          </Dialog>
 
         </Box>
         <ProjectTable />
       </Box>
 
     </Box>
-  </>)
+  )
 }
 
 export default GestionProjects
