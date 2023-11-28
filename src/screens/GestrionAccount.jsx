@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-import { Box, CssBaseline, Typography } from '@mui/material';
+import { Box, CssBaseline, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { colors } from '../utilities/colors';
 import Search from '../components/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import UserTable from '../components/UserTable'
+import AddUserCard from '../components/addUserCard';
 
 const GestrionAccount = () => {
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () =>{
+  const handleClickOpen = () => {
     setOpen(true);
   }
 
-  const handleClose = () =>{
+  const handleClose = () => {
     setOpen(false);
   }
 
@@ -33,13 +34,25 @@ const GestrionAccount = () => {
               color: colors.primary,
               borderColor: colors.primary,
               borderRadius: 10,
-              width:200
+              width: 200
             }}
-              variant="outlined"
+              variant="outlined" 
+              onClick={handleClickOpen}
             >
               Ajouter Utilisateur
             </Button>
           </Stack>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>
+              Ajouter Utilisateur
+            </DialogTitle>
+            <DialogContent>
+              <AddUserCard />
+            </DialogContent>
+            <DialogActions>
+
+            </DialogActions>
+          </Dialog>
 
         </Box>
         <UserTable />

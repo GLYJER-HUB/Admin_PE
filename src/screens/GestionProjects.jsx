@@ -10,7 +10,7 @@ import Search from '../components/Search';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ProjectTable from '../components/ProjectTable';
-import AddUserForm from '../components/AddUserForm';
+import AddProjectCard from '../components/AddProjectCard'
 
 
 
@@ -57,7 +57,7 @@ const GestionProjects = () => {
               Ajouter Projet
             </DialogTitle>
             <DialogContent>
-              <AddUserForm />
+             <AddProjectCard/>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Enregistrer</Button>
