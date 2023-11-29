@@ -1,9 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import {
-  Dialog,
-  DialogContent,
   TextField,
-  Button,
   MenuItem,
   Select,
   FormControl,
@@ -13,21 +11,12 @@ import {
 import { colors } from '../utilities/colors';
 
 const AddUserCard = ({ open, onClose }) => {
-  const [role, setRole] = React.useState('');
+  const [role, setRole] = useState('');
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
 
-  const handleSave = () => {
-    // Save logic here
-    onClose();
-  };
-
-  const handleCancel = () => {
-    // Cancel logic here
-    onClose();
-  };
 
   return (
     <>

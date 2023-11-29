@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import {
   TextField,
   MenuItem,
@@ -10,9 +11,9 @@ import {
 import { colors } from '../utilities/colors';
 
 const AddProjectCard = ({ open, onClose }) => {
-  const [type, setType] = React.useState('');
-  const [discipline, setDiscipline] = React.useState('');
-  const [year, setYear] = React.useState('');
+  const [type, setType] = useState('');
+  const [discipline, setDiscipline] = useState('');
+  const [year, setYear] = useState('');
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
@@ -26,15 +27,6 @@ const AddProjectCard = ({ open, onClose }) => {
     setYear(event.target.value);
   };
 
-  const handleSave = () => {
-    // Save logic here
-    onClose();
-  };
-
-  const handleCancel = () => {
-    // Cancel logic here
-    onClose();
-  };
 
   return (
     <>

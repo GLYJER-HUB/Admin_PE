@@ -36,7 +36,7 @@ const GestrionAccount = () => {
               borderRadius: 10,
               width: 200
             }}
-              variant="outlined" 
+              variant="outlined"
               onClick={handleClickOpen}
             >
               Ajouter Utilisateur
@@ -50,7 +50,8 @@ const GestrionAccount = () => {
               <AddUserCard />
             </DialogContent>
             <DialogActions>
-
+              <Button onClick={handleClose}>Enregistrer</Button>
+              <Button onClick={handleClose}>Annuler</Button>
             </DialogActions>
           </Dialog>
 
