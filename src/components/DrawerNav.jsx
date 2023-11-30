@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -197,6 +196,7 @@ export default function MiniDrawer() {
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
+                                direction="row" spacing={2}
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
                                     vertical: 'top',
@@ -210,6 +210,7 @@ export default function MiniDrawer() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
+                                <MenuItem onClick={handleClose}>My account</MenuItem>
                                 <MenuItem onClick={handleClose}>Logout</MenuItem>
 
                             </Menu>
@@ -220,7 +221,7 @@ export default function MiniDrawer() {
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose} sx={{color:colors.primary}}>
+                    <IconButton onClick={handleDrawerClose} sx={{ color: colors.primary }}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                     <List>
@@ -239,47 +240,47 @@ export default function MiniDrawer() {
                     </List>
 
                 </DrawerHeader>
-                <List sx={{mt:0}}>
-                {menus.map((menu) => (
-                    <Typography
-                        key={menu.path}
-                        disablePadding
-                        onClick={() => {
-                            handleClick(menu.path);
-                        }}
-                        textColor='inherit'
-                    >
-                      
-                        <ListItemIcon sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : "auto",
-                            justifyContent: "center",
-                            color: colors.primary,
-                            
-                        }} >
+                <List sx={{ mt: 0 }}>
+                    {menus.map((menu) => (
+                        <Typography
+                            key={menu.path}
+                            disablePadding
+                            onClick={() => {
+                                handleClick(menu.path);
+                            }}
+                            textColor='inherit'
+                        >
 
-                        </ListItemIcon>
-                        <ListItemButton
+                            <ListItemIcon sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : "auto",
+                                justifyContent: "center",
+                                color: colors.primary,
 
-                            sx={{
+                            }} >
 
-                                ml: 2,
-                                mr: 2,
-                                color:colors.primary,
-                                borderRadius: "5px",
-                            
-                                ":hover": {
+                            </ListItemIcon>
+                            <ListItemButton
+
+                                sx={{
+
+                                    ml: 2,
+                                    mr: 2,
                                     color: colors.primary,
                                     borderRadius: "5px",
-                                },
-                            }}
-                        >
-                            {menu.icon}
-                            <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary, ml:1}} />
 
-                        </ListItemButton>
-                    </Typography>
-                ))}
+                                    ":hover": {
+                                        color: colors.primary,
+                                        borderRadius: "5px",
+                                    },
+                                }}
+                            >
+                                {menu.icon}
+                                <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary, ml: 1 }} />
+
+                            </ListItemButton>
+                        </Typography>
+                    ))}
                 </List>
 
             </Drawer>
