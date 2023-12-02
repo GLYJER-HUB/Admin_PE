@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Sidenav from '../components/Sidenav'
@@ -15,6 +15,8 @@ import AddProjectCard from '../components/AddProjectCard'
 
 
 const GestionProjects = () => {
+
+   
   const [open, setOpen] = useState(false);
 
 
@@ -57,7 +59,7 @@ const GestionProjects = () => {
               Ajouter Projet
             </DialogTitle>
             <DialogContent>
-             <AddProjectCard/>
+              <AddProjectCard />
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Enregistrer</Button>
