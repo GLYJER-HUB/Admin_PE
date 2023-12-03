@@ -18,6 +18,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route> <Route path='login' element={<Login />}/></Route>
           <Route path='/' element={<Layout />} >
             <Route index element={<BoardTable/>}/>
             <Route path='gestion-des-projets' element={<GestionProjects />}/>

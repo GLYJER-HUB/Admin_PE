@@ -1,62 +1,111 @@
-import React from 'react';
-import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
-import UE from "../assets/UE.png"
+import React, { useState, useEffect } from 'react'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { colors } from '../utilities/colors';
+import {useNavigate} from 'react-router-dom';
 
-const LoginCard = () => {
+
+
+const defaultTheme = createTheme();
+
+export default function LoginCard() {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    console.log({
+      username: data.get('username'),
+      password: data.get('password'),
+    });
+
+    var username = data.get('username');
+    var password = data.get('password');
+
+    const user = {username, password}
+
+    const response = await fetch("http://localhost:4000/api/auth/login", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user),
+      credentials: 'include',
+    });
+
+
+
+    if (response.ok) {
+      // Handle successful login
+      console.log('Login successful!');
+      navigate('/');
+    };
+
+  }
+
   return (
-    <Container component="main" maxWidth="xs" 
-        sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            height: '100vh' 
-        }}>
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
 
-      <Card sx={{ width: '100%', borderRadius: 2 }}>
-        <CardContent>
-          {/* Logo */}
-          <div style={{ textAlign: 'center' }}>
-            <img src={UE} alt="Logo" style={{ width: '80px', height: '120px' }} />
-          </div>
-
-          {/* Login form */}
-          <form>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="identifiant"
-              label="Identifiant"
-              name="identifiant"
-              variant="standard"
-              InputLabelProps={{ shrink: true }}
-              sx={{ mt: 3, border: 1.5 ,borderRadius: 20, borderColor:colors.primary}}
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="motDePasse"
-              label="Mot de passe"
+              name="password"
+              label="Password"
               type="password"
-              id="motDePasse"
-              variant="standard"
-              InputLabelProps={{ shrink: true }}
-              sx={{ mt: 3, border: 1.5 ,borderRadius: 20, borderColor:colors.primary}}
+              id="password"
+              autoComplete="current-password"
             />
+
             <Button
               type="submit"
-              width = "50px"
+              fullWidth
               variant="contained"
-              sx={{ mt: 3, borderRadius: 20, backgroundColor: colors.primary, color: 'white' }}
+              sx={{ mt: 3, mb: 2, background: colors.primary }}
             >
-              Connecter
+              Sign In
             </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </Container>
-  );
-};
 
-export default LoginCard;
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
+}
