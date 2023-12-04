@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { colors } from '../utilities/colors';
 import {useNavigate} from 'react-router-dom';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -60,8 +61,12 @@ export default function LoginCard() {
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+    <Container sx={{
+      height: '100vh',
+      width: '100vw',
+      backgroundColor: 'white',
+    }}>
+      <Container>
         <CssBaseline />
         <Box
           sx={{
@@ -72,21 +77,26 @@ export default function LoginCard() {
           }}
         >
 
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignContent:'center'}}>
+            <Stack direction="column" sx={{alignItems:'center'}}>
+
+          
             <TextField
               margin="normal"
-              required
               fullWidth
+              required
               id="username"
               label="username"
               name="username"
               autoComplete="username"
               autoFocus
+              sx={{borderColor:colors.primary, color:colors.primary}}
             />
+
             <TextField
               margin="normal"
-              required
               fullWidth
+              required
               name="password"
               label="Password"
               type="password"
@@ -98,14 +108,16 @@ export default function LoginCard() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, background: colors.primary }}
+              sx={{ mt: 3, mb: 2, background: colors.primary, borderRadius:3 }}
             >
-              Sign In
+              Connect
             </Button>
+
+            </Stack>
 
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+      </Container>
   );
 }

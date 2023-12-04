@@ -30,21 +30,21 @@ export default function ProjectTable() {
 
 	const [loading, setLoading] = useState(true);
 
-	const [projects, setProjects] = useState([]);
+	const [users, setUsers] = useState([]);
 	useEffect(() => {
-		const fetchProjects = async () => {
+		const fetchUsers = async () => {
 			const response = await fetch("http://localhost:4000/api/users");
 			const responseData = await response.json();
-			setProjects(responseData.projects);
+			setUsers(responseData.users);
 			setLoading(false);
 
 		};
 
-		fetchProjects();
+		fetchUsers();
 	}, []);
 
 
-
+	console.log(users);
 
 	const [open, setOpen] = useState(false);
 

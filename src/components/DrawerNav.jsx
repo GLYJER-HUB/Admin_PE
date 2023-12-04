@@ -29,6 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
+
 const drawerWidth = 260;
 
 const openedMixin = (theme) => ({
@@ -117,6 +118,8 @@ const menus = [
 
 
 export default function MiniDrawer() {
+
+
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
@@ -148,6 +151,23 @@ export default function MiniDrawer() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    const handleLogout = async () => {
+        console.log("Logout button press");
+        const response = await fetch("http://localhost:4000/api/auth/logout", {
+            method:'POST',
+            credentials: 'include',
+        });
+        
+        if (response.ok) {
+            navigate('/login');
+        }
+
+
+
+    }
+
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -209,9 +229,10 @@ export default function MiniDrawer() {
                                 }}
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
+                                sx={{ mt: 4 }}
                             >
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
 
                             </Menu>
                         </span>
