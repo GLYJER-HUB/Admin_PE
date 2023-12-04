@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { Card, CardContent } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -15,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { colors } from '../utilities/colors';
 import {useNavigate} from 'react-router-dom';
 import Stack from '@mui/material/Stack';
+import Logo from "../assets/logo.png"
 
 
 
@@ -66,57 +68,66 @@ export default function LoginCard() {
       width: '100vw',
       backgroundColor: 'white',
     }}>
-      <Container>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+      <Container maxWidth="xs" 
+          sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              height: '100vh',
+          }}>
+        
+        <Card sx={{ 
+          width: '100%', 
+          borderRadius: 2 
+          }}>
 
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignContent:'center'}}>
-            <Stack direction="column" sx={{alignItems:'center'}}>
+          <CardContent>
+            {/* Logo */}
+            <div style={{ textAlign: 'center' }}>
+              <img src={Logo} alt="Logo" style={{ width: '80px', height: '120px' }} />
+            </div>
 
-          
-            <TextField
-              margin="normal"
-              fullWidth
-              required
-              id="username"
-              label="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              sx={{borderColor:colors.primary, color:colors.primary}}
-            />
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignContent:'center'}}>
+              <Stack direction="column" sx={{alignItems:'center'}}>
 
-            <TextField
-              margin="normal"
-              fullWidth
-              required
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+            
+              <TextField
+                margin="normal"
+                fullWidth
+                required
+                id="username"
+                label="username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                sx={{borderColor:colors.primary, color:colors.primary}}
+              />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, background: colors.primary, borderRadius:3 }}
-            >
-              Connect
-            </Button>
+              <TextField
+                margin="normal"
+                fullWidth
+                required
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
 
-            </Stack>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, background: colors.primary, borderRadius:3 }}
+              >
+                Connect
+              </Button>
 
-          </Box>
-        </Box>
+              </Stack>
+
+            </Box>
+          </CardContent>
+
+        </Card>
       </Container>
       </Container>
   );
