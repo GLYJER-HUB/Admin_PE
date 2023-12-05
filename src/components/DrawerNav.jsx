@@ -155,7 +155,7 @@ export default function MiniDrawer() {
 
     const handleLogout = async () => {
         console.log("Logout button press");
-        const response = await fetch("http://localhost:4000/api/auth/logout", {
+        const response = await fetch("https://ue-project-explore-api.onrender.com/api/auth/logout", {
             method:'POST',
             credentials: 'include',
         });

@@ -33,7 +33,9 @@ export default function ProjectTable() {
 	const [users, setUsers] = useState([]);
 	useEffect(() => {
 		const fetchUsers = async () => {
-			const response = await fetch("http://localhost:4000/api/users");
+			const response = await fetch("https://ue-project-explore-api.onrender.com/api/users",{
+				credentials: 'include',
+			});
 			const responseData = await response.json();
 			setUsers(responseData.users);
 			setLoading(false);
@@ -56,7 +58,7 @@ export default function ProjectTable() {
 		setOpen(false);
 	}
 
-
+	console.log(users);
 	return (
 		<TableContainer component={Paper} sx={{ mt: 4 }}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -74,22 +76,22 @@ export default function ProjectTable() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
+					{users.map((user) => (
 						<TableRow
-							key={row.name}
+							key={user.name}
 							sx={{
 								'&:last-child td, &:last-child th':
 									{ border: 0 }
 							}}
 						>
 							<TableCell component="th" scope="row">
-								{row.Role}
+								{user.role}
 							</TableCell>
 							<TableCell align="right">
-								{row.Identifiant}
+								{user.Identifiant}
 							</TableCell>
 							<TableCell align="right">
-								{row.Date}
+								{user.Date}
 							</TableCell>
 							<TableCell align="right">
 								<Button sx={{

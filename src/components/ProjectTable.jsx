@@ -27,7 +27,7 @@ const [loading, setLoading] = useState(true);
 const [projects, setProjects] = useState([]);
  useEffect(() => {
    const fetchProjects = async () => {
-	 const response = await fetch("http://localhost:4000/api/projects");
+	 const response = await fetch("https://ue-project-explore-api.onrender.com/api/projects");
 	 const responseData = await response.json();
 	 setProjects(responseData.projects);
 	 setLoading(false);
