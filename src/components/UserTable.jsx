@@ -19,12 +19,6 @@ function createData(Role, Identifiant, Date) {
 	return { Role, Identifiant, Date };
 }
 
-const rows = [
-	createData('Admin', '0022', '22-09-23'),
-
-];
-
-
 
 export default function ProjectTable() {
 

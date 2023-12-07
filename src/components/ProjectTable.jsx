@@ -14,10 +14,6 @@ function createData(Type, Name, Date) {
 	return { Type, Name, Date };
 }
 
-const rows = [
-	createData('Web App', 'Todo-App', '22-09-23'),
-
-];
 
 export default function ProjectTable() {
 
