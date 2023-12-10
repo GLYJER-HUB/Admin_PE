@@ -59,10 +59,10 @@ export default function ProjectTable() {
 				<TableHead>
 					<TableRow>
 						<TableCell sx={{ fontWeight: 900 }}>
-							Role
+							Username
 						</TableCell>
 						<TableCell align="right" sx={{ fontWeight: 900 }}>
-							Identifiant
+							Role
 						</TableCell>
 						<TableCell align="right" sx={{ fontWeight: 900 }}>
 							Date
@@ -70,22 +70,22 @@ export default function ProjectTable() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{users.map((user) => (
+					{users.map((user, index) => (
 						<TableRow
-							key={user.name}
+							key={user._id}
 							sx={{
 								'&:last-child td, &:last-child th':
 									{ border: 0 }
 							}}
 						>
 							<TableCell component="th" scope="row">
+								{user.username}
+							</TableCell>
+							<TableCell align="right">
 								{user.role}
 							</TableCell>
 							<TableCell align="right">
-								{user.Identifiant}
-							</TableCell>
-							<TableCell align="right">
-								{user.Date}
+								{user.createdAt}
 							</TableCell>
 							<TableCell align="right">
 								<Button sx={{
