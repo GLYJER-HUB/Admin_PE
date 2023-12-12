@@ -6,7 +6,8 @@ import {
   Select,
   FormControl,
   InputLabel,
-  Stack
+  Stack,
+  Dialog
 } from '@mui/material';
 import { colors } from '../utilities/colors';
 
@@ -28,9 +29,11 @@ const AddProjectCard = ({ open, onClose }) => {
   };
 
 
+
+
   return (
     <>
-
+     
       <Stack direction="row" gap={3}>
         {/*Type Dropdown Menu */}
         <FormControl sx={{ mt: 2, width: 185 }}>
