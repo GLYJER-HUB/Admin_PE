@@ -57,7 +57,7 @@ export default function LoginCard() {
     if (response.ok) {
       // Handle successful login
       console.log('Login successful!');
-      navigate('/board-table');
+      navigate('/tableau-de-bord');
     };
 
   }

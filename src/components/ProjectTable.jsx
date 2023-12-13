@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import AddProjectCard from './AddProjectCard';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
@@ -21,23 +23,19 @@ const columns = [
 		id: 'population',
 		label: 'Date',
 		minWidth: 170,
-		align: 'right',
+		align: 'center',
+		fontWeight: 'bold' ,
 		format: (value) => value.toLocaleString('en-US'),
 	},
 	{
 		id: 'pop',
-		label: '',
-		minWidth: 170,
-		align: 'right',
+		label: 'Actions',
+		minWidth: 10,
+		align: 'center',
 		format: (value) => value.toLocaleString('en-US'),
+		headerStyle: { fontWeight: 'bold' },
 	},
-	{
-		id: 'po',
-		label: '',
-		minWidth: 170,
-		align: 'right',
-		format: (value) => value.toLocaleString('en-US'),
-	},
+
 ];
 
 
@@ -46,12 +44,12 @@ const columns = [
 export default function ProjectTable() {
 
 	const [loading, setLoading] = useState(true);
+	const [update, forceUpdate] = useReducer()
 
 	const [projects, setProjects] = useState([]);
 	useEffect(() => {
 		const fetchProjects = async () => {
 			const response = await fetch("https://ue-project-explore-api.onrender.com/api/projects", {
-
 			});
 			const responseData = await response.json();
 			setProjects(responseData.projects);
@@ -62,8 +60,31 @@ export default function ProjectTable() {
 		fetchProjects();
 	}, []);
 
-
 	console.log(projects);
+
+
+	const handleDelete = async (id) => {
+		try {
+			const response = await fetch(`https://ue-project-explore-api.onrender.com/api/projects/delete/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				credentials: 'include',
+			});
+
+			if (response.ok) {
+				console.log('Data deleted successfully');
+				window.location.reload();
+
+			}
+		} catch (error) {
+			console.error('Error during deletion:', error);
+
+		}
+
+		forceUpdate();
+	};
 
 
 
@@ -79,7 +100,9 @@ export default function ProjectTable() {
 		setPage(0);
 	};
 
+
 	const [open, setOpen] = useState(false);
+
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -90,7 +113,7 @@ export default function ProjectTable() {
 	}
 
 	return (
-		<Paper sx={{ width: '100%', overflow: 'hidden', mb:10 }}>
+		<Paper sx={{ width: '100%', overflow: 'hidden', mb: 10 }}>
 			<TableContainer sx={{ maxHeight: 440 }}>
 				<Table stickyHeader aria-label="sticky table">
 					<TableHead>
@@ -109,7 +132,7 @@ export default function ProjectTable() {
 					<TableBody>
 						{projects
 							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							.map((project) => (
+							.map((project, index) => (
 								<TableRow
 									key={project._id}
 									sx={{
@@ -128,47 +151,49 @@ export default function ProjectTable() {
 									</TableCell>
 
 									<TableCell align="right">
-										<Button sx={{
-											background: '#32B8A0',
-											color: '#ffffff',
+
+										<EditIcon sx={{
+
+											color: '#32B8A0',
 											borderRadius: 10,
 											width: 150,
 											'&:hover': {
-												backgroundColor: '#fff',
-												color: '#32B8A0',
+
+												color: '#32B8A9',
 											},
 
 										}}
-											onClick={handleClickOpen}
+											onClick={handleClickOpen} />
 
-										>Modifier</Button>
+										<DeleteIcon sx={{
+
+											color: '#ff5454',
+											borderRadius: 10,
+											minWidth: 150,
+											'&:hover': {
+
+												color: '#FF5460'
+
+											},
+										}} onClick={() => handleDelete(project._id)} />
+
+
+
 
 										<Dialog open={open} onClose={handleClose}>
 											<DialogTitle>
-												Ajouter Utilisateur
+												Ajouter Projet
 											</DialogTitle>
 											<DialogContent>
-												<AddProjectCard/>
+												<AddProjectCard />
 											</DialogContent>
 											<DialogActions>
 												<Button onClick={handleClose}>Enregistrer</Button>
 												<Button onClick={handleClose}>Annuler</Button>
 											</DialogActions>
 										</Dialog>
-
 									</TableCell>
-									<TableCell align="right">
-										<Button sx={{
-											background: '#FF5454',
-											color: '#ffffff',
-											borderRadius: 10,
-											minWidth: 150,
-											'&:hover': {
-												backgroundColor: '#fff',
-												color: '#FF5454',
-											},
-										}}>Supprimer</Button>
-									</TableCell>
+									
 								</TableRow>
 							)
 							)}

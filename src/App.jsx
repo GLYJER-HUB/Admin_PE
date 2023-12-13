@@ -18,13 +18,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route> 
-            <Route index element={<Login />}/></Route>
-            <Route path='/login' element={<Login/>}></Route>
-            <Route path='/' element={<Layout />}>
-            <Route path='/board-table' element={<BoardTable/>}/>
-            <Route path='/gestion-des-projets' element={<GestionProjects />}/>
-            <Route path='/gestion-des-comptes' element={<GestrionAccount/>}/>
+          <Route index element={<Login/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/' element={<Layout/>}> 
+           <Route path='tableau-de-bord' element={<BoardTable/>}/>
+           <Route path='gestion-des-projets' element={<GestionProjects/>}/>
+           <Route path='gestion-des-comptes' element={<GestrionAccount/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

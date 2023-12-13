@@ -102,7 +102,7 @@ const menus = [
     {
         primary: "Tableau de Bord",
         icon: <DashboardIcon />,
-        path: "/",
+        path: "/tableau-de-bord",
     },
     {
         primary: "Gestion des Projets",
@@ -163,9 +163,6 @@ export default function MiniDrawer() {
         if (response.ok) {
             navigate('/login');
         }
-
-
-
     }
 
 
