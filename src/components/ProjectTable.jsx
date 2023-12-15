@@ -44,7 +44,7 @@ const columns = [
 export default function ProjectTable() {
 
 	const [loading, setLoading] = useState(true);
-	const [update, forceUpdate] = useReducer()
+
 
 	const [projects, setProjects] = useState([]);
 	useEffect(() => {
@@ -187,10 +187,7 @@ export default function ProjectTable() {
 											<DialogContent>
 												<AddProjectCard />
 											</DialogContent>
-											<DialogActions>
-												<Button onClick={handleClose}>Enregistrer</Button>
-												<Button onClick={handleClose}>Annuler</Button>
-											</DialogActions>
+											
 										</Dialog>
 									</TableCell>
 									

@@ -61,10 +61,7 @@ const GestionProjects = () => {
             <DialogContent>
               <AddProjectCard />
             </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Enregistrer</Button>
-              <Button onClick={handleClose}>Annuler</Button>
-            </DialogActions>
+          
           </Dialog>
 
         </Box>

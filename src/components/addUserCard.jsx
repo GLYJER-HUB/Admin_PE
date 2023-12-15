@@ -8,6 +8,7 @@ import {
   InputLabel,
   Stack
 } from '@mui/material';
+import Button from "@mui/material/Button";
 import { colors } from '../utilities/colors';
 
 
@@ -67,10 +68,10 @@ const AddUserCard = ({ open, onClose }) => {
       </Stack>
 
 
-      {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
         <Button
           variant="contained"
-          onClick={handleSave}
+      
           sx={{ mr: 2, borderRadius: '8px', backgroundColor: colors.green, color: 'white:hover' }}
         >
           Enregister
@@ -78,12 +79,11 @@ const AddUserCard = ({ open, onClose }) => {
 
         <Button
           variant="contained"
-          onClick={handleCancel}
           sx={{ borderRadius: '8px', backgroundColor: colors.red, color: 'white' }}
         >
           Annuler
         </Button>
-      </div> */}
+      </div>
     </>
   );
 };
