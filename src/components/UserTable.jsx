@@ -8,14 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Typography,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import AddUserCard from "./addUserCard";
+import { fetchUser } from "../services/userService";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -43,16 +38,11 @@ const columns = [
 
 export default function UserTabble() {
   const [loading, setLoading] = useState(true);
-
   const [users, setUsers] = useState([]);
+
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(
-        "https://ue-project-explore-api.onrender.com/api/users",
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetchUser();
       const responseData = await response.json();
       setUsers(responseData.users);
       setLoading(false);
@@ -95,8 +85,7 @@ export default function UserTabble() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
+                  style={{ minWidth: column.minWidth }}>
                   {column.label}
                 </TableCell>
               ))}
@@ -110,8 +99,7 @@ export default function UserTabble() {
                   key={user._id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
-                  }}
-                >
+                  }}>
                   <TableCell component="th" scope="row">
                     {user.username}
                   </TableCell>
@@ -130,8 +118,7 @@ export default function UserTabble() {
                           color: "#32B8A0",
                         },
                       }}
-                      onClick={handleClickOpen}
-                    >
+                      onClick={handleClickOpen}>
                       Modifier
                     </Button>
 
@@ -153,8 +140,7 @@ export default function UserTabble() {
                           backgroundColor: "#fff",
                           color: "#FF5454",
                         },
-                      }}
-                    >
+                      }}>
                       Supprimer
                     </Button>
                   </TableCell>

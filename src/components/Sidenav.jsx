@@ -1,47 +1,42 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Drawer from '@mui/material/Drawer';
+import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { colors } from '../utilities/colors';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import { colors } from "../utilities/colors";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from '../assets/UE.png';
+import logo from "../assets/UE.png";
 import { Divider } from "@mui/material";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-
-
-
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 const drawerWidth = 260;
 
 const menus = [
   {
     primary: "Tableau de Bord",
-    icon:<DashboardIcon />,
+    icon: <DashboardIcon />,
     path: "/",
   },
   {
     primary: "Gestion des Projets",
-    icon: <FolderOpenIcon/>,
+    icon: <FolderOpenIcon />,
     path: "/gestion-des-projets",
   },
   {
     primary: "Gestion des Comptes",
-    icon: <ManageAccountsIcon/>,
+    icon: <ManageAccountsIcon />,
     path: "/gestion-des-comptes",
-  }
+  },
 ];
 
-
 const Sidenav = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -58,18 +53,19 @@ const Sidenav = () => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-
-        <Box display={'flex'} alignContent={'center'} sx={{m:3}}>
-        <img height={50} src={logo} alt="fireSpot"/>
-        <span>
-        <Typography sx={{ color: colors.primary, fontWeight: 'bold', pt:1.5 }}>
-            Universite Espoir
-          </Typography>
-        </span>
-         
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}>
+        <Box display={"flex"} alignContent={"center"} sx={{ m: 3 }}>
+          <img height={50} src={logo} alt="fireSpot" />
+          <span>
+            <Typography
+              sx={{ color: colors.primary, fontWeight: "bold", pt: 1.5 }}>
+              Universite Espoir
+            </Typography>
+          </span>
         </Box>
         <Divider></Divider>
         {menus.map((menu) => (
@@ -79,14 +75,10 @@ const Sidenav = () => {
             onClick={() => {
               handleClick(menu.path);
             }}
-            textColor='inherit'
-          >
-            <ListItemIcon >
-              {menu.icon}
-            </ListItemIcon>
+            textColor="inherit">
+            <ListItemIcon>{menu.icon}</ListItemIcon>
             <ListItemButton
               sx={{
-
                 ml: 2,
                 mr: 2,
                 color:
@@ -100,21 +92,19 @@ const Sidenav = () => {
 
                   borderRadius: "5px",
                 },
-              }}
-            >
-              <ListItemText primary={<Typography fontWeight={'bold'}>{menu.primary}</Typography>} sx={{ color: colors.primary}} />
-              
+              }}>
+              <ListItemText
+                primary={
+                  <Typography fontWeight={"bold"}>{menu.primary}</Typography>
+                }
+                sx={{ color: colors.primary }}
+              />
             </ListItemButton>
-
           </Typography>
-
-
         ))}
       </Drawer>
-
-
     </Box>
   );
-}
+};
 
-export default Sidenav
+export default Sidenav;

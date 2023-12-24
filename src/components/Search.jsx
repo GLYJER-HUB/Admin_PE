@@ -4,14 +4,11 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { colors } from "../utilities/colors";
 
-
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
 
-  "&:hover": {
- 
-  },
+  "&:hover": {},
   marginLeft: 10,
   width: "auto%",
   [theme.breakpoints.up("sm")]: {
@@ -19,7 +16,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 }));
-
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -31,7 +27,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
   color: colors.primary,
 }));
-
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
@@ -68,7 +63,5 @@ const SearchBar = ({ handleChange, searchInput, inputKeyPress }) => {
     </Box>
   );
 };
-
-
 
 export default SearchBar;

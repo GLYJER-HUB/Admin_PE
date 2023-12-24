@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { colors } from '../utilities/colors';
 
@@ -18,13 +17,12 @@ const bull = (
 const card = (
   <React.Fragment>
     <CardContent>
-      <Typography variant='h4' sx={{color:colors.primary}} >
+      <Typography variant='h4' sx={{ color: colors.primary }} >
         Utilisateurs
       </Typography>
-      <Typography sx={{color:colors.primary}}>
+      <Typography sx={{ color: colors.primary }}>
         12
       </Typography>
-     
     </CardContent>
   </React.Fragment>
 );
