@@ -7,58 +7,70 @@ import {
   FormControl,
   InputLabel,
   Stack,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
-
-
+import { addProject } from "../services/projectService";
 
 const AddProjectCard = ({ open, onClose }) => {
-  const [type, setType] = useState("");
-  const [authors, setAuthors] = useState([]);
-  const [name, setName] = useState("");
-  const [discipline, setDiscipline] = useState("");
-  const [url, setUrl] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
+  const [formData, setFormData] = useState({
+    projectName: '',
+    description: '',
+    discipline: '',
+    type: '',
+    projectUrl: '',
+    authors: [],
+    yearOfSubmission: '',
+  });
 
-  const addProject = async () => {
-    const data = new FormData();
-    data.set("projectName", name);
-    data.set("discipline", discipline);
-    data.set("type", type);
-    data.set("projectUrl", url);
-    data.set("authors", authors);
-    data.set("yearOfSubmission", year);
-    data.set("description", description);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-    // const response = await fetch(
-    //   "https://ue-project-explore-api.onrender.com/api/projects",
-    //   {
-    //     method: "POST",
-    //     body: data,
-    //     credentials: "include",
-    //   }
-    // );
+    setFormData((prevFormData) => {
+      if (name === 'authors') {
+        const authorsArray = value.split(',').map((author) => author.trim());
+        return {
+          ...prevFormData,
+          [name]: authorsArray,
+        };
+      }
+
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
   };
 
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.files[0],
+    });
   };
 
-  const handleDisciplineChange = (event) => {
-    setDiscipline(event.target.value);
+
+  const handleAddProject = async (e) => {
+    e.preventDefault();
+
+    const formDataForRequest = new FormData();
+    for (const key in formData) {
+      if (key === 'authors' && Array.isArray(formData[key])) {
+        formData[key].forEach((author, index) => {
+          formDataForRequest.append(`authors[${index}]`, author);
+        });
+      } else {
+        formDataForRequest.append(key, formData[key]);
+      }
+    }
+
+    const response = await addProject(formDataForRequest);
+    const responseData = await response.json();
+    console.log(responseData);
+    // formDataForRequest.forEach(e => console.log(e));
   };
 
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
-
-   
   return (
     <>
       <Stack direction="row" gap={3}>
@@ -67,23 +79,24 @@ const AddProjectCard = ({ open, onClose }) => {
           <InputLabel htmlFor="type-dropdown">Type</InputLabel>
 
           <Select
-            value={type}
-            onChange={handleTypeChange}
+            value={formData.type}
+            onChange={handleInputChange}
             label="Type"
             inputProps={{ id: "type-dropdown" }}
+            name="type"
             sx={{ borderColor: colors.green, borderRadius: "8px" }}
           >
             <MenuItem value="" disabled>
               Select Type
             </MenuItem>
 
-            <MenuItem value="mobile_app">Mobile App</MenuItem>
-            <MenuItem value="desktop_app">Dekstop App</MenuItem>
-            <MenuItem value="web_app">Web App</MenuItem>
-            <MenuItem value="redaction_projet">Rédaction projet</MenuItem>
-            <MenuItem value="plan_daffaire">Plan d'affaire</MenuItem>
-            <MenuItem value="systeme_comptable">Système Comptable</MenuItem>
-            <MenuItem value="memoire">Mémoire</MenuItem>
+            <MenuItem value="App mobile">Mobile App</MenuItem>
+            <MenuItem value="Desktop application">Dekstop App</MenuItem>
+            <MenuItem value="Web application">Web App</MenuItem>
+            <MenuItem value="Rédaction de projet">Rédaction projet</MenuItem>
+            <MenuItem value="Plan d'affaire">Plan d'affaire</MenuItem>
+            <MenuItem value="Système comptable">Système Comptable</MenuItem>
+            <MenuItem value="Mémoire">Mémoire</MenuItem>
           </Select>
         </FormControl>
 
@@ -92,24 +105,25 @@ const AddProjectCard = ({ open, onClose }) => {
           <InputLabel htmlFor="type-dropdown">Discipline</InputLabel>
 
           <Select
-            value={discipline}
-            onChange={handleDisciplineChange}
+            value={formData.discipline}
+            onChange={handleInputChange}
             label="Discipline"
             inputProps={{ id: "discipline-dropdown" }}
+            name="discipline"
             sx={{ borderColor: colors.green, borderRadius: "8px" }}
           >
             <MenuItem value="" disabled>
               Select Discipline
             </MenuItem>
 
-            <MenuItem value="sciences_informatiques">
+            <MenuItem value="Informatique">
               Sciences informatiques
             </MenuItem>
-            <MenuItem value="sciences_comptables">Sciences comptables</MenuItem>
-            <MenuItem value="gestion_des_affaires">
+            <MenuItem value="Comptabilité">Sciences comptables</MenuItem>
+            <MenuItem value="Gestion">
               Gestion des affaires
             </MenuItem>
-            <MenuItem value="education">Education</MenuItem>
+            <MenuItem value="Éducation">Education</MenuItem>
           </Select>
         </FormControl>
       </Stack>
@@ -119,21 +133,25 @@ const AddProjectCard = ({ open, onClose }) => {
           margin="normal"
           required
           fullWidth
-          id="projectName"
+          name="projectName"
           placeholder="Nom du projet"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+          value={formData.projectName}
+          onChange={handleInputChange}
         />
         <TextField
           margin="normal"
           required
           fullWidth
-          id="url"
+          name="projectUrl"
           placeholder="Url"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+          value={formData.projectUrl}
+          onChange={handleInputChange}
         />
       </Stack>
 
@@ -143,11 +161,12 @@ const AddProjectCard = ({ open, onClose }) => {
           <InputLabel htmlFor="year-dropdown">Year</InputLabel>
 
           <Select
-            value={year}
-            onChange={handleYearChange}
             label="Year"
             inputProps={{ id: "year-dropdown" }}
+            name="yearOfSubmission"
             sx={{ borderColor: colors.green, borderRadius: "8px" }}
+            value={formData.yearOfSubmission}
+            onChange={handleInputChange}
           >
             <MenuItem value="" disabled>
               Select Year
@@ -171,11 +190,13 @@ const AddProjectCard = ({ open, onClose }) => {
           margin="normal"
           required
           fullWidth
-          id="authors"
+          name="authors"
           placeholder="Auteur du projet"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+          value={formData.authors}
+          onChange={handleInputChange}
         />
       </Stack>
 
@@ -186,11 +207,13 @@ const AddProjectCard = ({ open, onClose }) => {
           fullWidth
           multiline
           rows={4}
-          id="desc"
+          name="description"
           placeholder="Description"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+          value={formData.description}
+          onChange={handleInputChange}
         />
       </Stack>
 
@@ -205,6 +228,7 @@ const AddProjectCard = ({ open, onClose }) => {
             backgroundColor: colors.green,
             color: "white:hover",
           }}
+          onClick={handleAddProject}
         >
           Enregister
         </Button>

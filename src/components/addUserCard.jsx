@@ -28,7 +28,6 @@ const AddUserCard = ({ open, onClose }) => {
     const user = { username, role };
     const response = await addUser(user);
     const responseData = await response.json();
-    console.log(responseData);
   };
 
   return (
