@@ -10,12 +10,25 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { colors } from "../utilities/colors";
+import { addUser } from "../services/userService";
 
 const AddUserCard = ({ open, onClose }) => {
   const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
+  };
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handleAddUser = async () => {
+    const user = { username, role };
+    const response = await addUser(user);
+    const responseData = await response.json();
+    console.log(responseData);
   };
 
   return (
@@ -34,7 +47,7 @@ const AddUserCard = ({ open, onClose }) => {
           </MenuItem>
 
           <MenuItem value="admin">Admin</MenuItem>
-          <MenuItem value="user">User</MenuItem>
+          <MenuItem value="member">Member</MenuItem>
         </Select>
       </FormControl>
 
@@ -48,6 +61,8 @@ const AddUserCard = ({ open, onClose }) => {
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+          value={username}
+          onChange={handleUsernameChange}
         />
         <TextField
           margin="normal"
@@ -75,7 +90,8 @@ const AddUserCard = ({ open, onClose }) => {
             borderRadius: "8px",
             backgroundColor: colors.green,
             color: "white:hover",
-          }}>
+          }}
+          onClick={handleAddUser}>
           Enregister
         </Button>
 

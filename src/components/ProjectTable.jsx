@@ -42,6 +42,7 @@ export default function ProjectTable() {
 		const fetchProjects = async () => {
 			const response = await fetchProject();
 			const responseData = await response.json();
+			console.log(responseData)
 			setProjects(responseData.projects);
 			setLoading(false);
 		};

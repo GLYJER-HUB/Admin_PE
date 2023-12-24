@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import AddUserCard from "./addUserCard";
-import { fetchUser } from "../services/userService";
+import { fetchUser, deleteUser } from "../services/userService";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -51,7 +51,19 @@ export default function UserTabble() {
     fetchUsers();
   }, []);
 
-  console.log(users);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await deleteUser(id);
+
+      if (response.ok) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+    }
+  };
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -140,7 +152,8 @@ export default function UserTabble() {
                           backgroundColor: "#fff",
                           color: "#FF5454",
                         },
-                      }}>
+                      }}
+                      onClick={() => handleDelete(user._id)}>
                       Supprimer
                     </Button>
                   </TableCell>

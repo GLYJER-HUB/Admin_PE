@@ -5,6 +5,17 @@ export const fetchProject = async () => {
     return response;
 }
 
+export const addProject = async (data) => {
+    const response = await fetch(
+        `${apiCredentials.BASE_URL}/projects/`,
+        {
+            method: "POST",
+            body: data,
+            credentials: "include",
+        }
+    );
+    return response;
+}
 
 export const deleteProject = async (id) => {
     const response = await fetch(
