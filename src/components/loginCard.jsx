@@ -1,16 +1,21 @@
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, InputAdornment, IconButton } from '@mui/material';
 import Container from '@mui/material/Container';
 import { colors } from '../utilities/colors';
 import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
-import Logo from "../assets/logo.png"
+import Logo from "../assets/logo.png";
 import { login } from '../services/authService';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function LoginCard() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [buttonLabel, setButtonLabel] = useState('Connect');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +25,17 @@ export default function LoginCard() {
     var password = data.get('password');
     const user = { username, password }
 
+    setButtonLabel('Connecting'); // Change button label on form submission
+
     const response = await login(user);
 
     if (response.ok) {
       // Handle successful login
       navigate('/tableau-de-bord');
-    };
-  }
+    } else {
+      setButtonLabel('Connect'); // Reset button label if login fails
+    }
+  };
 
   return (
     <Container sx={{
@@ -60,7 +69,7 @@ export default function LoginCard() {
                   fullWidth
                   required
                   id="username"
-                  label="username"
+                  label="Username"
                   name="username"
                   autoComplete="username"
                   autoFocus
@@ -73,9 +82,21 @@ export default function LoginCard() {
                   required
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   autoComplete="current-password"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
 
                 <Button
@@ -84,7 +105,7 @@ export default function LoginCard() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, background: colors.primary, borderRadius: 3 }}
                 >
-                  Connect
+                  {buttonLabel}
                 </Button>
 
               </Stack>
