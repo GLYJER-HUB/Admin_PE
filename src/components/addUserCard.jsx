@@ -28,6 +28,9 @@ const AddUserCard = ({ open, onClose }) => {
     const user = { username, role };
     const response = await addUser(user);
     const responseData = await response.json();
+    
+
+    
   };
 
   return (
@@ -40,7 +43,8 @@ const AddUserCard = ({ open, onClose }) => {
           onChange={handleRoleChange}
           label="Role"
           inputProps={{ id: "role-dropdown" }}
-          sx={{ borderColor: colors.green, borderRadius: "8px" }}>
+          sx={{ borderColor: colors.green, borderRadius: "8px" }}
+        >
           <MenuItem value="" disabled>
             Select Role
           </MenuItem>
@@ -81,7 +85,8 @@ const AddUserCard = ({ open, onClose }) => {
           display: "flex",
           justifyContent: "center",
           marginTop: "16px",
-        }}>
+        }}
+      >
         <Button
           variant="contained"
           sx={{
@@ -90,7 +95,8 @@ const AddUserCard = ({ open, onClose }) => {
             backgroundColor: colors.green,
             color: "white:hover",
           }}
-          onClick={handleAddUser}>
+          onClick={handleAddUser}
+        >
           Enregister
         </Button>
 
@@ -99,8 +105,10 @@ const AddUserCard = ({ open, onClose }) => {
           sx={{
             borderRadius: "8px",
             backgroundColor: colors.red,
-            color: "white",
-          }}>
+            color: "white"
+          }}
+          
+        >
           Annuler
         </Button>
       </div>

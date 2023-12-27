@@ -1,23 +1,39 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { colors } from "../utilities/colors";
 import Search from "../components/Search";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import ProjectTable from "../components/ProjectTable";
 import AddProjectCard from "../components/AddProjectCard";
+import { Add } from "@mui/icons-material";
+import { addProject } from "../services/projectService";
 
 const GestionProjects = () => {
-  const [open, setOpen] = useState(false);
+ 
+  
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    
+    setIsDialogOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -26,7 +42,8 @@ const GestionProjects = () => {
       <Box>
         <Typography
           variant="h4"
-          sx={{ fontWeight: "bold", color: colors.third }}>
+          sx={{ fontWeight: "bold", color: colors.third }}
+        >
           Gestion des Projets
         </Typography>
 
@@ -41,16 +58,13 @@ const GestionProjects = () => {
                 width: 200,
               }}
               variant="outlined"
-              onClick={handleClickOpen}>
+              onClick={handleClickOpen}
+            >
               Ajouter Project
             </Button>
           </Stack>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Ajouter Projet</DialogTitle>
-            <DialogContent>
-              <AddProjectCard />
-            </DialogContent>
-          </Dialog>
+
+          <AddProjectCard open={isDialogOpen} onClose={handleClose} />
         </Box>
         <ProjectTable />
       </Box>

@@ -12,7 +12,6 @@ export const login = async (user) => {
             credentials: "include",
         }
     );
-
     return response;
 };
 
