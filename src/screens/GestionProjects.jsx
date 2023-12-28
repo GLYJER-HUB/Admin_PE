@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Search from "../components/Search";
 import Stack from "@mui/material/Stack";
@@ -23,12 +12,9 @@ import { Add } from "@mui/icons-material";
 import { addProject } from "../services/projectService";
 
 const GestionProjects = () => {
- 
-  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClickOpen = () => {
-    
     setIsDialogOpen(true);
   };
 

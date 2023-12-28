@@ -12,6 +12,7 @@ import AddProjectCard from "./AddProjectCard";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
+import UpdateProjectCard from "./UpdateProjectCard";
 
 const columns = [
   { id: "name", label: "Nom Projet", minWidth: 20 },
@@ -131,6 +132,7 @@ export default function ProjectTable() {
                       }}
 					  onClick-={handleClickOpen}
                     />
+					<UpdateProjectCard open={isDialogOpen} onClose={handleClose}/>
 
                     <DeleteIcon
                       sx={{

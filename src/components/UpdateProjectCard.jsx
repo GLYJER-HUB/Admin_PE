@@ -19,9 +19,9 @@ import {
 } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
-import { addProject } from "../services/projectService";
+import { updateProject } from "../services/projectService";
 
-const AddProjectCard = ({ open, onClose }) => {
+const UpdateProjectCard = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
     projectName: "",
     description: "",
@@ -72,21 +72,11 @@ const AddProjectCard = ({ open, onClose }) => {
       }
     }
 
-    const response = await addProject(formDataForRequest);
+    const response = await updateProject(formDataForRequest);
     const responseData = await response.json();
     console.log(responseData);
     // formDataForRequest.forEach(e => console.log(e));
-
-    console.log(response.status);
-   
-
-    if (response.status == 201) {
-      alert(responseData.message);
-      onClose();
-    }
-    else{
-      alert(responseData.message)
-    }
+    onClose = { onClose };
   };
 
   return (
@@ -275,4 +265,4 @@ const AddProjectCard = ({ open, onClose }) => {
   );
 };
 
-export default AddProjectCard;
+export default UpdateProjectCard;

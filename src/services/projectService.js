@@ -17,6 +17,17 @@ export const addProject = async (data) => {
     return response;
 }
 
+
+export const updateProject = async (data) => {
+  const response = await fetch(`${apiCredentials.BASE_URL}/projects/${id}`, {
+    method: "PUT",
+    body: data,
+    credentials: "include",
+  });
+  return response;
+};
+
+
 export const deleteProject = async (id) => {
     const response = await fetch(
         `${apiCredentials.BASE_URL}/projects/delete/${id}`,
