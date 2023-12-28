@@ -8,8 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import AddUserCard from "./addUserCard";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser } from "../services/userService";
 
 const columns = [
@@ -24,15 +24,11 @@ const columns = [
   },
   {
     id: "pop",
-    label: "",
-    minWidth: 170,
-    align: "right",
-  },
-  {
-    id: "po",
-    label: "",
-    minWidth: 170,
-    align: "right",
+    label: "Actions",
+    minWidth: 10,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+    headerStyle: { fontWeight: "bold" },
   },
 ];
 
@@ -51,19 +47,26 @@ export default function UserTabble() {
     fetchUsers();
   }, []);
 
-
   const handleDelete = async (id) => {
     try {
       const response = await deleteUser(id);
+       const responseData = await response.json();
+       console.log(responseData);
+       console.log(response.status);
 
-      if (response.ok) {
-        window.location.reload();
+      if (response.status == 200) {
+        alert(responseData.message);
+
+          const updatedUsers = users.filter(
+            (user) => user._id !== id
+          );
+          // Update the state with the new array
+          setUsers(updatedUsers);
       }
     } catch (error) {
       console.error("Error during deletion:", error);
     }
   };
-
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -77,16 +80,6 @@ export default function UserTabble() {
     setPage(0);
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -97,7 +90,8 @@ export default function UserTabble() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}>
+                  style={{ minWidth: column.minWidth }}
+                >
                   {column.label}
                 </TableCell>
               ))}
@@ -111,7 +105,8 @@ export default function UserTabble() {
                   key={user._id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
-                  }}>
+                  }}
+                >
                   <TableCell component="th" scope="row">
                     {user.username}
                   </TableCell>
@@ -119,43 +114,28 @@ export default function UserTabble() {
                   <TableCell align="right">{user.createdAt}</TableCell>
 
                   <TableCell align="right">
-                    <Button
+                    <EditIcon
                       sx={{
-                        background: "#32B8A0",
-                        color: "#ffffff",
+                        color: "#32B8A0",
                         borderRadius: 10,
                         width: 150,
                         "&:hover": {
-                          backgroundColor: "#fff",
-                          color: "#32B8A0",
+                          color: "#32B8A9",
                         },
                       }}
-                      onClick={handleClickOpen}>
-                      Modifier
-                    </Button>
+                    />
 
-                    <Dialog open={open} onClose={handleClose}>
-                      <DialogTitle>Ajouter Utilisateur</DialogTitle>
-                      <DialogContent>
-                        <AddUserCard />
-                      </DialogContent>
-                    </Dialog>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Button
+                    <DeleteIcon
                       sx={{
-                        background: "#FF5454",
-                        color: "#ffffff",
+                        color: "#ff5454",
                         borderRadius: 10,
                         minWidth: 150,
                         "&:hover": {
-                          backgroundColor: "#fff",
-                          color: "#FF5454",
+                          color: "#FF5460",
                         },
                       }}
-                      onClick={() => handleDelete(user._id)}>
-                      Supprimer
-                    </Button>
+                      onClick={() => handleDelete(user._id)}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

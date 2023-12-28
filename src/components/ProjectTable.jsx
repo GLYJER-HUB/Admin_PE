@@ -7,8 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import AddProjectCard from "./AddProjectCard";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
@@ -53,15 +51,25 @@ export default function ProjectTable() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteProject(id);
+      const responseData = await response.json();
+      console.log(responseData);
+      console.log(response.status)
 
-      if (response.ok) {
-        window.location.reload();
+      if (response.status == 200) {
+        alert(responseData.message);
+
+           const updatedProjects = projects.filter(
+             (project) => project._id !== id
+           );
+           // Update the state with the new array
+           setProjects(updatedProjects);
+        
       }
     } catch (error) {
       console.error("Error during deletion:", error);
     }
 
-    forceUpdate();
+   
   };
 
   const [page, setPage] = useState(0);
