@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
+import AddProjectCard from "./AddProjectCard";
 
 const columns = [
   { id: "name", label: "Nom Projet", minWidth: 20 },
@@ -68,9 +69,8 @@ export default function ProjectTable() {
     } catch (error) {
       console.error("Error during deletion:", error);
     }
-
-   
   };
+  
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -94,6 +94,8 @@ export default function ProjectTable() {
     const handleClose = () => {
       setIsDialogOpen(false);
     };
+
+    
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
@@ -138,9 +140,9 @@ export default function ProjectTable() {
                           color: "#32B8A9",
                         },
                       }}
-					  onClick-={handleClickOpen}
+                      onClick={handleClickOpen}
                     />
-					<UpdateProjectCard open={isDialogOpen} onClose={handleClose}/>
+                    <UpdateProjectCard open={isDialogOpen} onClose={handleClose} id={project._id}/>
 
                     <DeleteIcon
                       sx={{

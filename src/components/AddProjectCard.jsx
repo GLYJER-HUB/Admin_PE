@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
@@ -19,9 +19,25 @@ import {
 } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
-import { addProject } from "../services/projectService";
+import { fetchProject, addProject } from "../services/projectService";
 
 const AddProjectCard = ({ open, onClose }) => {
+   const [projects, setProjects] = useState([]);
+   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
+
+    useEffect(() => {
+      const fetchProjects = async () => {
+        const response = await fetchProject();
+        const responseData = await response.json();
+        setProjects(responseData.projects);
+      
+      };
+
+      fetchProjects();
+    }, []);
+
+
+
   const [formData, setFormData] = useState({
     projectName: "",
     description: "",
@@ -79,10 +95,10 @@ const AddProjectCard = ({ open, onClose }) => {
 
     console.log(response.status);
    
-
     if (response.status == 201) {
       alert(responseData.message);
       onClose();
+      setProjects(response.projects)
     }
     else{
       alert(responseData.message)

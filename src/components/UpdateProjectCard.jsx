@@ -21,7 +21,7 @@ import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { updateProject } from "../services/projectService";
 
-const UpdateProjectCard = ({ open, onClose }) => {
+const UpdateProjectCard = ({ open, onClose, id }) => {
   const [formData, setFormData] = useState({
     projectName: "",
     description: "",
@@ -58,7 +58,7 @@ const UpdateProjectCard = ({ open, onClose }) => {
     });
   };
 
-  const handleAddProject = async (e) => {
+  const handleUpdateProject = async (e) => {
     e.preventDefault();
 
     const formDataForRequest = new FormData();
@@ -72,7 +72,7 @@ const UpdateProjectCard = ({ open, onClose }) => {
       }
     }
 
-    const response = await updateProject(formDataForRequest);
+    const response = await updateProject(formDataForRequest, id);
     const responseData = await response.json();
     console.log(responseData);
     // formDataForRequest.forEach(e => console.log(e));
@@ -243,7 +243,7 @@ const UpdateProjectCard = ({ open, onClose }) => {
               backgroundColor: colors.green,
               color: "white:hover",
             }}
-            onClick={handleAddProject}
+            onClick={handleUpdateProject}
           >
             Enregister
           </Button>

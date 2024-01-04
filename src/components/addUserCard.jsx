@@ -31,7 +31,16 @@ const AddUserCard = ({ open, onClose }) => {
   const handleAddUser = async () => {
     const user = { username, role };
     const response = await addUser(user);
+    console.log(response)
     const responseData = await response.json();
+    if(response.ok){
+      alert(responseData.message);
+      onClose()
+    }
+    else{
+      alert(responseData.message)
+    }
+    
   };
 
   return (

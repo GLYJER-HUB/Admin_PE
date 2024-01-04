@@ -18,7 +18,7 @@ export const addProject = async (data) => {
 }
 
 
-export const updateProject = async (data) => {
+export const updateProject = async (data, id) => {
   const response = await fetch(`${apiCredentials.BASE_URL}/projects/${id}`, {
     method: "PUT",
     body: data,
