@@ -23,13 +23,13 @@ import { fetchProjectById, updateProject } from "../services/projectService";
 
 const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
    const [formData, setFormData] = useState({
-     projectName: "",
+     project_name: "",
      description: "",
      discipline: "",
      type: "",
-     projectUrl: "",
+     project_url: "",
      authors: [],
-     yearOfSubmission: "",
+     year_of_submission: "",
    });
 
 
@@ -182,24 +182,24 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
               margin="normal"
               required
               fullWidth
-              name="projectName"
+              name="project_name"
               placeholder="Nom du projet"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
-              value={formData.projectName}
+              value={formData.project_name}
               onChange={handleInputChange}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="projectUrl"
+              name="project_url"
               placeholder="Url"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
-              value={formData.projectUrl}
+              value={formData.project_url}
               onChange={handleInputChange}
             />
           </Stack>
@@ -212,9 +212,9 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
               <Select
                 label="Year"
                 inputProps={{ id: "year-dropdown" }}
-                name="yearOfSubmission"
+                name=" year_of_submission"
                 sx={{ borderColor: colors.green, borderRadius: "8px" }}
-                value={formData.yearOfSubmission}
+                value={formData.year_of_submission}
                 onChange={handleInputChange}
               >
                 <MenuItem value="" disabled>
