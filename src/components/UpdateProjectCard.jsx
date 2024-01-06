@@ -24,7 +24,7 @@ import { fetchProjectById, updateProject } from "../services/projectService";
 const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
    const [formData, setFormData] = useState({
      project_name: "",
-     description: "",
+     description: "", 
      discipline: "",
      type: "",
      project_url: "",
