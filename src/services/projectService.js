@@ -5,6 +5,11 @@ export const fetchProject = async () => {
     return response;
 }
 
+export const fetchProjectById = async (id) => {
+    const response = await fetch(`${apiCredentials.BASE_URL}/projects/id/${id}`);
+    return response;
+}
+
 export const addProject = async (data) => {
     const response = await fetch(
         `${apiCredentials.BASE_URL}/projects/`,
@@ -16,7 +21,6 @@ export const addProject = async (data) => {
     );
     return response;
 }
-
 
 export const updateProject = async (data, id) => {
   const response = await fetch(`${apiCredentials.BASE_URL}/projects/${id}`, {

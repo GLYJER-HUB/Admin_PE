@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
@@ -19,44 +19,76 @@ import {
 } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
-import { updateProject } from "../services/projectService";
+import { fetchProjectById, updateProject } from "../services/projectService";
 
-const UpdateProjectCard = ({ open, onClose, id }) => {
-  const [formData, setFormData] = useState({
-    projectName: "",
-    description: "",
-    discipline: "",
-    type: "",
-    projectUrl: "",
-    authors: [],
-    yearOfSubmission: "",
-  });
+const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
+   const [formData, setFormData] = useState({
+     projectName: "",
+     description: "",
+     discipline: "",
+     type: "",
+     projectUrl: "",
+     authors: [],
+     yearOfSubmission: "",
+   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
 
-    setFormData((prevFormData) => {
-      if (name === "authors") {
-        const authorsArray = value.split(",").map((author) => author.trim());
-        return {
-          ...prevFormData,
-          [name]: authorsArray,
-        };
+  useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await fetchProjectById(projectId);
+
+        const responseData = await response.json();
+        console.log(responseData)
+
+        if (response.status === 200) {
+         
+          setFormData(responseData)
+        } else {
+          console.error(
+            "Failed to fetch project details:",
+            responseData.message
+          );
+        }
+      } catch (error) {
+        console.error("Error during project details fetching:", error);
       }
+    };
 
-      return {
-        ...prevFormData,
-        [name]: value,
-      };
-    });
-  };
+    // Fetch project details when the dialog is opened and projectId changes
+    if (open && projectId) {
+      fetchProjectDetails();
+    }
+  }, [open, projectId]);
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.files[0],
-    });
-  };
+  
+ 
+ const handleInputChange = (e) => {
+   const { name, value } = e.target;
+
+   setFormData((prevFormData) => {
+     if (name === "authors") {
+       const authorsArray = value.split(",").map((author) => author.trim());
+       return {
+         ...prevFormData,
+         [name]: authorsArray,
+       };
+     }
+
+     return {
+       ...prevFormData,
+       [name]: value,
+     };
+   });
+ };
+
+   const handleFileChange = (e) => {
+     setFormData({
+       ...formData,
+       [e.target.name]: e.target.files[0],
+     });
+   };
+
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
@@ -72,11 +104,19 @@ const UpdateProjectCard = ({ open, onClose, id }) => {
       }
     }
 
-    const response = await updateProject(formDataForRequest, id);
+    const response = await updateProject(formDataForRequest, projectId);
     const responseData = await response.json();
     console.log(responseData);
-    // formDataForRequest.forEach(e => console.log(e));
-    onClose = { onClose };
+
+    if (response.status === 200) {
+      alert(responseData.message);
+
+      if(onUpdate){onUpdate}
+
+      onClose(); // Close the dialog when the update is successful
+    } else {
+      alert(responseData.message);
+    }
   };
 
   return (

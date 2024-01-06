@@ -11,7 +11,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
-import AddProjectCard from "./AddProjectCard";
 
 const columns = [
   { id: "name", label: "Nom Projet", minWidth: 20 },
@@ -45,7 +44,6 @@ export default function ProjectTable() {
       setProjects(responseData.projects);
       setLoading(false);
     };
-
     fetchProjects();
   }, []);
 
@@ -55,6 +53,7 @@ export default function ProjectTable() {
       const responseData = await response.json();
       console.log(responseData);
       console.log(response.status)
+      console.log(id)
 
       if (response.status == 200) {
         alert(responseData.message);
@@ -84,18 +83,21 @@ export default function ProjectTable() {
     setPage(0);
   };
 
+    const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+    const [selectedProjectId, setSelectedProjectId] = useState(null);
 
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const handleClickOpen = () => {
-      setIsDialogOpen(true);
+    const handleUpdateDialogOpen = (projectId) => {
+      setSelectedProjectId(projectId);
+      setIsUpdateDialogOpen(true);
     };
 
-    const handleClose = () => {
-      setIsDialogOpen(false);
+    const handleUpdateDialogClose = () => {
+      setSelectedProjectId(null);
+      setIsUpdateDialogOpen(false);
     };
+  
 
-    
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
@@ -140,9 +142,14 @@ export default function ProjectTable() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={handleClickOpen}
+                      onClick={() => handleUpdateDialogOpen(project._id)}
                     />
-                    <UpdateProjectCard open={isDialogOpen} onClose={handleClose} id={project._id}/>
+                    <UpdateProjectCard
+                      open={isUpdateDialogOpen}
+                      onClose={handleUpdateDialogClose}
+                      projectId={selectedProjectId}
+                      onUpdate={fetchProject}
+                    />
 
                     <DeleteIcon
                       sx={{

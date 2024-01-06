@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser } from "../services/userService";
+import AddUserCard from "./addUserCard";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -35,6 +36,7 @@ const columns = [
 export default function UserTabble() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -50,18 +52,16 @@ export default function UserTabble() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteUser(id);
-       const responseData = await response.json();
-       console.log(responseData);
-       console.log(response.status);
+      const responseData = await response.json();
+      console.log(responseData);
+      console.log(response.status);
 
       if (response.status == 200) {
         alert(responseData.message);
 
-          const updatedUsers = users.filter(
-            (user) => user._id !== id
-          );
-          // Update the state with the new array
-          setUsers(updatedUsers);
+        const updatedUsers = users.filter((user) => user._id !== id);
+        // Update the state with the new array
+        setUsers(updatedUsers);
       }
     } catch (error) {
       console.error("Error during deletion:", error);
@@ -78,6 +78,14 @@ export default function UserTabble() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleClickOpen = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsDialogOpen(false);
   };
 
   return (
@@ -123,7 +131,9 @@ export default function UserTabble() {
                           color: "#32B8A9",
                         },
                       }}
+                      onClick={handleClickOpen}
                     />
+                    <AddUserCard open={isDialogOpen} onClose={handleClose}/>
 
                     <DeleteIcon
                       sx={{
