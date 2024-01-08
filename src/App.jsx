@@ -11,7 +11,6 @@ import BoardTable from './screens/BoardTable';
 import Login from './screens/Login';
 
 
-
 function App() {
 
   return (

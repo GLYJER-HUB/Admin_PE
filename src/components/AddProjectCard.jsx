@@ -32,7 +32,6 @@ const AddProjectCard = ({ open, onClose }) => {
         setProjects(responseData.projects);
       
       };
-
       fetchProjects();
     }, []);
 

@@ -28,6 +28,9 @@ export default function LoginCard() {
     setButtonLabel('Connecting'); // Change button label on form submission
 
     const response = await login(user);
+    console.log(response);
+    const responseData = response.json();
+    console.log(responseData)
 
     if (response.ok) {
       // Handle successful login

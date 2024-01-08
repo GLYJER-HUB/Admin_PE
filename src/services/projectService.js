@@ -31,7 +31,6 @@ export const updateProject = async (data, id) => {
   return response;
 };
 
-
 export const deleteProject = async (id) => {
     const response = await fetch(
         `${apiCredentials.BASE_URL}/projects/delete/${id}`,
