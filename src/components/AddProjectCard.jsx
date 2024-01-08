@@ -22,19 +22,19 @@ import Button from "@mui/material/Button";
 import { fetchProject, addProject } from "../services/projectService";
 
 const AddProjectCard = ({ open, onClose }) => {
-   const [projects, setProjects] = useState([]);
-   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
 
-    useEffect(() => {
-      const fetchProjects = async () => {
-        const response = await fetchProject();
-        const responseData = await response.json();
-        setProjects(responseData.projects);
-      
-      };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetchProject();
+      const responseData = await response.json();
+      setProjects(responseData.projects);
 
-      fetchProjects();
-    }, []);
+    };
+
+    fetchProjects();
+  }, []);
 
 
 
@@ -94,13 +94,13 @@ const AddProjectCard = ({ open, onClose }) => {
     // formDataForRequest.forEach(e => console.log(e));
 
     console.log(response.status);
-   
+
     if (response.status == 201) {
       alert(responseData.message);
       onClose();
       setProjects(response.projects)
     }
-    else{
+    else {
       alert(responseData.message)
     }
   };

@@ -22,15 +22,26 @@ import Button from "@mui/material/Button";
 import { fetchProjectById, updateProject } from "../services/projectService";
 
 const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
-   const [formData, setFormData] = useState({
-     project_name: "",
-     description: "", 
-     discipline: "",
-     type: "",
-     project_url: "",
-     authors: [],
-     year_of_submission: "",
-   });
+  const [formData, setFormData] = useState({
+    project_name: "",
+    description: "",
+    discipline: "",
+    type: "",
+    project_url: "",
+    authors: [],
+    year_of_submission: "",
+  });
+
+
+  const [finalFormData, setFinalFormData] = useState({
+    projectName: "",
+    description: "",
+    discipline: "",
+    type: "",
+    projectUrl: "",
+    authors: [],
+    yearOfSubmission: "",
+  });
 
 
   useEffect(() => {
@@ -39,11 +50,21 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
         const response = await fetchProjectById(projectId);
 
         const responseData = await response.json();
-        console.log(responseData)
+        setFormData(responseData);
 
         if (response.status === 200) {
-         
-          setFormData(responseData)
+          // Extract only the desired fields from responseData
+          const filteredData = {
+            projectName: responseData.project_name,
+            description: responseData.description,
+            discipline: responseData.discipline,
+            type: responseData.type,
+            projectUrl: responseData.project_url,
+            authors: responseData.authors,
+            yearOfSubmission: responseData.year_of_submission,
+          };
+
+          setFinalFormData(filteredData);
         } else {
           console.error(
             "Failed to fetch project details:",
@@ -61,57 +82,58 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
     }
   }, [open, projectId]);
 
-  
- 
- const handleInputChange = (e) => {
-   const { name, value } = e.target;
 
-   setFormData((prevFormData) => {
-     if (name === "authors") {
-       const authorsArray = value.split(",").map((author) => author.trim());
-       return {
-         ...prevFormData,
-         [name]: authorsArray,
-       };
-     }
 
-     return {
-       ...prevFormData,
-       [name]: value,
-     };
-   });
- };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-   const handleFileChange = (e) => {
-     setFormData({
-       ...formData,
-       [e.target.name]: e.target.files[0],
-     });
-   };
+    setFormData((prevFormData) => {
+      if (name === "authors") {
+        const authorsArray = value.split(",").map((author) => author.trim());
+        return {
+          ...prevFormData,
+          [name]: authorsArray,
+        };
+      }
+
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.files[0],
+    });
+  };
 
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
 
     const formDataForRequest = new FormData();
-    for (const key in formData) {
-      if (key === "authors" && Array.isArray(formData[key])) {
-        formData[key].forEach((author, index) => {
+    for (const key in finalFormData) {
+      if (key === "authors" && Array.isArray(finalFormData[key])) {
+        finalFormData[key].forEach((author, index) => {
           formDataForRequest.append(`authors[${index}]`, author);
         });
       } else {
-        formDataForRequest.append(key, formData[key]);
+        formDataForRequest.append(key, finalFormData[key]);
       }
     }
 
     const response = await updateProject(formDataForRequest, projectId);
     const responseData = await response.json();
-    console.log(responseData);
+
+    console.log(finalFormData);
 
     if (response.status === 200) {
       alert(responseData.message);
 
-      if(onUpdate){onUpdate}
+      if (onUpdate) { onUpdate }
 
       onClose(); // Close the dialog when the update is successful
     } else {
