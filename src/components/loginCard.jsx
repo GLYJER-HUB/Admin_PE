@@ -41,83 +41,104 @@ export default function LoginCard() {
   };
 
   return (
-    <Container sx={{
-      height: '100vh',
-      width: '100vw',
-      backgroundColor: 'white',
-    }}>
-      <Container maxWidth="xs"
+    <>
+      <Container
+        
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: '100vh',
-        }}>
-
-        <Card sx={{
-          width: '100%',
-          borderRadius: 2
-        }}>
-
-          <CardContent>
-            {/* Logo */}
-            <div style={{ textAlign: 'center' }}>
-              <img src={Logo} alt="Logo" style={{ width: '80px', height: '120px' }} />
-            </div>
-
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, alignContent: 'center' }}>
-              <Stack direction="column" sx={{ alignItems: 'center' }}>
-
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  required
-                  id="username"
-                  label="Username"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  sx={{ borderColor: colors.primary, color: colors.primary }}
+          width:"100%",
+          height: "100%",
+          backgroundColor: "white",
+        }}
+      >
+        <Container
+          maxWidth="xs"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Card
+            sx={{
+              width: "100%",
+              borderRadius: 2,
+            }}
+          >
+            <CardContent>
+              {/* Logo */}
+              <div style={{ textAlign: "center" }}>
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  style={{ width: "80px", height: "120px" }}
                 />
+              </div>
 
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  required
-                  name="password"
-                  label="Password"
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  autoComplete="current-password"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1, alignContent: "center" }}
+              >
+                <Stack direction="column" sx={{ alignItems: "center" }}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    sx={{ borderColor: colors.primary, color: colors.primary }}
+                  />
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, background: colors.primary, borderRadius: 3 }}
-                >
-                  {buttonLabel}
-                </Button>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    required
+                    name="password"
+                    label="Password"
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    autoComplete="current-password"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword(!showPassword)}
+                            edge="end"
+                          >
+                            {showPassword ? (
+                              <VisibilityOffIcon />
+                            ) : (
+                              <VisibilityIcon />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
 
-              </Stack>
-
-            </Box>
-          </CardContent>
-
-        </Card>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      background: colors.primary,
+                      borderRadius: 3,
+                    }}
+                  >
+                    {buttonLabel}
+                  </Button>
+                </Stack>
+              </Box>
+            </CardContent>
+          </Card>
+        </Container>
       </Container>
-    </Container>
+    </>
   );
 }

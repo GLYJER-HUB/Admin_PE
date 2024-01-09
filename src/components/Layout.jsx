@@ -7,7 +7,10 @@ import { Box } from "@mui/material";
 const Layout = () => {
   return (
     <>
-      <Box component="body">
+      <Box
+        component="body"
+        sx={{ display: "flex", mt: 15, minHeight: "100vh" }}
+      >
         <DrawerNav />
         <Outlet />
       </Box>

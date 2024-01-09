@@ -12,6 +12,7 @@ const theme = createTheme({
 const BoardTable = () => {
   return (
     <>
+      
       <Box>
         <Typography
           variant="h4"
