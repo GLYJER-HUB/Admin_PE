@@ -67,12 +67,11 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
           setFinalFormData(filteredData);
         } else {
           console.error(
-            "Failed to fetch project details:",
-            responseData.message
+            "Failed to fetch project details",
           );
         }
       } catch (error) {
-        console.error("Error during project details fetching:", error);
+        console.error("Error during project details fetching");
       }
     };
 
@@ -127,8 +126,6 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
 
     const response = await updateProject(formDataForRequest, projectId);
     const responseData = await response.json();
-
-    console.log(finalFormData);
 
     if (response.status === 200) {
       alert(responseData.message);

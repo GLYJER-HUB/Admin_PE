@@ -90,10 +90,6 @@ const AddProjectCard = ({ open, onClose }) => {
 
     const response = await addProject(formDataForRequest);
     const responseData = await response.json();
-    console.log(responseData);
-    // formDataForRequest.forEach(e => console.log(e));
-
-    console.log(response.status);
 
     if (response.status == 201) {
       alert(responseData.message);
