@@ -34,6 +34,8 @@ export default function LoginCard() {
       navigate('/tableau-de-bord');
     } else {
       setButtonLabel('Connect'); // Reset button label if login fails
+      const responseData = await response.json();
+      alert(responseData.message);
     }
   };
 

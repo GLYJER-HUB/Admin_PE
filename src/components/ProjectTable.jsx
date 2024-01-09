@@ -63,7 +63,7 @@ export default function ProjectTable() {
 
       }
     } catch (error) {
-      console.error("Error during deletion");
+      console.error("Error during deletion:", error);
     }
   };
 
@@ -81,16 +81,16 @@ export default function ProjectTable() {
   };
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
 
-  const handleUpdateDialogOpen = (projectId) => {
-    setSelectedProjectId(projectId);
+  const handleUpdateDialogOpen = (project) => {
+    setSelectedProject(project);
     setIsUpdateDialogOpen(true);
   };
 
   const handleUpdateDialogClose = () => {
-    setSelectedProjectId(null);
+    setSelectedProject(null);
     setIsUpdateDialogOpen(false);
   };
 
@@ -139,12 +139,12 @@ export default function ProjectTable() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={() => handleUpdateDialogOpen(project._id)}
+                      onClick={() => handleUpdateDialogOpen(project)}
                     />
                     <UpdateProjectCard
                       open={isUpdateDialogOpen}
                       onClose={handleUpdateDialogClose}
-                      projectId={selectedProjectId}
+                      project={selectedProject}
                       onUpdate={fetchProject}
                     />
 
