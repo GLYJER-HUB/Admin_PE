@@ -89,7 +89,7 @@ export default function UserTabble() {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
+    <Paper sx={{ width: "75vw", overflow: "hidden", mb: 10 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -99,6 +99,7 @@ export default function UserTabble() {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  sx={{ fontWeight: 900, backgroundColor: "#eae8e4" }}
                 >
                   {column.label}
                 </TableCell>
@@ -133,7 +134,7 @@ export default function UserTabble() {
                       }}
                       onClick={handleClickOpen}
                     />
-                    <AddUserCard open={isDialogOpen} onClose={handleClose}/>
+                    <AddUserCard open={isDialogOpen} onClose={handleClose} />
 
                     <DeleteIcon
                       sx={{
