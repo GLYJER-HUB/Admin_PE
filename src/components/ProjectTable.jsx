@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
+import useAlertStore from "../store/alertStore";
 
 const columns = [
   { id: "name", label: "Nom Projet", minWidth: 20 },
@@ -36,6 +37,7 @@ const columns = [
 export default function ProjectTable() {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
+  const { setAlert } = useAlertStore();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -53,14 +55,15 @@ export default function ProjectTable() {
       const responseData = await response.json();
 
       if (response.status == 200) {
-        alert(responseData.message);
+        // Trigger alert
+        setAlert(responseData.message, 'success');
 
         const updatedProjects = projects.filter(
           (project) => project._id !== id
         );
+
         // Update the state with the new array
         setProjects(updatedProjects);
-
       }
     } catch (error) {
       console.error("Error during deletion:", error);

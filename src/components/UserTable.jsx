@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser } from "../services/userService";
 import AddUserCard from "./addUserCard";
+import useAlertStore from "../store/alertStore";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -37,6 +38,7 @@ export default function UserTabble() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { alert, setAlert } = useAlertStore();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -55,7 +57,7 @@ export default function UserTabble() {
       const responseData = await response.json();
 
       if (response.status == 200) {
-        alert(responseData.message);
+        setAlert(responseData.message, 'success');
 
         const updatedUsers = users.filter((user) => user._id !== id);
         // Update the state with the new array
@@ -131,7 +133,7 @@ export default function UserTabble() {
                       }}
                       onClick={handleClickOpen}
                     />
-                    <AddUserCard open={isDialogOpen} onClose={handleClose}/>
+                    <AddUserCard open={isDialogOpen} onClose={handleClose} />
 
                     <DeleteIcon
                       sx={{

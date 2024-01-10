@@ -15,10 +15,12 @@ import {
 import Button from "@mui/material/Button";
 import { colors } from "../utilities/colors";
 import { updateUser } from "../services/userService";
+import useAlertStore from "../store/alertStore";
 
 const UpdateUserCard = ({ open, onClose, id }) => {
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
+  const { alert, setAlert } = useAlertStore();
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
@@ -31,13 +33,13 @@ const UpdateUserCard = ({ open, onClose, id }) => {
   const handleUpdateUser = async () => {
     const user = { username, role };
     const response = await updateUser(user, id);
-    console.log(response);
     const responseData = await response.json();
+
     if (response.ok) {
-      alert(responseData.message);
+      setAlert(responseData.message, 'success');
       onClose();
     } else {
-      alert(responseData.message);
+      setAlert(responseData.message, 'error');
     }
   };
 
