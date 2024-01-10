@@ -93,7 +93,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
   };
 
 
-  const handleUpdateProject = async (e) => {
+  const handleUpdateProject = async (e) =>  {
     e.preventDefault();
 
     // Create new form data for the request and do mapping

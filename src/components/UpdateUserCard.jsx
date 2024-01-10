@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   TextField,
@@ -18,11 +18,17 @@ import { updateUser } from "../services/userService";
 import useAlertStore from "../store/alertStore";
 
 const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
-
   const [userID, setUserId] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
   const { alert, setAlert } = useAlertStore();
+
+  useEffect(()=>{
+    if(user){
+      console.log(user);
+      
+    }
+  })
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
@@ -32,15 +38,17 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
     setUsername(event.target.value);
   };
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (userId) => {
     const user = { username, role };
-    const response = await updateUser(user, id);
+    const response = await updateUser(user, userId);
     const responseData = await response.json();
 
     if (response.ok) {
+      console.log(responseData)
       setAlert(responseData.message, 'success');
       onClose();
     } else {
+      console.log(responseData);
       setAlert(responseData.message, 'error');
     }
   };
@@ -104,9 +112,9 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
               backgroundColor: colors.green,
               color: "white:hover",
             }}
-            onClick={handleAddUser}
+            onClick={handleUpdateUser}
           >
-            Enregister
+            Modifier
           </Button>
 
           <Button

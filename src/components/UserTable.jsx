@@ -13,6 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser } from "../services/userService";
 import AddUserCard from "./addUserCard";
 import useAlertStore from "../store/alertStore";
+import UpdateUserCard from "./UpdateUserCard";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -57,7 +58,7 @@ export default function UserTabble() {
       const responseData = await response.json();
 
       if (response.status == 200) {
-        setAlert(responseData.message, 'success');
+        setAlert(responseData.message, "success");
 
         const updatedUsers = users.filter((user) => user._id !== id);
         // Update the state with the new array
@@ -80,12 +81,17 @@ export default function UserTabble() {
     setPage(0);
   };
 
-  const handleClickOpen = () => {
-    setIsDialogOpen(true);
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleUpdateDialogOpen = (user) => {
+    setSelectedUser(user);
+    setIsUpdateDialogOpen(true);
   };
 
-  const handleClose = () => {
-    setIsDialogOpen(false);
+  const handleUpdateDialogClose = () => {
+    setSelectedUser(null);
+    setIsUpdateDialogOpen(false);
   };
 
   return (
@@ -131,9 +137,14 @@ export default function UserTabble() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={handleClickOpen}
+                      onClick={() => handleUpdateDialogOpen(user)}
                     />
-                    <AddUserCard open={isDialogOpen} onClose={handleClose} />
+                    <UpdateUserCard
+                      open={isUpdateDialogOpen}
+                      onClose={handleUpdateDialogClose}
+                      user={selectedUser}
+                      onUpdate={fetchUser}
+                    />
 
                     <DeleteIcon
                       sx={{

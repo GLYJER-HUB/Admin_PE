@@ -31,6 +31,13 @@ export const updateProject = async (data, id) => {
     return response;
 };
 
+export const searchProject = async () => {
+    const response = await fetch(
+
+    );
+    return response;
+}
+
 export const deleteProject = async (id) => {
     const response = await fetch(
         `${apiCredentials.BASE_URL}/projects/delete/${id}`,
