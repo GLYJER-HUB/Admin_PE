@@ -54,13 +54,22 @@ export default function ProjectTable() {
       const response = await deleteProject(id);
       const responseData = await response.json();
 
+      console.log(responseData);
+      console.log(response.status);
+      console.log(id);
+
+      if (response.status == 200) {
+        alert(responseData.message)
+
       if (response.status == 200) {
         // Trigger alert
         setAlert(responseData.message, 'success');
 
+
         const updatedProjects = projects.filter(
           (project) => project._id !== id
         );
+
 
         // Update the state with the new array
         setProjects(updatedProjects);
@@ -84,9 +93,21 @@ export default function ProjectTable() {
   };
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
 
+  const handleUpdateDialogOpen = (projectId) => {
+    setSelectedProjectId(projectId);
+    setIsUpdateDialogOpen(true);
+  };
+
+
+  const handleUpdateDialogClose = () => {
+    setSelectedProjectId(null);
+    setIsUpdateDialogOpen(false);
+  };
   const handleUpdateDialogOpen = (project) => {
     setSelectedProject(project);
     setIsUpdateDialogOpen(true);
@@ -100,7 +121,7 @@ export default function ProjectTable() {
 
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
+    <Paper sx={{ width: "75vw", overflow: "hidden", mb: 10 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -110,6 +131,7 @@ export default function ProjectTable() {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  sx={{ fontWeight: 900, backgroundColor: "#eae8e4" }}
                 >
                   {column.label}
                 </TableCell>

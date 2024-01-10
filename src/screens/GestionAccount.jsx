@@ -16,15 +16,15 @@ import UserTable from "../components/UserTable";
 import AddUserCard from "../components/addUserCard";
 
 const GestrionAccount = () => {
-   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-   const handleClickOpen = () => {
-     setIsDialogOpen(true);
-   };
+  const handleClickOpen = () => {
+    setIsDialogOpen(true);
+  };
 
-   const handleClose = () => {
-     setIsDialogOpen(false);
-   };
+  const handleClose = () => {
+    setIsDialogOpen(false);
+  };
 
   return (
     <Box>
@@ -38,7 +38,7 @@ const GestrionAccount = () => {
         </Typography>
 
         <Box display={"flex"} sx={{}}>
-          <Stack sx={{ pt: 2 }} direction="row" spacing={50}>
+          <Stack sx={{ pt: 2, mb: 5 }} direction="row" spacing={75}>
             <Search />
             <Button
               sx={{
@@ -59,6 +59,7 @@ const GestrionAccount = () => {
           <UserTable />
         </Box>
       </Box>
+      
     </Box>
   );
 };

@@ -28,6 +28,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
 
+
+
 const drawerWidth = 260;
 
 const openedMixin = (theme) => ({
@@ -116,8 +118,9 @@ const menus = [
 export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
-
     const [anchorEl, setAnchorEl] = useState(null);
+
+    
 
     const handleDrawerOpen = () => {
         setOpen(true);
