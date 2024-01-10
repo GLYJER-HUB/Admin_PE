@@ -32,7 +32,8 @@ const GestrionAccount = () => {
       <Box>
         <Typography
           variant="h4"
-          sx={{ fontWeight: "bold", color: colors.third }}>
+          sx={{ fontWeight: "bold", color: colors.third }}
+        >
           Gestion des Comptes
         </Typography>
 
@@ -47,14 +48,16 @@ const GestrionAccount = () => {
                 width: 200,
               }}
               variant="outlined"
-              onClick={handleClickOpen}>
+              onClick={handleClickOpen}
+            >
               Ajouter Utilisateur
             </Button>
-            <AddUserCard open={isDialogOpen} onClose={handleClose}/>
+            <AddUserCard open={isDialogOpen} onClose={handleClose} />
           </Stack>
-         
         </Box>
-        <UserTable />
+        <Box sx={{ mt: 5 }}>
+          <UserTable />
+        </Box>
       </Box>
     </Box>
   );

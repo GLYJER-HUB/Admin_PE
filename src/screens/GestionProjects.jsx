@@ -52,7 +52,9 @@ const GestionProjects = () => {
 
           <AddProjectCard open={isDialogOpen} onClose={handleClose} />
         </Box>
-        <ProjectTable />
+        <Box sx={{ mt: 5 }}>
+          <ProjectTable />
+        </Box>
       </Box>
     </Box>
   );

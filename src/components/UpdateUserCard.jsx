@@ -16,7 +16,9 @@ import Button from "@mui/material/Button";
 import { colors } from "../utilities/colors";
 import { updateUser } from "../services/userService";
 
-const UpdateUserCard = ({ open, onClose, id }) => {
+const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
+
+  const [userID, setUserId] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
 
