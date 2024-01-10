@@ -20,22 +20,23 @@ import {
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { fetchProject, addProject } from "../services/projectService";
+import useAlertStore from "../store/alertStore";
 
 const AddProjectCard = ({ open, onClose }) => {
-   const [projects, setProjects] = useState([]);
-   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
+  const { alert, setAlert } = useAlertStore();
 
-    useEffect(() => {
-      const fetchProjects = async () => {
-        const response = await fetchProject();
-        const responseData = await response.json();
-        setProjects(responseData.projects);
-      
-      };
-      fetchProjects();
-    }, []);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetchProject();
+      const responseData = await response.json();
+      setProjects(responseData.projects);
 
+    };
 
+    fetchProjects();
+  }, []);
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -89,18 +90,16 @@ const AddProjectCard = ({ open, onClose }) => {
 
     const response = await addProject(formDataForRequest);
     const responseData = await response.json();
-    console.log(responseData);
-    // formDataForRequest.forEach(e => console.log(e));
 
-    console.log(response.status);
-   
     if (response.status == 201) {
-      alert(responseData.message);
+      // Trigger alert
+      setAlert(responseData.message, 'success');
+
       onClose();
       setProjects(response.projects)
     }
-    else{
-      alert(responseData.message)
+    else {
+      setAlert(responseData.message, 'error');
     }
   };
 

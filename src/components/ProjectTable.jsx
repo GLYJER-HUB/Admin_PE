@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchProject, deleteProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
+import useAlertStore from "../store/alertStore";
 
 const columns = [
   { id: "name", label: "Nom Projet", minWidth: 20 },
@@ -36,6 +37,7 @@ const columns = [
 export default function ProjectTable() {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
+  const { setAlert } = useAlertStore();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -51,16 +53,24 @@ export default function ProjectTable() {
     try {
       const response = await deleteProject(id);
       const responseData = await response.json();
+
       console.log(responseData);
       console.log(response.status);
       console.log(id);
 
       if (response.status == 200) {
-        alert(responseData.message);
+        alert(responseData.message)
+
+      if (response.status == 200) {
+        // Trigger alert
+        setAlert(responseData.message, 'success');
+
 
         const updatedProjects = projects.filter(
           (project) => project._id !== id
         );
+
+
         // Update the state with the new array
         setProjects(updatedProjects);
       }
@@ -68,6 +78,7 @@ export default function ProjectTable() {
       console.error("Error during deletion:", error);
     }
   };
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -82,17 +93,32 @@ export default function ProjectTable() {
   };
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+
   const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+
 
   const handleUpdateDialogOpen = (projectId) => {
     setSelectedProjectId(projectId);
     setIsUpdateDialogOpen(true);
   };
 
+
   const handleUpdateDialogClose = () => {
     setSelectedProjectId(null);
     setIsUpdateDialogOpen(false);
   };
+  const handleUpdateDialogOpen = (project) => {
+    setSelectedProject(project);
+    setIsUpdateDialogOpen(true);
+  };
+
+  const handleUpdateDialogClose = () => {
+    setSelectedProject(null);
+    setIsUpdateDialogOpen(false);
+  };
+
+
 
   return (
     <Paper sx={{ width: "75vw", overflow: "hidden", mb: 10 }}>
@@ -138,12 +164,12 @@ export default function ProjectTable() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={() => handleUpdateDialogOpen(project._id)}
+                      onClick={() => handleUpdateDialogOpen(project)}
                     />
                     <UpdateProjectCard
                       open={isUpdateDialogOpen}
                       onClose={handleUpdateDialogClose}
-                      projectId={selectedProjectId}
+                      project={selectedProject}
                       onUpdate={fetchProject}
                     />
 

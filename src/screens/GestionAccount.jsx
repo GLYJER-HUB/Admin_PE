@@ -55,7 +55,9 @@ const GestrionAccount = () => {
             <AddUserCard open={isDialogOpen} onClose={handleClose} />
           </Stack>
         </Box>
-        <UserTable />
+        <Box sx={{ mt: 5 }}>
+          <UserTable />
+        </Box>
       </Box>
       
     </Box>

@@ -12,6 +12,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser } from "../services/userService";
 import AddUserCard from "./addUserCard";
+import useAlertStore from "../store/alertStore";
+import UpdateUserCard from "./UpdateUserCard";
 
 const columns = [
   { id: "name", label: "Nom", minWidth: 20 },
@@ -37,6 +39,7 @@ export default function UserTabble() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { alert, setAlert } = useAlertStore();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -53,18 +56,16 @@ export default function UserTabble() {
     try {
       const response = await deleteUser(id);
       const responseData = await response.json();
-      console.log(responseData);
-      console.log(response.status);
 
       if (response.status == 200) {
-        alert(responseData.message);
+        setAlert(responseData.message, "success");
 
         const updatedUsers = users.filter((user) => user._id !== id);
         // Update the state with the new array
         setUsers(updatedUsers);
       }
     } catch (error) {
-      console.error("Error during deletion:", error);
+      console.error("Error during deletion:");
     }
   };
 
@@ -80,12 +81,17 @@ export default function UserTabble() {
     setPage(0);
   };
 
-  const handleClickOpen = () => {
-    setIsDialogOpen(true);
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleUpdateDialogOpen = (user) => {
+    setSelectedUser(user);
+    setIsUpdateDialogOpen(true);
   };
 
-  const handleClose = () => {
-    setIsDialogOpen(false);
+  const handleUpdateDialogClose = () => {
+    setSelectedUser(null);
+    setIsUpdateDialogOpen(false);
   };
 
   return (
@@ -132,9 +138,17 @@ export default function UserTabble() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={handleClickOpen}
+                      onClick={() => handleUpdateDialogOpen(user)}
                     />
+                    <UpdateUserCard
+                      open={isUpdateDialogOpen}
+                      onClose={handleUpdateDialogClose}
+                      user={selectedUser}
+                      onUpdate={fetchUser}
+                    />
+
                     <AddUserCard open={isDialogOpen} onClose={handleClose} />
+
 
                     <DeleteIcon
                       sx={{
