@@ -20,8 +20,10 @@ import {
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { updateProject } from "../services/projectService";
+import useAlertStore from "../store/alertStore";
 
 const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
+  const { alert, setAlert } = useAlertStore();
   const [projectId, setProjectId] = useState('');
   const [formData, setFormData] = useState({
     projectName: "",
@@ -110,13 +112,13 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
     const responseData = await response.json();
 
     if (response.status === 200) {
-      alert(responseData.message);
+      setAlert(responseData.message, 'success');
 
       if (onUpdate) { onUpdate }
 
       onClose(); // Close the dialog when the update is successful
     } else {
-      alert(responseData.message);
+      setAlert(responseData.message, 'error');
     }
   };
 

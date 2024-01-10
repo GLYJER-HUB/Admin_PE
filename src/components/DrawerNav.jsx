@@ -26,6 +26,7 @@ import logo from "../assets/UE.png";
 import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
+import AlertMessage from "./AlertMessage";
 
 const drawerWidth = 260;
 
@@ -181,6 +182,7 @@ export default function MiniDrawer() {
                             flexWrap: "wrap",
                             color: colors.primary,
                         }}>
+                        <AlertMessage />
                         <Typography>John Doe</Typography>
                         <span>
                             <IconButton

@@ -20,23 +20,23 @@ import {
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { fetchProject, addProject } from "../services/projectService";
+import useAlertStore from "../store/alertStore";
 
 const AddProjectCard = ({ open, onClose }) => {
   const [projects, setProjects] = useState([]);
   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
+  const { alert, setAlert } = useAlertStore();
 
-    useEffect(() => {
-      const fetchProjects = async () => {
-        const response = await fetchProject();
-        const responseData = await response.json();
-        setProjects(responseData.projects);
-      
-      };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetchProject();
+      const responseData = await response.json();
+      setProjects(responseData.projects);
 
-      fetchProjects();
-    }, []);
+    };
 
-
+    fetchProjects();
+  }, []);
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -92,12 +92,14 @@ const AddProjectCard = ({ open, onClose }) => {
     const responseData = await response.json();
 
     if (response.status == 201) {
-      alert(responseData.message);
+      // Trigger alert
+      setAlert(responseData.message, 'success');
+
       onClose();
       setProjects(response.projects)
     }
     else {
-      alert(responseData.message)
+      setAlert(responseData.message, 'error');
     }
   };
 

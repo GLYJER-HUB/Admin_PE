@@ -16,6 +16,7 @@ export default function LoginCard() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [buttonLabel, setButtonLabel] = useState('Connect');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,8 +29,7 @@ export default function LoginCard() {
     setButtonLabel('Connecting'); // Change button label on form submission
 
     const response = await login(user);
-    console.log(response);
-    const responseData = response.json();
+    const responseData = await response.json();
     console.log(responseData)
 
     if (response.ok) {
@@ -37,17 +37,16 @@ export default function LoginCard() {
       navigate('/tableau-de-bord');
     } else {
       setButtonLabel('Connect'); // Reset button label if login fails
-      const responseData = await response.json();
-      alert(responseData.message);
+      setError(responseData.message);
     }
   };
 
   return (
     <>
       <Container
-        
+
         sx={{
-          width:"100%",
+          width: "100%",
           height: "100%",
           backgroundColor: "white",
         }}
@@ -104,6 +103,10 @@ export default function LoginCard() {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     autoComplete="current-password"
+                    helperText={error}
+                    FormHelperTextProps={{
+                      style: { color: '#ff0000' } 
+                    }}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
