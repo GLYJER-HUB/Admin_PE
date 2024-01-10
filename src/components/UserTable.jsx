@@ -53,8 +53,6 @@ export default function UserTabble() {
     try {
       const response = await deleteUser(id);
       const responseData = await response.json();
-      console.log(responseData);
-      console.log(response.status);
 
       if (response.status == 200) {
         alert(responseData.message);
@@ -64,7 +62,7 @@ export default function UserTabble() {
         setUsers(updatedUsers);
       }
     } catch (error) {
-      console.error("Error during deletion:", error);
+      console.error("Error during deletion:");
     }
   };
 

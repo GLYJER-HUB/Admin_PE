@@ -51,25 +51,22 @@ export default function ProjectTable() {
     try {
       const response = await deleteProject(id);
       const responseData = await response.json();
-      console.log(responseData);
-      console.log(response.status)
-      console.log(id)
 
       if (response.status == 200) {
         alert(responseData.message);
 
-           const updatedProjects = projects.filter(
-             (project) => project._id !== id
-           );
-           // Update the state with the new array
-           setProjects(updatedProjects);
-        
+        const updatedProjects = projects.filter(
+          (project) => project._id !== id
+        );
+        // Update the state with the new array
+        setProjects(updatedProjects);
+
       }
     } catch (error) {
       console.error("Error during deletion:", error);
     }
   };
-  
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -83,20 +80,20 @@ export default function ProjectTable() {
     setPage(0);
   };
 
-    const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
-    const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
 
-    const handleUpdateDialogOpen = (projectId) => {
-      setSelectedProjectId(projectId);
-      setIsUpdateDialogOpen(true);
-    };
+  const handleUpdateDialogOpen = (project) => {
+    setSelectedProject(project);
+    setIsUpdateDialogOpen(true);
+  };
 
-    const handleUpdateDialogClose = () => {
-      setSelectedProjectId(null);
-      setIsUpdateDialogOpen(false);
-    };
-  
+  const handleUpdateDialogClose = () => {
+    setSelectedProject(null);
+    setIsUpdateDialogOpen(false);
+  };
+
 
 
   return (
@@ -142,12 +139,12 @@ export default function ProjectTable() {
                           color: "#32B8A9",
                         },
                       }}
-                      onClick={() => handleUpdateDialogOpen(project._id)}
+                      onClick={() => handleUpdateDialogOpen(project)}
                     />
                     <UpdateProjectCard
                       open={isUpdateDialogOpen}
                       onClose={handleUpdateDialogClose}
-                      projectId={selectedProjectId}
+                      project={selectedProject}
                       onUpdate={fetchProject}
                     />
 

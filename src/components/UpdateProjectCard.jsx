@@ -19,80 +19,82 @@ import {
 } from "@mui/material";
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
-import { fetchProjectById, updateProject } from "../services/projectService";
+import { updateProject } from "../services/projectService";
 
-const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
-   const [formData, setFormData] = useState({
-     project_name: "",
-     description: "", 
-     discipline: "",
-     type: "",
-     project_url: "",
-     authors: [],
-     year_of_submission: "",
-   });
+const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
+  const [projectId, setProjectId] = useState('');
+  const [formData, setFormData] = useState({
+    projectName: "",
+    description: "",
+    discipline: "",
+    type: "",
+    projectUrl: "",
+    authors: [],
+    yearOfSubmission: "",
+  });
 
 
   useEffect(() => {
-    const fetchProjectDetails = async () => {
-      try {
-        const response = await fetchProjectById(projectId);
-
-        const responseData = await response.json();
-        console.log(responseData)
-
-        if (response.status === 200) {
-         
-          setFormData(responseData)
-        } else {
-          console.error(
-            "Failed to fetch project details:",
-            responseData.message
-          );
-        }
-      } catch (error) {
-        console.error("Error during project details fetching:", error);
-      }
-    };
-
-    // Fetch project details when the dialog is opened and projectId changes
-    if (open && projectId) {
-      fetchProjectDetails();
+    if (project) {
+      setFormData({
+        projectName: project.project_name,
+        description: project.description,
+        discipline: project.discipline,
+        type: project.type,
+        projectUrl: project.project_url,
+        authors: project.authors,
+        yearOfSubmission: project.year_of_submission,
+      })
+      setProjectId(project._id)
     }
-  }, [open, projectId]);
 
-  
- 
- const handleInputChange = (e) => {
-   const { name, value } = e.target;
+    // Reset formData when the component is unmounted
+    return () => {
+      setFormData({
+        projectName: "",
+        description: "",
+        discipline: "",
+        type: "",
+        projectUrl: "",
+        authors: [],
+        yearOfSubmission: "",
+      });
+      setProjectId("");
+    }
+  }, [project])
 
-   setFormData((prevFormData) => {
-     if (name === "authors") {
-       const authorsArray = value.split(",").map((author) => author.trim());
-       return {
-         ...prevFormData,
-         [name]: authorsArray,
-       };
-     }
 
-     return {
-       ...prevFormData,
-       [name]: value,
-     };
-   });
- };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-   const handleFileChange = (e) => {
-     setFormData({
-       ...formData,
-       [e.target.name]: e.target.files[0],
-     });
-   };
+    setFormData((prevFormData) => {
+      if (name === "authors") {
+        const authorsArray = value.split(",").map((author) => author.trim());
+        return {
+          ...prevFormData,
+          [name]: authorsArray,
+        };
+      }
+
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.files[0],
+    });
+  };
 
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
 
+    // Create new form data for the request and do mapping
     const formDataForRequest = new FormData();
     for (const key in formData) {
       if (key === "authors" && Array.isArray(formData[key])) {
@@ -106,12 +108,11 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
 
     const response = await updateProject(formDataForRequest, projectId);
     const responseData = await response.json();
-    console.log(responseData);
 
     if (response.status === 200) {
       alert(responseData.message);
 
-      if(onUpdate){onUpdate}
+      if (onUpdate) { onUpdate }
 
       onClose(); // Close the dialog when the update is successful
     } else {
@@ -122,7 +123,7 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Ajouter Projet</DialogTitle>
+        <DialogTitle>Modifier Projet</DialogTitle>
         <DialogContent>
           <Stack direction="row" gap={3}>
             {/*Type Dropdown Menu */}
@@ -182,24 +183,24 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
               margin="normal"
               required
               fullWidth
-              name="project_name"
+              name="projectName"
               placeholder="Nom du projet"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
-              value={formData.project_name}
+              value={formData.projectName}
               onChange={handleInputChange}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="project_url"
+              name="projectUrl"
               placeholder="Url"
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
-              value={formData.project_url}
+              value={formData.projectUrl}
               onChange={handleInputChange}
             />
           </Stack>
@@ -212,9 +213,9 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
               <Select
                 label="Year"
                 inputProps={{ id: "year-dropdown" }}
-                name=" year_of_submission"
+                name="yearOfSubmission"
                 sx={{ borderColor: colors.green, borderRadius: "8px" }}
-                value={formData.year_of_submission}
+                value={formData.yearOfSubmission}
                 onChange={handleInputChange}
               >
                 <MenuItem value="" disabled>
@@ -285,7 +286,7 @@ const UpdateProjectCard = ({ open, onClose, projectId, onUpdate }) => {
             }}
             onClick={handleUpdateProject}
           >
-            Enregister
+            Modifier
           </Button>
 
           <Button

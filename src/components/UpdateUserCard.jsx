@@ -17,7 +17,6 @@ import { colors } from "../utilities/colors";
 import { updateUser } from "../services/userService";
 
 const UpdateUserCard = ({ open, onClose, id }) => {
-  console.log(id);
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
 
