@@ -64,8 +64,6 @@ export default function ProjectTable() {
       if (response.status == 200) {
         // Trigger alert
         setAlert(responseData.message, 'success');
-
-
         const updatedProjects = projects.filter(
           (project) => project._id !== id
         );
