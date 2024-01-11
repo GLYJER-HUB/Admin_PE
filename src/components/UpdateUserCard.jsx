@@ -18,12 +18,12 @@ import { updateUser } from "../services/userService";
 import useAlertStore from "../store/alertStore";
 
 const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
-  const [userID, setUserId] = useState("");
+  const [userID, setUserID] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { alert, setAlert } = useAlertStore();
 
- 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
@@ -32,30 +32,32 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
     setUsername(event.target.value);
   };
 
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setRole(user.role || "");
+      setUsername(user.username || "");
+      setPassword(user.password || "");
+      setUserID(user._id);
+    }
+  }, [user]);
 
 
-   useEffect(() => {
-     if (user) {
-       setRole(user.role || "");
-       setUsername(user.username || "");
-     }
-   }, [user]); 
-
-
-  const handleUpdateUser = async (userId) => {
-    const user = { username, role };
-    const response = await updateUser(user, userId);
+  const handleUpdateUser = async () => {
+    const user = { username, password, role };
+    const response = await updateUser(user, userID);
     const responseData = await response.json();
 
     if (response.ok) {
-      console.log(responseData)
       setAlert(responseData.message, 'success');
-        if (onUpdate) {
-          onUpdate();
-        }
+      if (onUpdate) {
+        onUpdate();
+      }
       onClose();
     } else {
-      console.log(responseData);
       setAlert(responseData.message, 'error');
     }
   };
@@ -63,7 +65,7 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Ajouter Utilisateur</DialogTitle>
+        <DialogTitle>Modifier Utilisateur</DialogTitle>
         <DialogContent>
           {/*Dropdown Menu */}
           <FormControl sx={{ mt: 2, width: 185 }}>
@@ -105,6 +107,8 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
               label="Mot de passe"
               type="password"
               variant="outlined"
+              value={password}
+              onChange={handlePasswordChange}
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
             />
