@@ -74,6 +74,7 @@ export default function ProjectTable() {
         // Update the state with the new array
         setProjects(updatedProjects);
       }
+    }
     } catch (error) {
       console.error("Error during deletion:", error);
     }
@@ -93,21 +94,9 @@ export default function ProjectTable() {
   };
 
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
-
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
 
-  const handleUpdateDialogOpen = (projectId) => {
-    setSelectedProjectId(projectId);
-    setIsUpdateDialogOpen(true);
-  };
-
-
-  const handleUpdateDialogClose = () => {
-    setSelectedProjectId(null);
-    setIsUpdateDialogOpen(false);
-  };
   const handleUpdateDialogOpen = (project) => {
     setSelectedProject(project);
     setIsUpdateDialogOpen(true);
@@ -119,9 +108,8 @@ export default function ProjectTable() {
   };
 
 
-
   return (
-    <Paper sx={{ width: "75vw", overflow: "hidden", mb: 10 }}>
+    <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

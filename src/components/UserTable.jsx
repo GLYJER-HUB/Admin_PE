@@ -95,7 +95,7 @@ export default function UserTabble() {
   };
 
   return (
-    <Paper sx={{ width: "75vw", overflow: "hidden", mb: 10 }}>
+    <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -147,9 +147,7 @@ export default function UserTabble() {
                       onUpdate={fetchUser}
                     />
 
-                    <AddUserCard open={isDialogOpen} onClose={handleClose} />
-
-
+                 
                     <DeleteIcon
                       sx={{
                         color: "#ff5454",

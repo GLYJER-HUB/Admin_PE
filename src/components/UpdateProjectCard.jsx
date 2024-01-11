@@ -38,6 +38,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
 
   useEffect(() => {
     if (project) {
+      console.log(project)
       setFormData({
         projectName: project.project_name,
         description: project.description,

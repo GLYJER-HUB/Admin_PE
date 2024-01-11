@@ -23,13 +23,7 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
   const [username, setUsername] = useState("");
   const { alert, setAlert } = useAlertStore();
 
-  useEffect(()=>{
-    if(user){
-      console.log(user);
-      
-    }
-  })
-
+ 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
@@ -37,6 +31,16 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
+
+
+
+   useEffect(() => {
+     if (user) {
+       setRole(user.role || "");
+       setUsername(user.username || "");
+     }
+   }, [user]); 
+
 
   const handleUpdateUser = async (userId) => {
     const user = { username, role };
@@ -46,6 +50,9 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
     if (response.ok) {
       console.log(responseData)
       setAlert(responseData.message, 'success');
+        if (onUpdate) {
+          onUpdate();
+        }
       onClose();
     } else {
       console.log(responseData);

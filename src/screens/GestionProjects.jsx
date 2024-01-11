@@ -34,7 +34,7 @@ const GestionProjects = () => {
         </Typography>
 
         <Box display={"flex"} sx={{}}>
-          <Stack sx={{ pt: 2,  mb:5}} direction="row" spacing={75}>
+          <Stack sx={{ pt: 2,  mb:5}} direction="row" spacing={60}>
             <Search />
             <Button
               sx={{
