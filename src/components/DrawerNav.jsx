@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -27,6 +27,7 @@ import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
+import { useUser } from "../services/userContext";
 
 
 
@@ -120,6 +121,8 @@ export default function MiniDrawer() {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
 
+
+    const { userData } = useUser();
     
 
     const handleDrawerOpen = () => {
@@ -155,141 +158,156 @@ export default function MiniDrawer() {
     };
 
     return (
-        <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                open={open}
-                sx={{ background: "white", boxShadow: "5px 1px #BE7B2E" }}>
-                <Toolbar sx={{ color: colors.primary }}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: "none" }),
-                        }}>
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                        }}></Typography>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexWrap: "wrap",
-                            color: colors.primary,
-                        }}>
-                        <AlertMessage />
-                        <Typography>John Doe</Typography>
-                        <span>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                sx={{ color: colors.primary }}
-                                onClick={handleMenu}
-                                color="inherit">
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                direction="row"
-                                spacing={2}
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                                sx={{ mt: 4 }}>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
-                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                            </Menu>
-                        </span>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton
-                        onClick={handleDrawerClose}
-                        sx={{ color: colors.primary }}>
-                        {theme.direction === "rtl" ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
-                    </IconButton>
-                    <List>
-                        <ListItem>
-                            <img height={50} src={logo} alt="fireSpot" />
-
-                            <Typography
-                                variant="p"
-                                component="div"
-                                color={colors.primary}
-                                fontWeight={"bold"}>
-                                Université Espoir
-                            </Typography>
-                        </ListItem>
-                    </List>
-                </DrawerHeader>
-                <List sx={{ mt: 0 }}>
-                    {menus.map((menu) => (
-                        <Typography
-                            key={menu.path}
-                            disablePadding
-                            onClick={() => {
-                                handleClick(menu.path);
-                            }}
-                            textColor="inherit">
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : "auto",
-                                    justifyContent: "center",
-                                    color: colors.primary,
-                                }}></ListItemIcon>
-                            <ListItemButton
-                                sx={{
-                                    ml: 2,
-                                    mr: 2,
-                                    color: colors.primary,
-                                    borderRadius: "5px",
-
-                                    ":hover": {
-                                        color: colors.primary,
-                                        borderRadius: "5px",
-                                    },
-                                }}>
-                                {menu.icon}
-                                <ListItemText
-                                    primary={
-                                        <Typography fontWeight={"bold"}>{menu.primary}</Typography>
-                                    }
-                                    sx={{ color: colors.primary, ml: 1 }}
-                                />
-                            </ListItemButton>
-                        </Typography>
-                    ))}
-                </List>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          open={open}
+          sx={{ background: "white", boxShadow: "5px 1px #BE7B2E" }}
+        >
+          <Toolbar sx={{ color: colors.primary }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="div"
+              sx={{
+                flexGrow: 1,
+              }}
+            ></Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                color: colors.primary,
+              }}
+            >
+              <AlertMessage />
+              <Typography>
+                {userData ? userData : "Loading..."}
+              </Typography>
+              <span>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  sx={{ color: colors.primary }}
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  direction="row"
+                  spacing={2}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  sx={{ mt: 4 }}
+                >
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </span>
             </Box>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton
+              onClick={handleDrawerClose}
+              sx={{ color: colors.primary }}
+            >
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+            <List>
+              <ListItem>
+                <img height={50} src={logo} alt="fireSpot" />
+
+                <Typography
+                  variant="p"
+                  component="div"
+                  color={colors.primary}
+                  fontWeight={"bold"}
+                >
+                  Université Espoir
+                </Typography>
+              </ListItem>
+            </List>
+          </DrawerHeader>
+          <List sx={{ mt: 0 }}>
+            {menus.map((menu) => (
+              <Typography
+                key={menu.path}
+                disablePadding
+                onClick={() => {
+                  handleClick(menu.path);
+                }}
+                textColor="inherit"
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                    color: colors.primary,
+                  }}
+                ></ListItemIcon>
+                <ListItemButton
+                  sx={{
+                    ml: 2,
+                    mr: 2,
+                    color: colors.primary,
+                    borderRadius: "5px",
+
+                    ":hover": {
+                      color: colors.primary,
+                      borderRadius: "5px",
+                    },
+                  }}
+                >
+                  {menu.icon}
+                  <ListItemText
+                    primary={
+                      <Typography fontWeight={"bold"}>
+                        {menu.primary}
+                      </Typography>
+                    }
+                    sx={{ color: colors.primary, ml: 1 }}
+                  />
+                </ListItemButton>
+              </Typography>
+            ))}
+          </List>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
         </Box>
+      </Box>
     );
 }
