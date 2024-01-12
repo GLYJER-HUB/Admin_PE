@@ -14,7 +14,9 @@ const Layout = () => {
         <DrawerNav />
         <Outlet />
       </Box>
-      <Footer />
+      <Box>
+        <Footer />
+      </Box>
     </>
   );
 };

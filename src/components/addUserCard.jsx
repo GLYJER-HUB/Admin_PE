@@ -37,6 +37,8 @@ const AddUserCard = ({ open, onClose }) => {
 
     if (response.ok) {
       setAlert(responseData.message, 'success');
+      setRole('')
+      setUsername('')
       onClose()
     }
     else {
@@ -92,6 +94,7 @@ const AddUserCard = ({ open, onClose }) => {
               label="Mot de passe"
               type="password"
               variant="outlined"
+              value={'Jesus123!'}
               InputLabelProps={{ shrink: true }}
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
             />
