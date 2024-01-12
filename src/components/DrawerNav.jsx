@@ -159,7 +159,7 @@ export default function MiniDrawer() {
       <AppBar
         position="fixed"
         open={open}
-        sx={{ background: "white", boxShadow: "5px 1px #BE7B2E" }}
+        sx={{ background: "white", boxShadow: "5px 1px 1px #BE7B2E" }}
       >
         <Toolbar sx={{ color: colors.primary }}>
           <IconButton
@@ -220,7 +220,7 @@ export default function MiniDrawer() {
                 onClose={handleClose}
                 sx={{ mt: 4 }}
               >
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </span>

@@ -96,7 +96,11 @@ export default function LoginCard() {
                     name="username"
                     autoComplete="username"
                     autoFocus
-                    
+                    sx={{
+                      "&:focus": {
+                        borderColor: colors.primary, // Set your desired active border color
+                      },
+                    }}
                   />
 
                   <TextField
@@ -110,7 +114,7 @@ export default function LoginCard() {
                     autoComplete="current-password"
                     helperText={error}
                     FormHelperTextProps={{
-                      style: { color: colors.primary },
+                      style: { color: "#ff0000" },
                     }}
                     InputProps={{
                       endAdornment: (
@@ -140,8 +144,8 @@ export default function LoginCard() {
                       background: colors.primary,
                       borderRadius: 2,
                       ":hover": {
-                          background: colors.primary, 
-                        },
+                        background: colors.primary,
+                      },
                     }}
                   >
                     {buttonLabel}
