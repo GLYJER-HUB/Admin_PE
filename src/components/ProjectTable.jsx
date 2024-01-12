@@ -54,13 +54,6 @@ export default function ProjectTable() {
       const response = await deleteProject(id);
       const responseData = await response.json();
 
-      console.log(responseData);
-      console.log(response.status);
-      console.log(id);
-
-      if (response.status == 200) {
-        alert(responseData.message)
-
       if (response.status == 200) {
         // Trigger alert
         setAlert(responseData.message, 'success');
@@ -72,7 +65,6 @@ export default function ProjectTable() {
         // Update the state with the new array
         setProjects(updatedProjects);
       }
-    }
     } catch (error) {
       console.error("Error during deletion:", error);
     }

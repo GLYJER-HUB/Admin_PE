@@ -15,6 +15,8 @@ import {
 import Button from "@mui/material/Button";
 import { colors } from "../utilities/colors";
 import { updateUser } from "../services/userService";
+import useModalAlertStore from "../store/modalAlertStore";
+import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
 
 const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
@@ -22,7 +24,8 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { alert, setAlert } = useAlertStore();
+  const { setModalAlert } = useModalAlertStore();
+  const { setAlert } = useAlertStore();
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
@@ -38,9 +41,9 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
 
   useEffect(() => {
     if (user) {
-      setRole(user.role || "");
-      setUsername(user.username || "");
-      setPassword(user.password || "");
+      setRole(user.role);
+      setUsername(user.username);
+      setPassword(user.password || undefined);
       setUserID(user._id);
     }
   }, [user]);
@@ -58,7 +61,7 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
       }
       onClose();
     } else {
-      setAlert(responseData.message, 'error');
+      setModalAlert(responseData.message, 'error');
     }
   };
 
@@ -66,6 +69,7 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
     <>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Modifier Utilisateur</DialogTitle>
+        <ModalAlert />
         <DialogContent>
           {/*Dropdown Menu */}
           <FormControl sx={{ mt: 2, width: 185 }}>

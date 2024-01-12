@@ -20,19 +20,21 @@ import {
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { fetchProject, addProject } from "../services/projectService";
+import useModalAlertStore from "../store/modalAlertStore";
+import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
 
 const AddProjectCard = ({ open, onClose }) => {
   const [projects, setProjects] = useState([]);
   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
-  const { alert, setAlert } = useAlertStore();
+  const { setModalAlert } = useModalAlertStore();
+  const { setAlert } = useAlertStore();
 
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await fetchProject();
       const responseData = await response.json();
       setProjects(responseData.projects);
-
     };
 
     fetchProjects();
@@ -99,7 +101,7 @@ const AddProjectCard = ({ open, onClose }) => {
       setProjects(response.projects)
     }
     else {
-      setAlert(responseData.message, 'error');
+      setModalAlert(responseData.message, 'error');
     }
   };
 
@@ -107,6 +109,7 @@ const AddProjectCard = ({ open, onClose }) => {
     <>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Ajouter Projet</DialogTitle>
+        <ModalAlert />
         <DialogContent>
           <Stack direction="row" gap={3}>
             {/*Type Dropdown Menu */}

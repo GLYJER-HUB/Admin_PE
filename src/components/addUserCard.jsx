@@ -15,12 +15,15 @@ import {
 import Button from "@mui/material/Button";
 import { colors } from "../utilities/colors";
 import { addUser } from "../services/userService";
+import useModalAlertStore from "../store/modalAlertStore";
+import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
 
 const AddUserCard = ({ open, onClose }) => {
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
-  const { alert, setAlert } = useAlertStore();
+  const { setModalAlert } = useModalAlertStore();
+  const { setAlert } = useAlertStore();
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
@@ -40,7 +43,7 @@ const AddUserCard = ({ open, onClose }) => {
       onClose()
     }
     else {
-      setAlert(responseData.message, 'error');
+      setModalAlert(responseData.message, 'error');
     }
 
   };
@@ -51,6 +54,7 @@ const AddUserCard = ({ open, onClose }) => {
         <DialogTitle>
           Ajouter Utilisateur
         </DialogTitle>
+        <ModalAlert />
         <DialogContent>
           {/*Dropdown Menu */}
           <FormControl sx={{ mt: 2, width: 185 }}>

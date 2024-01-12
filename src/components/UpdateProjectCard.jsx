@@ -20,10 +20,13 @@ import {
 import { colors } from "../utilities/colors";
 import Button from "@mui/material/Button";
 import { updateProject } from "../services/projectService";
+import ModalAlert from "./ModalAlert";
+import useModalAlertStore from "../store/modalAlertStore";
 import useAlertStore from "../store/alertStore";
 
 const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
-  const { alert, setAlert } = useAlertStore();
+  const { setModalAlert } = useModalAlertStore();
+  const { setAlert } = useAlertStore();
   const [projectId, setProjectId] = useState('');
   const [formData, setFormData] = useState({
     projectName: "",
@@ -38,7 +41,6 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
 
   useEffect(() => {
     if (project) {
-      console.log(project)
       setFormData({
         projectName: project.project_name,
         description: project.description,
@@ -93,8 +95,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
     });
   };
 
-
-  const handleUpdateProject = async (e) =>  {
+  const handleUpdateProject = async (e) => {
     e.preventDefault();
 
     // Create new form data for the request and do mapping
@@ -119,7 +120,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
 
       onClose(); // Close the dialog when the update is successful
     } else {
-      setAlert(responseData.message, 'error');
+      setModalAlert(responseData.message, 'error');
     }
   };
 
@@ -127,6 +128,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
     <>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Modifier Projet</DialogTitle>
+        <ModalAlert />
         <DialogContent>
           <Stack direction="row" gap={3}>
             {/*Type Dropdown Menu */}

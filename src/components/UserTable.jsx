@@ -63,6 +63,8 @@ export default function UserTabble() {
         const updatedUsers = users.filter((user) => user._id !== id);
         // Update the state with the new array
         setUsers(updatedUsers);
+      } else {
+        setAlert(responseData.message, "error");
       }
     } catch (error) {
       console.error("Error during deletion:");
@@ -147,7 +149,7 @@ export default function UserTabble() {
                       onUpdate={fetchUser}
                     />
 
-                 
+
                     <DeleteIcon
                       sx={{
                         color: "#ff5454",
