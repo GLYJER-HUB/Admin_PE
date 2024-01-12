@@ -18,7 +18,12 @@ const ModalAlert = () => {
     }
 
     return (
-        <Alert severity={modalAlert.type} onClose={clearModalAlert}>
+        <Alert
+            sx={{
+                width: '75%',
+                margin: 'auto',
+            }}
+            severity={modalAlert.type} onClose={clearModalAlert}>
             {modalAlert.message}
         </Alert>
     )
