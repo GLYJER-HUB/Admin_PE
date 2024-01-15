@@ -30,6 +30,7 @@ export default function LoginCard() {
     var password = data.get("password");
     const user = { username, password };
 
+    setError('');
     setButtonLabel("Connecting..."); // Change button label on form submission
 
     const response = await login(user);
