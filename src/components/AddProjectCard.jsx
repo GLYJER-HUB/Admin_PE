@@ -239,7 +239,7 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
           </Stack>
 
           <Stack direction="row" gap={3}>
-            {/* ... your existing form fields */}
+            
             <Input
               type="file"
               name="file"
