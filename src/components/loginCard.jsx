@@ -11,7 +11,7 @@ import Logo from "../assets/logo.png";
 import { login } from "../services/authService";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useUser } from "../utilities/userContext";
+
 
 
 export default function LoginCard() {
@@ -19,8 +19,9 @@ export default function LoginCard() {
   const [showPassword, setShowPassword] = useState(false);
   const [buttonLabel, setButtonLabel] = useState("Connect");
   const [error, setError] = useState("");
+   const [myData, setMyData] = useState("");
 
-  const { updateUser } = useUser();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +41,7 @@ export default function LoginCard() {
     if (response.ok) {
       // Handle successful login
       console.log(responseData.userName);
-      updateUser(responseData.userName);
+      localStorage.setItem("myData", responseData.userName);
       navigate("/tableau-de-bord");
     } else {
       setButtonLabel("Connect"); // Reset button label if login fails

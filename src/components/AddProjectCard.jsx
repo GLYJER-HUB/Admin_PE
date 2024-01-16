@@ -24,7 +24,7 @@ import useModalAlertStore from "../store/modalAlertStore";
 import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
 
-const AddProjectCard = ({ open, onClose }) => {
+const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
   const { setModalAlert } = useModalAlertStore();
@@ -96,9 +96,10 @@ const AddProjectCard = ({ open, onClose }) => {
     if (response.status == 201) {
       // Trigger alert
       setAlert(responseData.message, 'success');
+      onAddProjectSuccess();
 
       onClose();
-      setProjects(response.projects)
+      
     }
     else {
       setModalAlert(responseData.message, 'error');
