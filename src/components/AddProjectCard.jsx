@@ -15,6 +15,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Input,
   Stack,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
@@ -234,6 +235,18 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
               sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
               value={formData.authors}
               onChange={handleInputChange}
+            />
+          </Stack>
+
+          <Stack direction="row" gap={3}>
+            {/* ... your existing form fields */}
+            <Input
+              type="file"
+              name="file"
+              fullWidth
+              variant="outlined"
+              onChange={handleFileChange}
+              sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
             />
           </Stack>
 

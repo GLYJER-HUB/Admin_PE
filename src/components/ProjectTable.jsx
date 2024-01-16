@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchProject, deleteProject } from "../services/projectService";
+import { fetchProject, deleteProject, searchProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
 import useAlertStore from "../store/alertStore";
 
@@ -34,22 +34,31 @@ const columns = [
   },
 ];
 
-export default function ProjectTable({ updateSignal }) {
+export default function ProjectTable({ updateSignal, searchQuery }) {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const { setAlert } = useAlertStore();
+  const [updateSignale, setUpdateSignale] = useState(false);
 
   const [updateTable, setUpdateTable] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetchProject();
-      const responseData = await response.json();
-      setProjects(responseData.projects);
-      setLoading(false);
+       try {
+        const response = await (searchQuery
+          ? searchProject(searchQuery)
+          : fetchProject());
+        const responseData = await response.json();
+        setProjects(responseData.projects);
+        setUpdateSignale((prev) => !prev);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setLoading(false);
+      }
     };
     fetchProjects();
-  }, [updateSignal]);
+  }, [updateSignal, searchQuery]);
 
   const handleDelete = async (id) => {
     try {

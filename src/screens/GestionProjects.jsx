@@ -15,6 +15,7 @@ const GestionProjects = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [updateTable, setUpdateTable] = useState(false);
   const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState(""); 
 
   const handleAddProjectSuccess = () => {
     setIsDialogOpen(false);
@@ -42,7 +43,10 @@ const GestionProjects = () => {
 
         <Box display={"flex"} sx={{}}>
           <Stack sx={{ pt: 2, mb: 5 }} direction="row" spacing={60}>
-            <Search />
+            <Search
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
             <Button
               sx={{
                 color: colors.primary,
@@ -64,7 +68,7 @@ const GestionProjects = () => {
           />
         </Box>
         <Box sx={{ mt: 5 }}>
-          <ProjectTable updateSignal={updateTable} />
+          <ProjectTable updateSignal={updateTable} searchQuery={searchQuery} />
         </Box>
       </Box>
     </Box>

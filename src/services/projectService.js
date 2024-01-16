@@ -28,8 +28,8 @@ export const updateProject = async (data, id) => {
   return response;
 };
 
-export const searchProject = async (keyword) => {
-  const response = await fetch(`${apiCredentials}/search?query=${keyword}`);
+export const searchProject = async (query) => {
+  const response = await fetch(`${apiCredentials}/project/search?query=${query}` );
   return response;
 };
 
