@@ -141,14 +141,7 @@ export default function UserTabble({updateSignal}) {
                         },
                       }}
                       onClick={() => handleUpdateDialogOpen(user)}
-                    />
-                    <UpdateUserCard
-                      open={isUpdateDialogOpen}
-                      onClose={handleUpdateDialogClose}
-                      user={selectedUser}
-                      onUpdate={fetchUser}
-                    />
-
+                    />          
 
                     <DeleteIcon
                       sx={{
@@ -176,6 +169,14 @@ export default function UserTabble({updateSignal}) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {isUpdateDialogOpen && (
+        <UpdateUserCard
+          open={isUpdateDialogOpen}
+          onClose={handleUpdateDialogClose}
+          user={selectedUser}
+          onUpdate={fetchUser}
+        />
+      )}
     </Paper>
   );
 }
