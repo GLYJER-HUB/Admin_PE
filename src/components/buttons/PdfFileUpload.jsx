@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Typography, Box } from "@mui/material";
-import useFileStore from "../../store/fileStore";
 
-const ALLOWED_FILE_TYPES = ["application/pdf"];
 
-const PdfFileUpload = () => {
-    const { selectedPdfFile, setError, error, setSelectedPdfFile, resetError } = useFileStore();
+const PdfFileUpload = ({
+    handleFileChange,
+    error,
+    selectedPdfFile,
+    setSelectedPdfFile }) => {
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-
-        if (!ALLOWED_FILE_TYPES.includes(file?.type)) {
-            setError("Type de fichier non valide. Veuillez téléverser un fichier au format PDF.");
-            return;
+    useEffect(() => {
+        return () => {
+            setSelectedPdfFile(null);
         }
-
-        resetError();
-        setSelectedPdfFile(file);
-    };
+    }, []);
 
     return (
         <Box p={3} border="1px dashed #ccc" borderRadius={8} textAlign="center">
