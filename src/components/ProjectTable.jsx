@@ -34,7 +34,7 @@ const columns = [
   },
 ];
 
-export default function ProjectTable() {
+export default function  ProjectTable() {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const { setAlert } = useAlertStore();
@@ -144,12 +144,6 @@ export default function ProjectTable() {
                       }}
                       onClick={() => handleUpdateDialogOpen(project)}
                     />
-                    <UpdateProjectCard
-                      open={isUpdateDialogOpen}
-                      onClose={handleUpdateDialogClose}
-                      project={selectedProject}
-                      onUpdate={fetchProject}
-                    />
 
                     <DeleteIcon
                       sx={{
@@ -177,6 +171,14 @@ export default function ProjectTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {isUpdateDialogOpen && (
+        <UpdateProjectCard
+          open={isUpdateDialogOpen}
+          onClose={handleUpdateDialogClose}
+          project={selectedProject}
+          onUpdate={fetchProject}
+        />
+      )}
     </Paper>
   );
 }
