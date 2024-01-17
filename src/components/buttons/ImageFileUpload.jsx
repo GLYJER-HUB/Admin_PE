@@ -1,23 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Typography, Box } from "@mui/material";
-import useFileStore from "../../store/fileStore";
 
-const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png"];
 
-const ImageFileUpload = () => {
-    const { selectedImageFile, error, setError, setSelectedImageFile, resetError } = useFileStore();
+const ImageFileUpload = ({
+    handleFileChange,
+    error,
+    selectedImageFile, setSelectedImageFile }) => {
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-
-        if (!ALLOWED_FILE_TYPES.includes(file?.type)) {
-            setError("Type de fichier non valide. Veuillez téléverser une image au format JPEG ou PNG.");
-            return;
+    useEffect(() => {
+        return () => {
+            setSelectedImageFile(null);
         }
-
-        resetError();
-        setSelectedImageFile(file);
-    };
+    }, []);
 
     return (
         <Box p={3} border="1px dashed #ccc" borderRadius={8} textAlign="center">
