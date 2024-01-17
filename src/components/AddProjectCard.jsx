@@ -272,18 +272,6 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
           </Stack>
 
           <Stack direction="row" gap={3}>
-            
-            <Input
-              type="file"
-              name="file"
-              fullWidth
-              variant="outlined"
-              onChange={handleFileChange}
-              sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
-            />
-          </Stack>
-
-          <Stack direction="row" gap={3}>
             <TextField
               margin="normal"
               required
