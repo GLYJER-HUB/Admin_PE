@@ -23,12 +23,16 @@ import { fetchProject, addProject } from "../services/projectService";
 import useModalAlertStore from "../store/modalAlertStore";
 import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
+import ImageFileUpload from "./buttons/ImageFileUpload";
+import PdfFileUpload from "./buttons/PdfFileUpload";
+import useFileStore from "../store/fileStore";
 
 const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
+  const { selectedImageFile, selectedPdfFile } = useFileStore();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -69,13 +73,6 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.files[0],
-    });
-  };
-
   const handleAddProject = async (e) => {
     e.preventDefault();
 
@@ -90,6 +87,14 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
       }
     }
 
+    if (selectedImageFile) {
+      formDataForRequest.append("document", selectedImageFile);
+    }
+
+    if (selectedPdfFile) {
+      formDataForRequest.append("image", selectedPdfFile);
+    }
+
     const response = await addProject(formDataForRequest);
     const responseData = await response.json();
 
@@ -99,7 +104,7 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
       onAddProjectSuccess();
 
       onClose();
-      
+
     }
     else {
       setModalAlert(responseData.message, 'error');
@@ -261,6 +266,12 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
               marginTop: "16px",
             }}
           ></div>
+
+          <Stack direction="row" gap={3}>
+            <ImageFileUpload />
+            <PdfFileUpload />
+          </Stack>
+
         </DialogContent>
         <DialogActions>
           <Button
