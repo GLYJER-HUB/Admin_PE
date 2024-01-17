@@ -27,7 +27,6 @@ import useAlertStore from "../store/alertStore";
 
 const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
-  const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
 

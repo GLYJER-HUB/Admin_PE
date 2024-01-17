@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
@@ -45,7 +46,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchBar = ({ handleChange, searchInput, inputKeyPress }) => {
+const SearchBar = ({ onSearch }) => {
+  const [searchInput, setSearchInput] = useState("");
+
+   const handleChange = (e) => {
+     setSearchInput(e.target.value);
+   };
+
+   const inputKeyPress = (e) => {
+     if (e.key === "Enter") {
+       onSearch(searchInput);
+     }
+   };
+
   return (
     <Box sx={{ flexGrow: 1, marginY: 2 }}>
       <Search>

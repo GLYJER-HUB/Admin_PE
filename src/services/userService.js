@@ -10,6 +10,17 @@ export const fetchUser = async () => {
     return response;
 }
 
+
+export const searchUser = async (query) => {
+  const response = await fetch(
+    `${apiCredentials.BASE_URL}/users/search?query=${query}`,
+    {
+      credentials: "include",
+    }
+  );
+  return response;
+};
+
 export const addUser = async (user) => {
     const {username, role} = user;
 
