@@ -17,9 +17,9 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 export default function LoginCard() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [buttonLabel, setButtonLabel] = useState("Connect");
+  const [buttonLabel, setButtonLabel] = useState("Se connecter");
   const [error, setError] = useState("");
-   const [myData, setMyData] = useState("");
+  const [myData, setMyData] = useState("");
 
 
 
@@ -32,7 +32,7 @@ export default function LoginCard() {
     const user = { username, password };
 
     setError('');
-    setButtonLabel("Connecting..."); // Change button label on form submission
+    setButtonLabel(" Connexion en cours...");
 
     const response = await login(user);
     const responseData = await response.json();
@@ -94,7 +94,7 @@ export default function LoginCard() {
                     fullWidth
                     required
                     id="username"
-                    label="Username"
+                    label="Nom d'utilisateur"
                     name="username"
                     autoComplete="username"
                     autoFocus
@@ -110,7 +110,7 @@ export default function LoginCard() {
                     fullWidth
                     required
                     name="password"
-                    label="Password"
+                    label="Mot de passe"
                     type={showPassword ? "text" : "password"}
                     id="password"
                     autoComplete="current-password"

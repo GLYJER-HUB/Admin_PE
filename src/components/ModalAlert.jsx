@@ -8,7 +8,7 @@ const ModalAlert = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             clearModalAlert();
-        }, 4000);
+        }, 3000);
 
         return () => clearTimeout(timeoutId);
     }, [modalAlert, clearModalAlert]);
