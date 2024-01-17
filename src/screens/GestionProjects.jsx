@@ -13,6 +13,14 @@ import { addProject } from "../services/projectService";
 
 const GestionProjects = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [updateTable, setUpdateTable] = useState(false);
+  const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState(""); 
+
+  const handleAddProjectSuccess = () => {
+    setIsDialogOpen(false);
+    setUpdateTable((prev) => !prev);
+  };
 
   const handleClickOpen = () => {
     setIsDialogOpen(true);
@@ -34,8 +42,11 @@ const GestionProjects = () => {
         </Typography>
 
         <Box display={"flex"} sx={{}}>
-          <Stack sx={{ pt: 2,  mb:5}} direction="row" spacing={60}>
-            <Search />
+          <Stack sx={{ pt: 2, mb: 5 }} direction="row" spacing={60}>
+            <Search
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
             <Button
               sx={{
                 color: colors.primary,
@@ -50,10 +61,14 @@ const GestionProjects = () => {
             </Button>
           </Stack>
 
-          <AddProjectCard open={isDialogOpen} onClose={handleClose} />
+          <AddProjectCard
+            open={isDialogOpen}
+            onClose={handleClose}
+            onAddProjectSuccess={handleAddProjectSuccess}
+          />
         </Box>
         <Box sx={{ mt: 5 }}>
-          <ProjectTable />
+          <ProjectTable updateSignal={updateTable} searchQuery={searchQuery} />
         </Box>
       </Box>
     </Box>

@@ -17,6 +17,13 @@ import AddUserCard from "../components/addUserCard";
 
 const GestrionAccount = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [updateTable, setUpdateTable] = useState(false);
+
+
+  const handleAddUserSuccess = () => {
+    setIsDialogOpen(false);
+    setUpdateTable((prev) => !prev);
+  }
 
   const handleClickOpen = () => {
     setIsDialogOpen(true);
@@ -52,14 +59,17 @@ const GestrionAccount = () => {
             >
               Ajouter Utilisateur
             </Button>
-            <AddUserCard open={isDialogOpen} onClose={handleClose} />
+            <AddUserCard
+              open={isDialogOpen}
+              onClose={handleClose}
+              onAddUserSuccess={handleAddUserSuccess}
+            />
           </Stack>
         </Box>
         <Box sx={{ mt: 5 }}>
-          <UserTable />
+          <UserTable updateSignal={updateTable} />
         </Box>
       </Box>
-      
     </Box>
   );
 };

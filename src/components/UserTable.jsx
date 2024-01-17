@@ -35,7 +35,7 @@ const columns = [
   },
 ];
 
-export default function UserTabble() {
+export default function UserTabble({updateSignal}) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function UserTabble() {
     };
 
     fetchUsers();
-  }, []);
+  }, [updateSignal]);
 
   const handleDelete = async (id) => {
     try {

@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import UserCard from "../components/UserCard";
 import ProjectCard from "../components/ProjectCard";
 import { Typography, createTheme } from "@mui/material";
 import { colors } from "../utilities/colors";
+import { useEffect } from "react";
+import { fetchStatistics } from "../services/boardService";
 
 const theme = createTheme({
   spacing: 8,
 });
 
 const BoardTable = () => {
+  const [statistics, setStatistics] = useState({
+    users: 0,
+    projects: 0,
+  });
+
+  useEffect(() => {
+    const fetchStatisticsData = async () => {
+      const response = await fetchStatistics();
+      const responseData = await response.json();
+      setStatistics(responseData.statistics);
+    };
+    fetchStatisticsData();
+  }, []);
+
   return (
     <>
-      
       <Box>
         <Typography
           variant="h4"
@@ -21,10 +36,10 @@ const BoardTable = () => {
         </Typography>
         <Box sx={{ display: "flex", pt: 3 }}>
           <Box sx={{ m: 5, mt: 0, ml: 0 }}>
-            <UserCard />
+            <UserCard userCount={statistics.users} />
           </Box>
           <Box sx={{ m: 5, mt: 0 }}>
-            <ProjectCard />
+            <ProjectCard projectCount={statistics.projects} />
           </Box>
           <Box></Box>
         </Box>

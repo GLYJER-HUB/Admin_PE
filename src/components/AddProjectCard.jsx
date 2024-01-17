@@ -15,6 +15,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Input,
   Stack,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
@@ -23,12 +24,44 @@ import { fetchProject, addProject } from "../services/projectService";
 import useModalAlertStore from "../store/modalAlertStore";
 import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
+import ImageFileUpload from "./buttons/ImageFileUpload";
+import PdfFileUpload from "./buttons/PdfFileUpload";
 
-const AddProjectCard = ({ open, onClose }) => {
+const ALLOWED_IMAGE_FILE_TYPES = ["image/jpeg", "image/png"];
+
+const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
   const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [errorImageFile, setErrorImageFile] = useState(null);
+  const [selectedPdfFile, setSelectedPdfFile] = useState(null);
+  const [errorPdfFile, setErrorPdfFile] = useState(null);
+
+  const handleImageFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (!ALLOWED_IMAGE_FILE_TYPES.includes(file?.type)) {
+      setErrorImageFile("Type de fichier non valide. Veuillez téléverser une image au format JPEG ou PNG.");
+      return;
+    }
+
+    setErrorImageFile(null);
+    setSelectedImageFile(file);
+  };
+
+  const handlePdfFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (!["application/pdf"].includes(file?.type)) {
+      setError("Type de fichier non valide. Veuillez téléverser un fichier au format PDF.");
+      return;
+    }
+
+    setErrorPdfFile(null);
+    setSelectedPdfFile(file);
+  };
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -69,13 +102,6 @@ const AddProjectCard = ({ open, onClose }) => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.files[0],
-    });
-  };
-
   const handleAddProject = async (e) => {
     e.preventDefault();
 
@@ -90,15 +116,24 @@ const AddProjectCard = ({ open, onClose }) => {
       }
     }
 
+    if (selectedImageFile) {
+      formDataForRequest.append("image", selectedImageFile);
+    }
+
+    if (selectedPdfFile) {
+      formDataForRequest.append("document", selectedPdfFile);
+    }
+
     const response = await addProject(formDataForRequest);
     const responseData = await response.json();
 
     if (response.status == 201) {
       // Trigger alert
       setAlert(responseData.message, 'success');
+      onAddProjectSuccess();
 
       onClose();
-      setProjects(response.projects)
+
     }
     else {
       setModalAlert(responseData.message, 'error');
@@ -237,6 +272,18 @@ const AddProjectCard = ({ open, onClose }) => {
           </Stack>
 
           <Stack direction="row" gap={3}>
+            
+            <Input
+              type="file"
+              name="file"
+              fullWidth
+              variant="outlined"
+              onChange={handleFileChange}
+              sx={{ mt: 2, borderColor: colors.green, borderRadius: "8px" }}
+            />
+          </Stack>
+
+          <Stack direction="row" gap={3}>
             <TextField
               margin="normal"
               required
@@ -260,6 +307,20 @@ const AddProjectCard = ({ open, onClose }) => {
               marginTop: "16px",
             }}
           ></div>
+
+          <Stack direction="row" gap={3}>
+            <ImageFileUpload
+              selectedImageFile={selectedImageFile}
+              setSelectedImageFile={setSelectedImageFile}
+              error={errorImageFile}
+              handleFileChange={handleImageFileChange} />
+            <PdfFileUpload
+              selectedPdfFile={selectedPdfFile}
+              setSelectedPdfFile={setSelectedPdfFile}
+              error={errorPdfFile}
+              handleFileChange={handlePdfFileChange} />
+          </Stack>
+
         </DialogContent>
         <DialogActions>
           <Button

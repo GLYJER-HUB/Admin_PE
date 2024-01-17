@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchProject, deleteProject } from "../services/projectService";
+import { fetchProject, deleteProject, searchProject } from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
 import useAlertStore from "../store/alertStore";
 
@@ -34,20 +34,31 @@ const columns = [
   },
 ];
 
-export default function  ProjectTable() {
+export default function ProjectTable({ updateSignal, searchQuery }) {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const { setAlert } = useAlertStore();
+  const [updateSignale, setUpdateSignale] = useState(false);
+
+  const [updateTable, setUpdateTable] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetchProject();
-      const responseData = await response.json();
-      setProjects(responseData.projects);
-      setLoading(false);
+       try {
+        const response = await (searchQuery
+          ? searchProject(searchQuery)
+          : fetchProject());
+        const responseData = await response.json();
+        setProjects(responseData.projects);
+        setUpdateSignale((prev) => !prev);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setLoading(false);
+      }
     };
     fetchProjects();
-  }, []);
+  }, [updateSignal, searchQuery]);
 
   const handleDelete = async (id) => {
     try {
@@ -56,11 +67,10 @@ export default function  ProjectTable() {
 
       if (response.status == 200) {
         // Trigger alert
-        setAlert(responseData.message, 'success');
+        setAlert(responseData.message, "success");
         const updatedProjects = projects.filter(
           (project) => project._id !== id
         );
-
 
         // Update the state with the new array
         setProjects(updatedProjects);
@@ -69,7 +79,6 @@ export default function  ProjectTable() {
       console.error("Error during deletion:", error);
     }
   };
-
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -86,7 +95,6 @@ export default function  ProjectTable() {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
-
   const handleUpdateDialogOpen = (project) => {
     setSelectedProject(project);
     setIsUpdateDialogOpen(true);
@@ -97,9 +105,10 @@ export default function  ProjectTable() {
     setIsUpdateDialogOpen(false);
   };
 
-
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
+        {loading && <p>Loading...</p>}
+      {!loading && (
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -161,7 +170,7 @@ export default function  ProjectTable() {
               ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>)}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

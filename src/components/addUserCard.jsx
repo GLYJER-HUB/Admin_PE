@@ -19,7 +19,7 @@ import useModalAlertStore from "../store/modalAlertStore";
 import ModalAlert from "./ModalAlert";
 import useAlertStore from "../store/alertStore";
 
-const AddUserCard = ({ open, onClose }) => {
+const AddUserCard = ({ open, onClose, onAddUserSuccess }) => {
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
   const { setModalAlert } = useModalAlertStore();
@@ -42,7 +42,8 @@ const AddUserCard = ({ open, onClose }) => {
       setAlert(responseData.message, 'success');
       setRole('')
       setUsername('')
-      onClose()
+      onAddUserSuccess();
+      onClose();
     }
     else {
       setModalAlert(responseData.message, 'error');

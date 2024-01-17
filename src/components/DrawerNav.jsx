@@ -27,7 +27,7 @@ import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
-import { useUser } from "../utilities/userContext";
+
 
 const drawerWidth = 260;
 
@@ -119,7 +119,7 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const { userData } = useUser();
+   const userData = localStorage.getItem("myData");
 
   const handleDrawerOpen = () => {
     setOpen(true);
