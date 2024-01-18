@@ -26,6 +26,7 @@ import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
+import useChangePasswordStore from "../store/changePasswordStore";
 
 const drawerWidth = 260;
 
@@ -115,6 +116,7 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const { openModal } = useChangePasswordStore();
 
   const username = localStorage.getItem("username");
 
@@ -222,7 +224,7 @@ export default function MiniDrawer() {
                 onClose={handleClose}
                 sx={{ mt: 4 }}
               >
-                <MenuItem onClick={handleClose}>Modifier mot de passe</MenuItem>
+                <MenuItem onClick={openModal}>Modifier mot de passe</MenuItem>
                 <MenuItem onClick={handleLogout}>Déconnexion</MenuItem>
               </Menu>
             </span>

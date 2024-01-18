@@ -10,7 +10,6 @@ export const fetchUser = async () => {
     return response;
 }
 
-
 export const searchUser = async (query) => {
     const response = await fetch(
         `${apiCredentials.BASE_URL}/users/search?query=${query}`,
@@ -42,7 +41,7 @@ export const updateUser = async (user, id) => {
     const { username, password, role } = user;
 
     const response = await fetch(
-        `${apiCredentials.BASE_URL}/users/${id}`,
+        `${apiCredentials.BASE_URL}/users/update/${id}`,
         {
             method: "PUT",
             headers: {
@@ -63,6 +62,21 @@ export const deleteUser = async (id) => {
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
+        }
+    );
+    return response;
+}
+
+export const changePassword = async (currentPassword, newPassword) => {
+    const response = await fetch(
+        `${apiCredentials.BASE_URL}/users/change-password`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ currentPassword, newPassword }),
             credentials: "include",
         }
     );
