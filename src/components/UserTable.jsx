@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { fetchUser, deleteUser, searchUser } from "../services/userService";
@@ -144,13 +145,6 @@ export default function UserTabble({ updateSignal, searchQuery }) {
                         }}
                         onClick={() => handleUpdateDialogOpen(user)}
                       />
-                      <UpdateUserCard
-                        open={isUpdateDialogOpen}
-                        onClose={handleUpdateDialogClose}
-                        user={selectedUser}
-                        onUpdate={fetchUser}
-                      />
-
                       <DeleteIcon
                         sx={{
                           color: "#ff5454",
