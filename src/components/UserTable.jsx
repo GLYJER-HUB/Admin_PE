@@ -131,7 +131,9 @@ export default function UserTabble({ updateSignal, searchQuery }) {
                       {user.username}
                     </TableCell>
                     <TableCell align="right">{user.role}</TableCell>
-                    <TableCell align="right">{user.createdAt}</TableCell>
+                    <TableCell align="right">
+                      {user.createdAt.substring(0, 10)}
+                    </TableCell>
 
                     <TableCell align="right">
                       <EditIcon

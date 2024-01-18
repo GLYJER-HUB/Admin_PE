@@ -137,7 +137,9 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
                       {project.project_name}
                     </TableCell>
                     <TableCell align="right">{project.discipline}</TableCell>
-                    <TableCell align="right">{project.createdAt}</TableCell>
+                    <TableCell align="right">
+                      {project.createdAt.substring(0, 10)}
+                    </TableCell>
 
                     <TableCell align="right">
                       <EditIcon
@@ -168,7 +170,8 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
                 ))}
             </TableBody>
           </Table>
-        </TableContainer>)}
+        </TableContainer>
+      )}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
