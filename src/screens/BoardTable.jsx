@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import { colors } from "../utilities/colors";
 import { useEffect } from "react";
 import { fetchStatistics } from "../services/boardService";
+import ChangePasswordModal from "../components/ChangePasswordModal";
 
 const BoardTable = () => {
   const [statistics, setStatistics] = useState({
@@ -37,7 +38,9 @@ const BoardTable = () => {
           <Box sx={{ m: 5, mt: 0 }}>
             <ProjectCard projectCount={statistics.projects} />
           </Box>
-          <Box></Box>
+          <Box>
+            <ChangePasswordModal />
+          </Box>
         </Box>
       </Box>
     </>

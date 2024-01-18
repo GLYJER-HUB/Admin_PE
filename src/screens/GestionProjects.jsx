@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import ProjectTable from "../components/ProjectTable";
 import AddProjectCard from "../components/AddProjectCard";
+import ChangePasswordModal from "../components/ChangePasswordModal";
 
 const GestionProjects = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -68,6 +69,7 @@ const GestionProjects = () => {
         </Box>
         <Box sx={{ mt: 5 }}>
           <ProjectTable updateSignal={updateTable} searchQuery={searchQuery} />
+          <ChangePasswordModal />
         </Box>
       </Box>
     </Box>

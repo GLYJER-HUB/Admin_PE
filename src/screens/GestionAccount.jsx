@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import UserTable from "../components/UserTable";
 import AddUserCard from "../components/addUserCard";
+import ChangePasswordModal from "../components/ChangePasswordModal";
 
 const GestrionAccount = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -69,6 +70,7 @@ const GestrionAccount = () => {
         </Box>
         <Box sx={{ mt: 5 }}>
           <UserTable updateSignal={updateTable} searchQuery={searchQuery} />
+          <ChangePasswordModal />
         </Box>
       </Box>
     </Box>
