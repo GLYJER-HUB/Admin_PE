@@ -182,6 +182,14 @@ export default function UserTabble({ updateSignal, searchQuery }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {isUpdateDialogOpen && (
+        <UpdateUserCard
+          open={isUpdateDialogOpen}
+          onClose={handleUpdateDialogClose}
+          user={selectedUser}
+          onUpdate={fetchUser}
+        />
+      )}
     </Paper>
   );
 }

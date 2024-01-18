@@ -8,7 +8,7 @@ const AlertMessage = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             clearAlert();
-        }, 4000);
+        }, 3000);
 
         return () => clearTimeout(timeoutId);
     }, [alert, clearAlert]);

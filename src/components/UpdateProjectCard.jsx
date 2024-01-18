@@ -15,6 +15,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Input,
   Stack,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
@@ -23,11 +24,44 @@ import { updateProject } from "../services/projectService";
 import ModalAlert from "./ModalAlert";
 import useModalAlertStore from "../store/modalAlertStore";
 import useAlertStore from "../store/alertStore";
+import ImageFileUpload from "./buttons/ImageFileUpload";
+import PdfFileUpload from "./buttons/PdfFileUpload";
+
+const ALLOWED_IMAGE_FILE_TYPES = ["image/jpeg", "image/png"];
 
 const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
   const [projectId, setProjectId] = useState('');
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+  const [errorImageFile, setErrorImageFile] = useState(null);
+  const [selectedPdfFile, setSelectedPdfFile] = useState(null);
+  const [errorPdfFile, setErrorPdfFile] = useState(null);
+
+  const handleImageFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (!ALLOWED_IMAGE_FILE_TYPES.includes(file?.type)) {
+      setErrorImageFile("Type de fichier non valide. Veuillez téléverser une image au format JPEG ou PNG.");
+      return;
+    }
+
+    setErrorImageFile(null);
+    setSelectedImageFile(file);
+  };
+
+  const handlePdfFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (!["application/pdf"].includes(file?.type)) {
+      setError("Type de fichier non valide. Veuillez téléverser un fichier au format PDF.");
+      return;
+    }
+
+    setErrorPdfFile(null);
+    setSelectedPdfFile(file);
+  };
+
   const [formData, setFormData] = useState({
     projectName: "",
     description: "",
@@ -88,13 +122,6 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.files[0],
-    });
-  };
-
   const handleUpdateProject = async (e) => {
     e.preventDefault();
 
@@ -108,6 +135,14 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
       } else {
         formDataForRequest.append(key, formData[key]);
       }
+    }
+
+    if (selectedImageFile) {
+      formDataForRequest.append("image", selectedImageFile);
+    }
+
+    if (selectedPdfFile) {
+      formDataForRequest.append("document", selectedPdfFile);
     }
 
     const response = await updateProject(formDataForRequest, projectId);
@@ -279,6 +314,19 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
               marginTop: "16px",
             }}
           ></div>
+
+          <Stack direction="row" gap={3}>
+            <ImageFileUpload
+              selectedImageFile={selectedImageFile}
+              setSelectedImageFile={setSelectedImageFile}
+              error={errorImageFile}
+              handleFileChange={handleImageFileChange} />
+            <PdfFileUpload
+              selectedPdfFile={selectedPdfFile}
+              setSelectedPdfFile={setSelectedPdfFile}
+              error={errorPdfFile}
+              handleFileChange={handlePdfFileChange} />
+          </Stack>
         </DialogContent>
         <DialogActions>
           <Button

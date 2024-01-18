@@ -153,12 +153,6 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
                       }}
                       onClick={() => handleUpdateDialogOpen(project)}
                     />
-                    <UpdateProjectCard
-                      open={isUpdateDialogOpen}
-                      onClose={handleUpdateDialogClose}
-                      project={selectedProject}
-                      onUpdate={fetchProject}
-                    />
 
                     <DeleteIcon
                       sx={{
@@ -186,6 +180,14 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {isUpdateDialogOpen && (
+        <UpdateProjectCard
+          open={isUpdateDialogOpen}
+          onClose={handleUpdateDialogClose}
+          project={selectedProject}
+          onUpdate={fetchProject}
+        />
+      )}
     </Paper>
   );
 }

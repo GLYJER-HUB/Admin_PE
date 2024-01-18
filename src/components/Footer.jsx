@@ -10,55 +10,57 @@ const Footer = () => {
         bgcolor: colors.primary,
         py: 2,
         textAlign: "center",
-        position: "absolute",
-        width: "100%",
+        position: "fixed",
+        bottom: 0,
+        zIndex: 1000,
+        width: '100%',
       }}>
       <Container maxWidth="lg">
         <Grid container justifyContent="space-between" alignItems="center">
-          <Grid item xs={12} md={6}>
-            <Typography variant="body2" color={colors.white} fontWeight="bold">
-              &copy; TOUS DROITS RÉSERVÉS 2015 - 2023 UNIVERSITÉ ESPOIR
-            </Typography>
-
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={{ xs: 1, sm: 0.5 }}
-              sx={{
-                paddingLeft: { xs: "0", sm: "17%" },
-              }}>
+        <Grid item xs={12} md={6}>
               <Typography
                 variant="body2"
                 color={colors.white}
-                fontWeight="bold">
+                fontWeight="bold"
+              >
+                &copy; TOUS DROITS RÉSERVÉS 2015 - 2023 UNIVERSITÉ ESPOIR
+              </Typography>
+            
+              <Typography
+                variant="body2"
+                color={colors.white}
+                fontWeight="bold"
+                style={{ display: 'inline', marginRight: '5px' }}
+              >
                 UN MINISTÈRE DE
               </Typography>
 
               <Link
-                href="https://calvarypap.org/"
+                href="https://uespoir.edu.ht/fr/"
                 underline="none"
                 target="_blank"
-                rel="noopener">
+                rel="noopener"
+                style={{ display: 'inline' }}
+              >
                 <Typography
                   variant="body2"
                   color={colors.accent}
-                  fontWeight="bold">
-                  CALVARY CHAPEL PORT-AU-PRINCE
+                  fontWeight="bold"
+                  style={{ display: 'inline' }}
+                >
+                   CALVARY CHAPEL PORT-AU-PRINCE
                 </Typography>
               </Link>
-            </Stack>
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              gap={{ xs: 1, sm: 1 }}
-              sx={{
-                paddingLeft: { xs: "0", sm: "50%" },
-              }}>
+            
               <Typography
                 variant="body2"
                 color={colors.white}
-                fontWeight="bold">
+                fontWeight="bold"
+                style={{ display: 'inline', marginRight: '5px' }}                
+              >
                 DEVELOPPÉ PAR
               </Typography>
 
@@ -66,15 +68,18 @@ const Footer = () => {
                 href="https://zoomerdigital.tech/"
                 underline="none"
                 target="_blank"
-                rel="noopener">
+                rel="noopener"
+                style={{ display: 'inline'}}
+              >
                 <Typography
                   variant="body2"
                   color={colors.accent}
-                  fontWeight="bold">
+                  fontWeight="bold"
+                style={{ display: 'inline'}}
+                >
                   ZOOMER DIGITAL
                 </Typography>
               </Link>
-            </Stack>
           </Grid>
         </Grid>
       </Container>
