@@ -145,6 +145,7 @@ export default function MiniDrawer() {
   const handleLogout = async () => {
     const response = await logout();
     localStorage.removeItem('username')
+    localStorage.removeItem('tokenExpiration');
     if (response.ok) {
       navigate("/login");
     }

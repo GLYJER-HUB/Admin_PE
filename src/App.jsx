@@ -10,7 +10,20 @@ import Login from './screens/Login';
 function App() {
 
   const isAuthenticated = () => {
-    return localStorage.getItem('username') !== null;
+    const username = localStorage.getItem('username');
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
+
+    if (username && tokenExpiration) {
+      const currentTimestamp = Math.floor(new Date().getTime() / 1000);
+      if (currentTimestamp > parseInt(tokenExpiration, 10)) {
+        localStorage.removeItem('username');
+        localStorage.removeItem('tokenExpiration');
+        return false;
+      }
+      return true;
+    }
+
+    return false;
   };
 
   const LoginRoute = () => {

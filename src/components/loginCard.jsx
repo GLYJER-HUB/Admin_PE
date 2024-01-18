@@ -33,7 +33,13 @@ export default function LoginCard() {
     const responseData = await response.json();
 
     if (response.ok) {
+      const expiresIn = 12 * 60 * 60;
+      const currentTimestamp = Math.floor(new Date().getTime() / 1000);
+      const expirationTimestamp = currentTimestamp + expiresIn;
+      
       localStorage.setItem("username", responseData.userName);
+      localStorage.setItem('tokenExpiration', expirationTimestamp);
+
       navigate("/tableau-de-bord");
     } else {
       setButtonLabel("Se connecter");
