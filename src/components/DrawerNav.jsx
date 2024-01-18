@@ -185,8 +185,12 @@ export default function MiniDrawer() {
               color: colors.primary,
             }}
           >
-            <AlertMessage />
-            <Typography>{username ? username : "Loading..."}</Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <AlertMessage />
+              <Typography ml={2} sx={{ color: colors.primary }}>
+                {username ? username : "Loading..."}
+              </Typography>
+            </Box>
             <span>
               <IconButton
                 size="large"
