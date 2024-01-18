@@ -51,7 +51,6 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
 
   const handleUpdateUser = async () => {
     const user = { username, password, role };
-    console.log(user)
     const response = await updateUser(user, userID);
     const responseData = await response.json();
 
