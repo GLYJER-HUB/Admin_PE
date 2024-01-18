@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
-import Search from "../components/Search";
+import SearchBar from "../components/Search";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import UserTable from "../components/UserTable";
@@ -18,12 +18,12 @@ import AddUserCard from "../components/addUserCard";
 const GestrionAccount = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [updateTable, setUpdateTable] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddUserSuccess = () => {
     setIsDialogOpen(false);
     setUpdateTable((prev) => !prev);
-  }
+  };
 
   const handleClickOpen = () => {
     setIsDialogOpen(true);
@@ -32,6 +32,14 @@ const GestrionAccount = () => {
   const handleClose = () => {
     setIsDialogOpen(false);
   };
+
+
+   const handleSearch = (query) => {
+     setSearchQuery(query);
+     setUpdateTable((prev) => !prev); 
+   };
+
+
 
   return (
     <Box>
@@ -46,7 +54,7 @@ const GestrionAccount = () => {
 
         <Box display={"flex"} sx={{}}>
           <Stack sx={{ pt: 2, mb: 5 }} direction="row" spacing={60}>
-            <Search />
+            <SearchBar onSearch={handleSearch} />
             <Button
               sx={{
                 color: colors.primary,
@@ -67,7 +75,7 @@ const GestrionAccount = () => {
           </Stack>
         </Box>
         <Box sx={{ mt: 5 }}>
-          <UserTable updateSignal={updateTable} />
+          <UserTable updateSignal={updateTable} searchQuery={searchQuery} />
         </Box>
       </Box>
     </Box>

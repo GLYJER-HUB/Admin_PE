@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchUser, deleteUser } from "../services/userService";
+import { fetchUser, deleteUser, searchUser } from "../services/userService";
 import AddUserCard from "./addUserCard";
 import useAlertStore from "../store/alertStore";
 import UpdateUserCard from "./UpdateUserCard";
@@ -35,22 +35,26 @@ const columns = [
   },
 ];
 
-export default function UserTabble({updateSignal}) {
+export default function UserTabble({ updateSignal, searchQuery }) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { alert, setAlert } = useAlertStore();
+  const [updateSignale, setUpdateSignale] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetchUser();
+      const response = await (searchQuery
+        ? searchUser(searchQuery)
+        : fetchUser());
       const responseData = await response.json();
       setUsers(responseData.users);
+       setUpdateSignale((prev) => !prev);
       setLoading(false);
     };
 
     fetchUsers();
-  }, [updateSignal]);
+  }, [updateSignal, searchQuery]);
 
   const handleDelete = async (id) => {
     try {
@@ -98,6 +102,8 @@ export default function UserTabble({updateSignal}) {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
+       {loading && <p>Loading...</p>}
+      {!loading && (
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -141,7 +147,13 @@ export default function UserTabble({updateSignal}) {
                         },
                       }}
                       onClick={() => handleUpdateDialogOpen(user)}
-                    />          
+                    />
+                    <UpdateUserCard
+                      open={isUpdateDialogOpen}
+                      onClose={handleUpdateDialogClose}
+                      user={selectedUser}
+                      onUpdate={fetchUser}
+                    />
 
                     <DeleteIcon
                       sx={{
@@ -160,6 +172,7 @@ export default function UserTabble({updateSignal}) {
           </TableBody>
         </Table>
       </TableContainer>
+      )}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

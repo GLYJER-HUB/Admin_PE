@@ -220,7 +220,7 @@ export default function MiniDrawer() {
                 onClose={handleClose}
                 sx={{ mt: 4 }}
               >
-                {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+                <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </span>

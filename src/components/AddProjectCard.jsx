@@ -31,7 +31,6 @@ const ALLOWED_IMAGE_FILE_TYPES = ["image/jpeg", "image/png"];
 
 const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
-  const [isAddProjectDialogOpen, setIsAddProjectDialogOpen] = useState(false);
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
   const [selectedImageFile, setSelectedImageFile] = useState(null);
