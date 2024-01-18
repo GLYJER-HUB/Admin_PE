@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Typography } from "@mui/material";
@@ -8,7 +8,6 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import ProjectTable from "../components/ProjectTable";
 import AddProjectCard from "../components/AddProjectCard";
-
 
 const GestionProjects = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -28,12 +27,11 @@ const GestionProjects = () => {
     setIsDialogOpen(false);
   };
 
-    const handleSearch = (query) => {
-      setSearchQuery(query);
-      setUpdateTable((prev) => !prev); 
-    };
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setUpdateTable((prev) => !prev);
+  };
 
-  
   return (
     <Box>
       <CssBaseline />

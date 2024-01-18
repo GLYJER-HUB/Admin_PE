@@ -1,4 +1,3 @@
-import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -28,7 +27,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
 
-
 const drawerWidth = 260;
 
 const openedMixin = (theme) => ({
@@ -57,7 +55,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -119,7 +116,7 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-   const userData = localStorage.getItem("myData");
+  const username = localStorage.getItem("username");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -147,7 +144,7 @@ export default function MiniDrawer() {
 
   const handleLogout = async () => {
     const response = await logout();
-
+    localStorage.removeItem('username')
     if (response.ok) {
       navigate("/login");
     }
@@ -189,7 +186,7 @@ export default function MiniDrawer() {
             }}
           >
             <AlertMessage />
-            <Typography>{userData ? userData : "Loading..."}</Typography>
+            <Typography>{username ? username : "Loading..."}</Typography>
             <span>
               <IconButton
                 size="large"
@@ -220,8 +217,8 @@ export default function MiniDrawer() {
                 onClose={handleClose}
                 sx={{ mt: 4 }}
               >
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleClose}>Modifier mot de passe</MenuItem>
+                <MenuItem onClick={handleLogout}>Déconnexion</MenuItem>
               </Menu>
             </span>
           </Box>

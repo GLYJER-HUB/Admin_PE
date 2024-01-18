@@ -40,11 +40,9 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
   const { setAlert } = useAlertStore();
   const [updateSignale, setUpdateSignale] = useState(false);
 
-  const [updateTable, setUpdateTable] = useState(false);
-
   useEffect(() => {
     const fetchProjects = async () => {
-       try {
+      try {
         const response = await (searchQuery
           ? searchProject(searchQuery)
           : fetchProject());
@@ -107,70 +105,70 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", mb: 10 }}>
-        {loading && <p>Loading...</p>}
+      {loading && <p>Loading...</p>}
       {!loading && (
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                  sx={{ fontWeight: 900, backgroundColor: "#eae8e4" }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {projects
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((project, index) => (
-                <TableRow
-                  key={project._id}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                  }}
-                >
-                  <TableCell component="th" scope="row">
-                    {project.project_name}
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                    sx={{ fontWeight: 900, backgroundColor: "#eae8e4" }}
+                  >
+                    {column.label}
                   </TableCell>
-                  <TableCell align="right">{project.discipline}</TableCell>
-                  <TableCell align="right">{project.createdAt}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {projects
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((project, index) => (
+                  <TableRow
+                    key={project._id}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {project.project_name}
+                    </TableCell>
+                    <TableCell align="right">{project.discipline}</TableCell>
+                    <TableCell align="right">{project.createdAt}</TableCell>
 
-                  <TableCell align="right">
-                    <EditIcon
-                      sx={{
-                        color: "#32B8A0",
-                        borderRadius: 10,
-                        width: 150,
-                        "&:hover": {
-                          color: "#32B8A9",
-                        },
-                      }}
-                      onClick={() => handleUpdateDialogOpen(project)}
-                    />
+                    <TableCell align="right">
+                      <EditIcon
+                        sx={{
+                          color: "#32B8A0",
+                          borderRadius: 10,
+                          width: 150,
+                          "&:hover": {
+                            color: "#32B8A9",
+                          },
+                        }}
+                        onClick={() => handleUpdateDialogOpen(project)}
+                      />
 
-                    <DeleteIcon
-                      sx={{
-                        color: "#ff5454",
-                        borderRadius: 10,
-                        minWidth: 150,
-                        "&:hover": {
-                          color: "#FF5460",
-                        },
-                      }}
-                      onClick={() => handleDelete(project._id)}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>)}
+                      <DeleteIcon
+                        sx={{
+                          color: "#ff5454",
+                          borderRadius: 10,
+                          minWidth: 150,
+                          "&:hover": {
+                            color: "#FF5460",
+                          },
+                        }}
+                        onClick={() => handleDelete(project._id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>)}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

@@ -17,7 +17,7 @@ export const login = async (user) => {
 
 export const logout = async () => {
     const response = await fetch(
-    `${apiCredentials.BASE_URL}/auth/logout`,
+        `${apiCredentials.BASE_URL}/auth/logout`,
         {
             method: "POST",
             credentials: "include",

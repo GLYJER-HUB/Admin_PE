@@ -49,15 +49,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchBar = ({ onSearch }) => {
   const [searchInput, setSearchInput] = useState("");
 
-   const handleChange = (e) => {
-     setSearchInput(e.target.value);
-   };
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+  };
 
-   const inputKeyPress = (e) => {
-     if (e.key === "Enter") {
-       onSearch(searchInput);
-     }
-   };
+  const inputKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSearch(searchInput);
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1, marginY: 2 }}>

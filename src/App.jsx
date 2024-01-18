@@ -1,9 +1,5 @@
-import { useState } from 'react'
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import './App.css'
-
 import Layout from './components/Layout';
 import GestionProjects from './screens/GestionProjects';
 import GestrionAccount from './screens/GestionAccount';
@@ -13,12 +9,23 @@ import Login from './screens/Login';
 
 function App() {
 
+  const isAuthenticated = () => {
+    return localStorage.getItem('username') !== null;
+  };
+
+  const LoginRoute = () => {
+    if (isAuthenticated()) {
+      return <Navigate to="/tableau-de-bord" />;
+    }
+    return <Login />;
+  };
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Login />}></Route>
-          <Route path='/login' element={<Login />}></Route>
+          <Route index element={<LoginRoute />}></Route>
+          <Route path='/login' element={<LoginRoute />}></Route>
           <Route path='/' element={<Layout />}>
             <Route path='tableau-de-bord' element={<BoardTable />} />
             <Route path='gestion-des-projets' element={<GestionProjects />} />

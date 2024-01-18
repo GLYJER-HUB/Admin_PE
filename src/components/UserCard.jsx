@@ -5,18 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { colors } from '../utilities/colors';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
-
-
 export default function UserCard({ userCount }) {
-
   const card = (
     <React.Fragment>
       <CardContent>
@@ -29,7 +18,7 @@ export default function UserCard({ userCount }) {
       </CardContent>
     </React.Fragment>
   );
-  
+
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant='elevation'>{card}</Card>

@@ -12,17 +12,17 @@ export const fetchUser = async () => {
 
 
 export const searchUser = async (query) => {
-  const response = await fetch(
-    `${apiCredentials.BASE_URL}/users/search?query=${query}`,
-    {
-      credentials: "include",
-    }
-  );
-  return response;
+    const response = await fetch(
+        `${apiCredentials.BASE_URL}/users/search?query=${query}`,
+        {
+            credentials: "include",
+        }
+    );
+    return response;
 };
 
 export const addUser = async (user) => {
-    const {username, role} = user;
+    const { username, role } = user;
 
     const response = await fetch(
         `${apiCredentials.BASE_URL}/users/`,
@@ -31,7 +31,7 @@ export const addUser = async (user) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, role}),
+            body: JSON.stringify({ username, role }),
             credentials: "include",
         }
     );
@@ -39,7 +39,7 @@ export const addUser = async (user) => {
 }
 
 export const updateUser = async (user, id) => {
-    const {username, password, role} = user;
+    const { username, password, role } = user;
 
     const response = await fetch(
         `${apiCredentials.BASE_URL}/users/${id}`,
@@ -48,7 +48,7 @@ export const updateUser = async (user, id) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, password, role}),
+            body: JSON.stringify({ username, password, role }),
             credentials: "include",
         }
     );

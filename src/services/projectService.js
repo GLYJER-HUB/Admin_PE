@@ -29,7 +29,7 @@ export const updateProject = async (data, id) => {
 };
 
 export const searchProject = async (query) => {
-  const response = await fetch(`${apiCredentials.BASE_URL}/projects/search?query=${query}` );
+  const response = await fetch(`${apiCredentials.BASE_URL}/projects/search?query=${query}`);
   return response;
 };
 

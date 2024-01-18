@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import UserCard from "../components/UserCard";
 import ProjectCard from "../components/ProjectCard";
-import { Typography, createTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import { colors } from "../utilities/colors";
 import { useEffect } from "react";
 import { fetchStatistics } from "../services/boardService";
-
-const theme = createTheme({
-  spacing: 8,
-});
 
 const BoardTable = () => {
   const [statistics, setStatistics] = useState({

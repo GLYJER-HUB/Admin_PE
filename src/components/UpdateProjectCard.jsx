@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Typography,
 } from "@mui/material";
 
 import {
@@ -15,7 +12,6 @@ import {
   Select,
   FormControl,
   InputLabel,
-  Input,
   Stack,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
@@ -153,7 +149,7 @@ const UpdateProjectCard = ({ open, onClose, project, onUpdate }) => {
 
       if (onUpdate) { onUpdate }
 
-      onClose(); // Close the dialog when the update is successful
+      onClose();
     } else {
       setModalAlert(responseData.message, 'error');
     }

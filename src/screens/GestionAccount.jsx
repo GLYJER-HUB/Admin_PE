@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   CssBaseline,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Typography,
 } from "@mui/material";
 import { colors } from "../utilities/colors";
@@ -33,13 +29,10 @@ const GestrionAccount = () => {
     setIsDialogOpen(false);
   };
 
-
-   const handleSearch = (query) => {
-     setSearchQuery(query);
-     setUpdateTable((prev) => !prev); 
-   };
-
-
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setUpdateTable((prev) => !prev);
+  };
 
   return (
     <Box>

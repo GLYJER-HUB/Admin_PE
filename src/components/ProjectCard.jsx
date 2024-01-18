@@ -5,19 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { colors } from '../utilities/colors';
 
-
-
-
 export default function ProjectCard({ projectCount }) {
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-
   const card = (
     <React.Fragment>
       <CardContent sx={{}}>

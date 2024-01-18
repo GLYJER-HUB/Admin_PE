@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -12,16 +12,11 @@ import { login } from "../services/authService";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-
-
 export default function LoginCard() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [buttonLabel, setButtonLabel] = useState("Se connecter");
   const [error, setError] = useState("");
-  const [myData, setMyData] = useState("");
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,15 +31,12 @@ export default function LoginCard() {
 
     const response = await login(user);
     const responseData = await response.json();
-    console.log(responseData);
 
     if (response.ok) {
-      // Handle successful login
-      console.log(responseData.userName);
-      localStorage.setItem("myData", responseData.userName);
+      localStorage.setItem("username", responseData.userName);
       navigate("/tableau-de-bord");
     } else {
-      setButtonLabel("Connect"); // Reset button label if login fails
+      setButtonLabel("Se connecter");
       setError(responseData.message);
     }
   };
@@ -100,7 +92,7 @@ export default function LoginCard() {
                     autoFocus
                     sx={{
                       "&:focus": {
-                        borderColor: colors.primary, // Set your desired active border color
+                        borderColor: colors.primary,
                       },
                     }}
                   />
