@@ -29,7 +29,7 @@ const AddProjectCard = ({ open, onClose, onAddProjectSuccess }) => {
   const [projects, setProjects] = useState([]);
   const { setModalAlert } = useModalAlertStore();
   const { setAlert } = useAlertStore();
-
+  
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await fetchProject();
