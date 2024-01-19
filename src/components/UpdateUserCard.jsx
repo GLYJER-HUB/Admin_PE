@@ -84,7 +84,7 @@ const UpdateUserCard = ({ open, onClose, user, onUpdate }) => {
               <MenuItem value="" disabled>
                 Select Role
               </MenuItem>
-
+              <MenuItem value="superadmin">Super Admin</MenuItem>
               <MenuItem value="admin">Admin</MenuItem>
               <MenuItem value="member">Member</MenuItem>
             </Select>
