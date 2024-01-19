@@ -9,7 +9,11 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchProject, deleteProject, searchProject } from "../services/projectService";
+import {
+  fetchProject,
+  deleteProject,
+  searchProject,
+} from "../services/projectService";
 import UpdateProjectCard from "./UpdateProjectCard";
 import useAlertStore from "../store/alertStore";
 
@@ -34,7 +38,7 @@ const columns = [
   },
 ];
 
-export default function ProjectTable({ updateSignal, searchQuery }) {
+export default function ProjectTable({ updateSignal, searchQuery, onUpdate }) {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const { setAlert } = useAlertStore();
@@ -48,11 +52,15 @@ export default function ProjectTable({ updateSignal, searchQuery }) {
           : fetchProject());
         const responseData = await response.json();
         setProjects(responseData.projects);
-        setUpdateSignale((prev) => !prev);
+        // setUpdateSignale((prev) => !prev);
         setLoading(false);
+          if (onUpdate) {
+            onUpdate();
+          }
       } catch (error) {
         console.error("Error fetching projects:", error);
         setLoading(false);
+      
       }
     };
     fetchProjects();
