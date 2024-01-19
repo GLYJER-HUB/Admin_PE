@@ -27,6 +27,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../services/authService";
 import AlertMessage from "./AlertMessage";
 import useChangePasswordStore from "../store/changePasswordStore";
+import useDrawerStore from "../store/drawerStore";
 
 const drawerWidth = 260;
 
@@ -117,15 +118,18 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const { openModal } = useChangePasswordStore();
+  const { isDrawerOpen, setDrawerOpen, setDrawerClose } = useDrawerStore();
 
   const username = localStorage.getItem("username");
 
   const handleDrawerOpen = () => {
+    setDrawerOpen()
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setDrawerClose()
   };
 
   const navigate = useNavigate();
