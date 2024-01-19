@@ -28,10 +28,17 @@ const GestionProjects = () => {
     setIsDialogOpen(false);
   };
 
+
+  const handleUpdate = () =>{
+     setUpdateTable((prev) => !prev);
+  }
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     setUpdateTable((prev) => !prev);
   };
+
+
 
   return (
     <Box>
@@ -68,7 +75,7 @@ const GestionProjects = () => {
           />
         </Box>
         <Box sx={{ mt: 5 }}>
-          <ProjectTable updateSignal={updateTable} searchQuery={searchQuery} />
+          <ProjectTable updateSignal={updateTable} searchQuery={searchQuery} onUpdate={handleUpdate} />
           <ChangePasswordModal />
         </Box>
       </Box>

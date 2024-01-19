@@ -34,7 +34,7 @@ const columns = [
   },
 ];
 
-export default function UserTabble({ updateSignal, searchQuery }) {
+export default function UserTabble({ updateSignal, searchQuery, onUpdate }) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const { setAlert } = useAlertStore();
@@ -49,6 +49,10 @@ export default function UserTabble({ updateSignal, searchQuery }) {
       setUsers(responseData.users);
       setUpdateSignale((prev) => !prev);
       setLoading(false);
+
+      if (onUpdate) {
+        onUpdate();
+      }
     };
 
     fetchUsers();

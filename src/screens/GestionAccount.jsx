@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  Box,
-  CssBaseline,
-  Typography,
-} from "@mui/material";
+import { Box, CssBaseline, Typography } from "@mui/material";
 import { colors } from "../utilities/colors";
 import SearchBar from "../components/Search";
 import Stack from "@mui/material/Stack";
@@ -28,6 +24,10 @@ const GestrionAccount = () => {
 
   const handleClose = () => {
     setIsDialogOpen(false);
+  };
+
+  const handleUpdate = () => {
+    setUpdateTable((prev) => !prev);
   };
 
   const handleSearch = (query) => {
@@ -68,8 +68,8 @@ const GestrionAccount = () => {
             />
           </Stack>
         </Box>
-        <Box sx={{ mt: 5 }}>
-          <UserTable updateSignal={updateTable} searchQuery={searchQuery} />
+        <Box sx={{ mt: 5 }}>  
+          <UserTable updateSignal={updateTable} searchQuery={searchQuery}  onUpdate={handleUpdate}/>
           <ChangePasswordModal />
         </Box>
       </Box>
