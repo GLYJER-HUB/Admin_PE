@@ -4,15 +4,20 @@
 
 ## Features
 
-1. **Dashboard:**
+1. **Login Page:**
+
+    - A secure login page that allows authorized users, including administrators, to access the system.
+    
+2. **Dashboard:**
+
     - A well-designed dashboard that presents key statistics such as the total number of projects and active users.
 
-2. **Project Management:**
+3. **Project Management:**
 
    - Add, edit, and delete projects.
    - View a list of existing projects.
 
-3. **User Management:**
+4. **User Management:**
 
    - Add, edit, and delete users.
    - View a list of existing users.
@@ -58,6 +63,8 @@
 
 ## Usage
 
+- Access the login page at `/login` to securely log in and access the system.
+- Access the dashboard at `tableau-de-bord` for an overview of key statistics.
 - Access the project management interface at `/gestion-des-projets`.
 - Access the user management interface at `/gestion-des-comptes`.
 - Add, edit, or delete projects and users using the provided modals.
