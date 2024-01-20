@@ -1,4 +1,4 @@
-# UE Project Explorer
+# UE Project Explorer Admin
 
 **Project Overview:** This project is a web-based system administration and project management application. It provides dedicated interfaces for administrators to manage users and projects efficiently. The application is built using React, Material-UI (MUI), and Zustand for state management.
 
