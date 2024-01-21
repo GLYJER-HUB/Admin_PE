@@ -38,7 +38,7 @@
 1. Clone the repository:
 
    ```bash
-   https://github.com/UEspoir-PE/Admin_PE.git
+   git clone https://github.com/UEspoir-PE/Admin_PE.git
    ```
 
 2. Navigate to the project directory:
